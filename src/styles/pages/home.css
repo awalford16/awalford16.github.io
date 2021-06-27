@@ -1,0 +1,17 @@
+#homeContainer {
+    height: 100vh;
+}
+
+#homeImgDiv {
+    width: 50%;
+    height: 100vh;
+    display: inline-block;
+}
+
+#homeContentContainer {
+    float: right;
+    display: inline-block;
+    width: 43%;
+    padding: 2%;
+    margin: 1%;
+}

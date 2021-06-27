@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&family=Mitr:wght@300&family=Prompt:ital,wght@1,100&display=swap');
+
+body {
+    font-family: 'Mitr';
+}
+
+h1 {
+    font-weight: 500;
+    font-size: 50px;
+}
+
+h2 {
+    font-weight: 200;
+    text-align: center;
+    margin-bottom: 2px;
+}
+
+h4 {
+    font-weight: 150;
+    font-size: 15px;
+}
