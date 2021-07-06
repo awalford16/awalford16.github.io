@@ -1,14 +1,17 @@
 #navbarContainer {
     position: fixed;
-    top: 50px;
-    left: 50px;
-    height: 40%;
+    top: 0;
+    height: 100px;
+    right: 0;
+    width: 48%;
     padding: 1%;
-    background-color: #FAF3F3;
-    border-radius: 10px;
+    /* border-radius: 50px; */
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-evenly;
+    align-items: flex-end;
+    border-bottom: 1px solid #F7F6E7;
+    background-color: white;
 }
 
 .navbarItem:hover {

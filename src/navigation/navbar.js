@@ -1,6 +1,6 @@
 import React from "react";
 import {BrowserRouter as Router, Route, Link, withRouter} from "react-router-dom";
-import { faHome, faTasks, faBriefcase } from '@fortawesome/free-solid-svg-icons'
+import { faHome, faTasks, faBriefcase, faMountain } from '@fortawesome/free-solid-svg-icons'
 
 import NavItem from "./navitem";
 
@@ -23,6 +23,10 @@ class NavBar extends React.Component {
                 {
                     path: "/career",
                     icon: faBriefcase
+                },
+                {
+                    path: "/life",
+                    icon: faMountain
                 }
             ]
         }   

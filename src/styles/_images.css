@@ -1,9 +1,16 @@
 .siteImg {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: fill;
 }
 
 .tileImg {
     width: 80px;
+}
+
+
+#imgContent {
+    height: 100%;
+    width: 50%;
+    display: inline-block;
 }

@@ -6,6 +6,7 @@ import {Router, Switch, Route} from "react-router-dom";
 
 import Routes from './navigation/routes';
 import Home from './pages/home';
+import Skills from './pages/skills';
 import history from './services/history';
 
 import "./styles/main.css"
@@ -18,6 +19,7 @@ ReactDOM.render(
     <Router history={history}>
       <Switch>
         <Route exact path="/" component={Home} />
+        <Route exact path="/skills" component={Skills} />
       </Switch>
       <RouterSideNav />
     </Router>

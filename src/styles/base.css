@@ -2,3 +2,17 @@
     height: 100%;
     width: 100%;
 }
+
+#contentContainer {
+    /* position: absolute;
+    top: 50px;
+    right: 100px; */
+    /* background-color: #E7E6E1; */
+    display: inline-block;
+    float: right;
+    border-radius: 50px;
+    width: 45%;
+    height: 50%;
+    margin-top: 10%;
+    padding: 0 2%;
+}

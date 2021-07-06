@@ -1,7 +1,7 @@
 import React from "react";
 
 import "../styles/_images.css";
-import "../styles/templates/tile.css";
+import "../styles/components/tile.css";
 
 function Tile(props) {
     return(

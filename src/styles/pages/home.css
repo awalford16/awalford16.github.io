@@ -2,16 +2,11 @@
     height: 100vh;
 }
 
-#homeImgDiv {
-    width: 100%;
-    display: inline-block;
-}
-
 #homeContentContainer {
     position: absolute;
     top: 50px;
-    left: 180px;
-    background-color: #FAF3F3;
+    right: 180px;
+    /* background-color: #FAF3F3; */
     border-radius: 10px;
     width: 55%;
     padding: 0 2%;

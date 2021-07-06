@@ -2,7 +2,7 @@ import React from "react";
 import Tile from "./tile";
 import {skills, status} from "../content/content";
 
-import "../styles/templates/tileGrid.css";
+import "../styles/components/tileGrid.css";
 
 
 function TileGrid(props) {
