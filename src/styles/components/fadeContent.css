@@ -1,0 +1,14 @@
+.fadeOut{
+    opacity:0;
+    width:0;
+    height:0;
+    transition: width 0.5s 0.5s, height 0.5s 0.5s, opacity 0.5s;
+}
+
+.fadeIn{
+    opacity:1;
+    padding: 20px;
+    transition: width 1s, height 1s, opacity 1s 1s;
+}
+
+/* https://stackoverflow.com/questions/43702454/reactjs-fade-in-div-and-fade-out-div-based-on-state/43702488 */

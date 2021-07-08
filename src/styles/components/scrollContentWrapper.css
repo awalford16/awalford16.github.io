@@ -1,0 +1,15 @@
+.changeContentBtn {
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    font-size: 15px;
+    padding: 2px;
+    opacity: 0.6;
+    color: #aaa;
+    text-transform: uppercase;
+}
+
+.changeContentBtn:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}

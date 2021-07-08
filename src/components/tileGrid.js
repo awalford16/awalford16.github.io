@@ -1,6 +1,6 @@
 import React from "react";
 import Tile from "./tile";
-import {skills, status} from "../content/content";
+import {techSkills, status} from "../content/content";
 
 import "../styles/components/tileGrid.css";
 
@@ -10,7 +10,7 @@ function TileGrid(props) {
     return(
         <div id="tileGridContainer">
             {props.type == "skills" ? 
-                skills.map((data, i) => (
+                techSkills.map((data, i) => (
                     <Tile key={i} image={data.image} name={data.name} />
                 ))
                 : 

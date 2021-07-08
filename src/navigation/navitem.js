@@ -17,7 +17,7 @@ class NavItem extends React.Component {
         return(
             <div className="navbarItemContainer" active={active}>
                 <Link className="navbarItem" to={this.props.path} onClick={this.handleClick} style={{ textDecoration: 'none' }}>
-                    <FontAwesomeIcon icon={this.props.icon} size="2x" color={this.props.active ? "#F2A154" : "#314E52"} />
+                    <FontAwesomeIcon icon={this.props.icon} size="lg" color={this.props.active ? "#F2A154" : "#314E52"} />
                 </Link>
             </div>
         )
