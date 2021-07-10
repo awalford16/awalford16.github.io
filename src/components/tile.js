@@ -1,20 +1,20 @@
 import React from "react";
+import { IconContext } from "react-icons";
 
 import "../styles/_images.css";
 import "../styles/components/tile.css";
 
 function Tile(props) {
+    const title = (props.name[0].toUpperCase() + props.name.substring(1)).replace("_", " ");
     return(
         <div class="tileContainer">
             <div class="tileHeaderContainer">
-                {props.header == undefined ? (
-                    <img class="tileImg" src={require(`../content/images/${props.image}`)} alt={props.name} /> 
-                ) : (
-                    <h2>{props.header}</h2>
-                )}
+                <IconContext.Provider value={{ color: `${props.color}`, size: 30}}>
+                    {props.icon}
+                </IconContext.Provider>
             </div>
             <div>
-                <h4>{props.name}</h4>
+                <p>{title}</p>
             </div>
         </div>
     );

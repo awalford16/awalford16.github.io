@@ -1,13 +1,23 @@
 .tileContainer {
-    text-align: center;
-    height: 120px;
-    width: 120px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
     margin: 15px;
+    width: 180px;
+    background-color: #fcfcfc;
+    padding-left: 20px;
+    border-radius: 50px;
 }
 
-.tileHeaderContainer {
+p {
+    margin-left: 10px;
+    font-weight: 500;
+}
+
+/* .tileHeaderContainer {
     height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
-}
+} */

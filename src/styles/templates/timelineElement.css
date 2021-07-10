@@ -6,14 +6,25 @@
 }
 
 #toolsRow {
-    width: 40%;
+    width: 50%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    flex-wrap: wrap;
+}
+
+#toolsRow i {
+    margin: 3px;
+    border-radius: 50px;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #skillsRow {
-    width: 40%;
+    width: 45%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;

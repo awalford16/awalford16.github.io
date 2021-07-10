@@ -1,21 +1,16 @@
 import React from "react";
 import Tile from "./tile";
-import {techSkills, status} from "../content/content";
 
 import "../styles/components/tileGrid.css";
 
 
 function TileGrid(props) {
-    const headers = Object.keys(status);
+    const keys = Object.keys(props.tileMap);
     return(
         <div id="tileGridContainer">
-            {props.type == "skills" ? 
-                techSkills.map((data, i) => (
-                    <Tile key={i} image={data.image} name={data.name} />
-                ))
-                : 
-                headers.map((header, i) => (
-                    <Tile key={i} header={status[header]} name={header} />
+            {
+                keys.map((data, i) => (
+                    <Tile key={i} icon={props.tileMap[data].icon} color={props.tileMap[data].color} name={data} />
                 ))
             }
         </div>

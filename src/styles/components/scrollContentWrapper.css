@@ -13,3 +13,11 @@
     opacity: 0.8;
     cursor: pointer;
 }
+
+#scrollWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}

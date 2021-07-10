@@ -29,7 +29,7 @@ class ScrollContentWrapper extends Component {
 
     render() {
         return(
-            <div>
+            <div id="scrollWrapper">
                 { this.state.activeContentIndex != 0 &&
                 (
                  <button className="changeContentBtn" onClick={() => this.onContentChange(false)}>{this.props.content[this.state.activeContentIndex - 1].title}</button>

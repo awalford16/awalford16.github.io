@@ -1,5 +1,7 @@
 import React from "react";
-import { RiBook2Line, RiBriefcase2Line, RiCloudLine, RiComputerLine, RiFileCodeLine, RiFirstAidKitLine, RiInboxLine, RiLeafLine, RiMoneyCnyBoxLine, RiOperaLine, RiUserVoiceLine } from "react-icons/ri";
+import { RiBook2Line, RiCloudLine, RiComputerLine, RiFileCodeLine, RiFirstAidKitLine, RiLeafLine, RiMoneyCnyBoxLine, RiTeamLine, RiTimeLine, RiUserVoiceLine } from "react-icons/ri";
+import {SiJenkins, SiMicrosoftazure, SiTerraform, SiPython, SiKubernetes, SiNodeDotJs, SiPowershell, SiReact, SiGo, SiMongodb, SiGroovy, SiSpinnaker} from "react-icons/si";
+import {HiOutlinePuzzle} from "react-icons/hi";
 
 export const homeContent = [
     {
@@ -80,8 +82,8 @@ export const work=[
             icon: <RiCloudLine />,
             color: 'teal'
         },
-        skills: ["public_speaking", "programming"],
-        tools: ["azure", "jenkins", "kubes", "terraform"]
+        skills: ["programming", "problem_solving"],
+        tools: ["azure", "jenkins", "kubernetes", "terraform", "spinnaker"]
     },
     {
         job: "Software Engineer Intern",
@@ -93,7 +95,7 @@ export const work=[
             color: 'purple'
         },
         skills: ["programming"],
-        tools: ["jenkins", "python", "powershell"]
+        tools: ["jenkins", "python", "powershell", "groovy"]
     },
     {
         job: "Instructor",
@@ -104,7 +106,7 @@ export const work=[
             icon: <RiLeafLine />,
             color: 'darkgreen'
         },
-        skills: ["public_speaking", "first_aid"],
+        skills: ["public_speaking", "first_aid", "time_management", "teamwork"],
         tools: []
     },
     {
@@ -116,8 +118,8 @@ export const work=[
             icon: <RiBook2Line />,
             color: 'darkred'
         },
-        skills: ["programming"],
-        tools: ["python", "node"]
+        skills: ["programming", "problem_solving", "time_management"],
+        tools: ["python", "node", "react"]
     },
     {
         job: "Ride Operator",
@@ -128,7 +130,7 @@ export const work=[
             icon: <RiMoneyCnyBoxLine />,
             color: 'gold'
         },
-        skills: [],
+        skills: ["teamwork"],
         tools: []
     }
 ]
@@ -142,5 +144,65 @@ export const skillsMap = {
     },
     first_aid: {
         icon: <RiFirstAidKitLine />
+    },
+    time_management: {
+        icon: <RiTimeLine />
+    },
+    teamwork: {
+        icon: <RiTeamLine />
+    },
+    problem_solving: {
+        icon: <HiOutlinePuzzle />
+    }
+}
+
+export const toolsMap = {
+    azure: {
+        icon: <SiMicrosoftazure />,
+        color: '#007FFF'
+    },
+    jenkins: {
+        icon: <SiJenkins />,
+        color: '#d33834'
+    },
+    python: {
+        icon: <SiPython />,
+        color: '#4B8BBE'
+    },
+    terraform: {
+        icon: <SiTerraform />,
+        color: '#7B42BC'
+    },
+    kubernetes: {
+        icon: <SiKubernetes />,
+        color: '#2383db'
+    },
+    node: {
+        icon: <SiNodeDotJs />,
+        color: 'green'
+    },
+    powershell: {
+        icon: <SiPowershell />,
+        color: 'midnightblue'
+    },
+    react: {
+        icon: <SiReact />,
+        color: '#61DBFB'
+    },
+    golang: {
+        icon: <SiGo />,
+        color: 'aqua'
+    },
+    mongo: {
+        icon: <SiMongodb />,
+        color: '#4DB33D'
+    },
+    groovy: {
+        icon: <SiGroovy />,
+        color: '#54bedc'
+    },
+    spinnaker: {
+        icon: <SiSpinnaker />,
+        color: 'darkblue'
     }
 }

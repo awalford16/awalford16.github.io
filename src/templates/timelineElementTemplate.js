@@ -1,5 +1,5 @@
 import React from "react";
-import {skillsMap} from "../content/content";
+import {skillsMap, toolsMap} from "../content/content";
 import {IconContext} from "react-icons";
 
 import "../styles/_images.css";
@@ -11,15 +11,16 @@ function TimelineElementTemplate(props) {
             <div id="skillsToolsWrapper">
                 <div id="skillsRow">
                     {props.skills.map((skill, i) => (
-                        <IconContext.Provider value={{ color: "#F2A154", size: 20}}>
+                        <IconContext.Provider value={{ color: "#F2A154", size: 25}}>
                             {skillsMap[skill].icon}
                         </IconContext.Provider>
                     ))}
                 </div>
                 <div id="toolsRow">
                     {props.tools.map((tool, j) => (
-                        // <img class="toolImg" src={require(`../content/images/${toolsMap[tool].image}`)} alt="terraform" /> 
-                        <img class="toolImg" src={require(`../content/images/${tool}.png`)} alt="terraform" />
+                        <IconContext.Provider value={{ color: "#fff", size: 15, marginRight: "5px"}}>
+                            <i style={{ backgroundColor: `${toolsMap[tool].color}`}}>{toolsMap[tool].icon}</i>
+                        </IconContext.Provider>
                     ))}
                 </div>
             </div>
