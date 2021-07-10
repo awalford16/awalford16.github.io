@@ -7,7 +7,7 @@ import {homeContent} from "../content/content";
 
 function Home() {
 	return (
-		<MainContentTemplate title="Adam Walford">
+		<MainContentTemplate title="">
 			<ScrollContentWrapper content={homeContent} />
 		</MainContentTemplate>
 	);

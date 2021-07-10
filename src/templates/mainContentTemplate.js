@@ -9,7 +9,6 @@ function MainContentTemplate(props) {
                 <img className="siteImg" src={require("../content/images/background.jpg")} alt="home" />
             </div>
             <div id="contentContainer">
-                <h1>{props.title}</h1>
                 {props.children}
             </div>
         </div>

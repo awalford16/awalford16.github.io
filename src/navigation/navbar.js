@@ -40,12 +40,15 @@ class NavBar extends React.Component {
         const {items, activePath} = this.state;
 
         return(
-            <div id="navbarContainer">
-                {
-                    items.map((item, i) => (
-                        <NavItem key={i} icon={item.icon} path={item.path} onItemClick={this.onItemClick} active={item.path === activePath} />
-                    ))
-                }
+            <div id="navbarHeader">
+                <h1>AW</h1>
+                <div id="navbarContainer">
+                    {
+                        items.map((item, i) => (
+                            <NavItem key={i} icon={item.icon} path={item.path} onItemClick={this.onItemClick} active={item.path === activePath} />
+                        ))
+                    }
+                </div>
             </div>
         );
     }

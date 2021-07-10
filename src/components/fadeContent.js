@@ -11,15 +11,15 @@ class FadeContent extends Component {
         }
     }
 
-    handleFade = () => {
+    componentDidMount() {
         this.setState({
-            visible: this.props.visible
+            visible: true
         })
     }
 
     render() {
         return(
-            <article className={this.props.visible ? 'fadeIn' : 'fadeOut'}>
+            <article className='fadeIn'>
                 <h2>{this.props.title}</h2>
                 {this.props.children}
             </article>
