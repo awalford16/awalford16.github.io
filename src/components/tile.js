@@ -8,7 +8,7 @@ function Tile(props) {
         <div class="tileContainer">
             <div class="tileHeaderContainer">
                 {props.header == undefined ? (
-                    <img class="tileImg" src={require(`../content/images/${props.image}`)} alt="terraform" /> 
+                    <img class="tileImg" src={require(`../content/images/${props.image}`)} alt={props.name} /> 
                 ) : (
                     <h2>{props.header}</h2>
                 )}

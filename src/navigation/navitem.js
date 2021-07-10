@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 import "../styles/templates/navbar.css";
+import { IconContext } from "react-icons";
 
 class NavItem extends React.Component {
 
@@ -17,7 +18,9 @@ class NavItem extends React.Component {
         return(
             <div className="navbarItemContainer" active={active}>
                 <Link className="navbarItem" to={this.props.path} onClick={this.handleClick} style={{ textDecoration: 'none' }}>
-                    <FontAwesomeIcon icon={this.props.icon} size="lg" color={this.props.active ? "#F2A154" : "#314E52"} />
+                    <IconContext.Provider value={{ color: `${this.props.active ? "#F2A154" : "#314E52"}`, className: "global-class-name" }}>
+                        {this.props.icon}
+                    </IconContext.Provider>
                 </Link>
             </div>
         )

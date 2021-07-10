@@ -1,3 +1,6 @@
+import React from "react";
+import { RiBook2Line, RiBriefcase2Line, RiCloudLine, RiComputerLine, RiFileCodeLine, RiFirstAidKitLine, RiInboxLine, RiLeafLine, RiMoneyCnyBoxLine, RiOperaLine, RiUserVoiceLine } from "react-icons/ri";
+
 export const homeContent = [
     {
         title: "Bio",
@@ -69,43 +72,75 @@ export const status={
 
 export const work=[
     {
-        job: "Ride Operator",
-        company: "Joyland",
-        description: "This was my very humble beginnings.",
-        start: "2015",
-        end: "2016",
-        skills: []
-    },
-    {
-        job: "Instructor",
-        company: "Go Ape",
+        job: "Site Reliability Engineer",
+        company: "Citrix",
         description: "",
-        start: "2017",
-        end: "2019",
-        skills: ["public_speaking"]
-    },
-    {
-        job: "Student",
-        company: "University of Lincoln",
-        description: "I studied computer science",
-        start: "2016",
-        end: "2020",
-        skills: ["programming"]
+        duration: "2020-Present",
+        style: {
+            icon: <RiCloudLine />,
+            color: 'teal'
+        },
+        skills: ["public_speaking", "programming"],
+        tools: ["azure", "jenkins", "kubes", "terraform"]
     },
     {
         job: "Software Engineer Intern",
         company: "Citrix",
         description: "",
-        start: "2018",
-        end: "2019",
-        skills: ["programming"]
+        duration: "2018-2019",
+        style: {
+            icon: <RiComputerLine />,
+            color: 'purple'
+        },
+        skills: ["programming"],
+        tools: ["jenkins", "python", "powershell"]
     },
     {
-        job: "Site Reliability Engineer",
-        company: "Citrix",
+        job: "Instructor",
+        company: "Go Ape",
         description: "",
-        start: "2020",
-        end: "Present",
-        skills: ["public_speaking"]
+        duration: "2017-2019",
+        style: {
+            icon: <RiLeafLine />,
+            color: 'darkgreen'
+        },
+        skills: ["public_speaking", "first_aid"],
+        tools: []
     },
+    {
+        job: "Student",
+        company: "University of Lincoln",
+        description: "I studied computer science",
+        duration: "2016-2020",
+        style: {
+            icon: <RiBook2Line />,
+            color: 'darkred'
+        },
+        skills: ["programming"],
+        tools: ["python", "node"]
+    },
+    {
+        job: "Ride Operator",
+        company: "Joyland",
+        description: "This was my very humble beginnings.",
+        duration: "2015-2016",
+        style: {
+            icon: <RiMoneyCnyBoxLine />,
+            color: 'gold'
+        },
+        skills: [],
+        tools: []
+    }
 ]
+
+export const skillsMap = {
+    public_speaking: {
+        icon: <RiUserVoiceLine />
+    },
+    programming: {
+        icon: <RiFileCodeLine />
+    },
+    first_aid: {
+        icon: <RiFirstAidKitLine />
+    }
+}

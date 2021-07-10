@@ -7,6 +7,7 @@ import {Router, Switch, Route} from "react-router-dom";
 import Routes from './navigation/routes';
 import Home from './pages/home';
 import Skills from './pages/skills';
+import Career from "./pages/career";
 import history from './services/history';
 
 import "./styles/main.css"
@@ -20,6 +21,7 @@ ReactDOM.render(
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/skills" component={Skills} />
+        <Route exact path="/career" component={Career} />
       </Switch>
       <RouterSideNav />
     </Router>

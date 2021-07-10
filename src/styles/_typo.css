@@ -28,4 +28,6 @@ button {
 h4 {
     font-weight: 150;
     font-size: 15px;
+    font-style: italic;
+    margin-top: 0;
 }

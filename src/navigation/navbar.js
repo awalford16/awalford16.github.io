@@ -1,6 +1,6 @@
 import React from "react";
 import {BrowserRouter as Router, Route, Link, withRouter} from "react-router-dom";
-import { faHome, faTasks, faBriefcase, faMountain } from '@fortawesome/free-solid-svg-icons'
+import { RiHomeLine, RiTaskLine, RiBriefcase2Line, RiFootprintLine } from "react-icons/ri";
 
 import NavItem from "./navitem";
 
@@ -14,19 +14,19 @@ class NavBar extends React.Component {
             items: [
                 {
                     path: "/",
-                    icon: faHome
+                    icon: <RiHomeLine size={25} />
                 },
                 {
                     path: "/skills",
-                    icon: faTasks
+                    icon: <RiTaskLine size={25} />
                 },
                 {
                     path: "/career",
-                    icon: faBriefcase
+                    icon: <RiBriefcase2Line size={25} />
                 },
                 {
                     path: "/life",
-                    icon: faMountain
+                    icon: <RiFootprintLine size={25}  />
                 }
             ]
         }   
