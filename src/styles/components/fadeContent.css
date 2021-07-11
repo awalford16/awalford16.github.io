@@ -9,6 +9,9 @@
     opacity:1;
     padding: 20px;
     transition: width 1s, height 1s, opacity 1s 1s;
+    background-color: #fefefe;
+    box-shadow: 3px 3px #eee;
+    border-radius: 50px;
 }
 
 /* https://stackoverflow.com/questions/43702454/reactjs-fade-in-div-and-fade-out-div-based-on-state/43702488 */

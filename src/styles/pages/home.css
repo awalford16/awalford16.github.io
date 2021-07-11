@@ -11,3 +11,27 @@
     width: 55%;
     padding: 0 2%;
 }
+
+.homeContentContainer {
+    display: flex;
+    align-items: center;
+    width: 90%;
+    margin:5%;
+    background-color: #fefefe;
+    border-radius: 30px;
+    box-shadow: 2px 2px #eee;
+}
+
+.homeContentIcon {
+    padding: 10px;
+}
+
+.homeContentInfo {
+    margin: 10px;
+    padding: 10px;
+    border-left: 1px solid #eee;
+}
+
+.homeContentInfo h3 {
+    color: #314E52;
+}

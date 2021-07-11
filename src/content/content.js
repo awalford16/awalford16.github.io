@@ -1,20 +1,23 @@
 import React from "react";
-import { RiBook2Line, RiCloudLine, RiComputerLine, RiFileCodeLine, RiFirstAidKitLine, RiLeafLine, RiMoneyCnyBoxLine, RiTeamLine, RiTimeLine, RiUserVoiceLine } from "react-icons/ri";
-import {SiJenkins, SiMicrosoftazure, SiTerraform, SiPython, SiKubernetes, SiNodeDotJs, SiPowershell, SiReact, SiGo, SiMongodb, SiGroovy, SiSpinnaker} from "react-icons/si";
+import { RiBook2Line, RiBriefcase2Line, RiCloudLine, RiComputerLine, RiEmotionLaughLine, RiFileCodeLine, RiFirstAidKitLine, RiHeart2Line, RiLeafLine, RiMoneyCnyBoxLine, RiTeamLine, RiTimeLine, RiUserVoiceLine } from "react-icons/ri";
+import {SiJenkins, SiMicrosoftazure, SiTerraform, SiPython, SiKubernetes, SiNodeDotJs, SiPowershell, SiReact, SiGo, SiMongodb, SiGroovy, SiSpinnaker, SiHelm} from "react-icons/si";
 import {HiOutlinePuzzle} from "react-icons/hi";
 
 export const homeContent = [
     {
         title: "Bio",
-        text: "I currently work as a Site Reliability Engineer at Citrix. My primary responsibilities include working on infrastructure automation to provision k8s clusters. "
+        text: "I currently work as a Site Reliability Engineer at Citrix. My primary responsibilities include working on infrastructure automation to provision k8s clusters. ",
+        icon: <RiEmotionLaughLine />
     },
     {
         title: "Career",
-        text: "I currently work as a Site Reliability Engineer at Citrix. My primary responsibilities include working on infrastructure automation to provision k8s clusters. "
+        text: "I currently work as a Site Reliability Engineer at Citrix. My primary responsibilities include working on infrastructure automation to provision k8s clusters. ",
+        icon: <RiBriefcase2Line />
     },
     {
         title: "Passions",
-        text: "While I work a lot with software, I am trying to get to grips more with electrical engineering but I do like to spend a lot of my spare time out of the house either exploring new countries or exercising. I have been an avid runner for over 3 years and now beginning to participate in more events including a half-triathlon and half-marathon. Please visit the life section of my profile to see more."
+        text: "While I work a lot with software, I am trying to get to grips more with electrical engineering but I do like to spend a lot of my spare time out of the house either exploring new countries or exercising. I have been an avid runner for over 3 years and now beginning to participate in more events including a half-triathlon and half-marathon. Please visit the life section of my profile to see more.",
+        icon: <RiHeart2Line />
     }
 ]
 
@@ -83,7 +86,7 @@ export const work=[
             color: 'teal'
         },
         skills: ["programming", "problem_solving"],
-        tools: ["azure", "jenkins", "kubernetes", "terraform", "spinnaker"]
+        tools: ["azure", "jenkins", "kubernetes", "terraform", "spinnaker", "helm"]
     },
     {
         job: "Software Engineer Intern",
@@ -204,5 +207,9 @@ export const toolsMap = {
     spinnaker: {
         icon: <SiSpinnaker />,
         color: 'darkblue'
+    },
+    helm: {
+        icon: <SiHelm />,
+        color: '#0f1689'
     }
 }

@@ -1,7 +1,6 @@
 import React from "react";
 import { Component } from "react";
 import FadeContent from "./fadeContent";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 import "../styles/components/scrollContentWrapper.css";
 

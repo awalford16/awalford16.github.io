@@ -10,10 +10,10 @@ import TimelineElementTemplate from "../templates/timelineElementTemplate";
 function Career() {
 	return (
         <MainContentTemplate title="Career">
-            <VerticalTimeline animate={true}>
+            <VerticalTimeline animate={true} layout="1-column-left">
                 {work.map((job, i) => (
                     <VerticalTimelineElement
-                        contentStyle={{ borderTop: `1px solid ${job.style.color}`, color: '#314E52', borderRadius: 0, backgroundColor: '#fcfcfc' }}
+                        contentStyle={{ borderTop: `1px solid ${job.style.color}`, color: '#314E52', borderRadius: 0, backgroundColor: '#fefefe' }}
                         contentArrowStyle={{ borderRight: `7px solid  ${job.style.color}` }}
                         iconStyle={{ background: `${job.style.color}`, color: '#fff' }}
                         icon={job.style.icon}
