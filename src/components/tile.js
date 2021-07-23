@@ -9,11 +9,11 @@ function Tile(props) {
     return(
         <div class="tileContainer">
             <div class="tileHeaderContainer">
-                <IconContext.Provider value={{ color: `#fff`, size: 30}}>
-                    <i style={{ backgroundColor: `${props.color}`}}>{props.icon}</i>
+                <IconContext.Provider value={{ color: `#fff`, size: 20}}>
+                    <i style={{ backgroundColor: `${props.color ? props.color : '#F2A154'}`}}>{props.icon}</i>
                 </IconContext.Provider>
             </div>
-            <div>
+            <div className="tileTitle">
                 <p>{title}</p>
             </div>
         </div>

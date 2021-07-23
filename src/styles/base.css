@@ -8,11 +8,13 @@
     top: 50px;
     right: 100px; */
     /* background-color: #E7E6E1; */
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     float: right;
     border-radius: 50px;
     width: 45%;
     height: 600px;
-    margin-top: 10%;
+    margin-top: 170px;
     padding: 0 2%;
 }

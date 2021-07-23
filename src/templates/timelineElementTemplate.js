@@ -11,8 +11,8 @@ function TimelineElementTemplate(props) {
             <div id="skillsToolsWrapper">
                 <div id="skillsRow">
                     {props.skills.map((skill, i) => (
-                        <IconContext.Provider value={{ color: "#F2A154", size: 25}}>
-                            {skillsMap[skill].icon}
+                        <IconContext.Provider value={{ color: "#fff", size: 20}}>
+                            <i style={{ backgroundColor: `#F2A154`}}>{skillsMap[skill].icon}</i>
                         </IconContext.Provider>
                     ))}
                 </div>

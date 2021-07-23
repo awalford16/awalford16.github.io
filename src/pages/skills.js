@@ -3,19 +3,17 @@ import "../styles/_images.css"
 import TileGrid from "../components/tileGrid";
 import MainContentTemplate from "../templates/mainContentTemplate";
 import { skillsMap, toolsMap } from "../content/content";
+import TabView from "../views/tabView";
+import FilterView from "../views/filterView";
 
 function Skills() {
-	return (
-        <MainContentTemplate title="Skills">
-            <article>
-                <h2>Soft Skills</h2>
-                <TileGrid tileMap={skillsMap} type="skills" />
-            </article>
+    const filters = ["Soft", "Cloud", "Dev", "CICD"];
+    const mergedSkills = {...skillsMap, ...toolsMap}
 
-            <article>
-                <h2>Frequently Used Tools</h2>
-                <TileGrid tileMap={toolsMap} type="skills" />
-            </article>
+	return (
+        <MainContentTemplate title="">
+            {/* <TabView tabs={tabs} /> */}
+            <FilterView filters={filters} content={mergedSkills} />
 		</MainContentTemplate>
 	);
 }

@@ -13,11 +13,11 @@
     flex-wrap: wrap;
 }
 
-#toolsRow i {
+i {
     margin: 3px;
     border-radius: 50px;
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -25,47 +25,56 @@ export const techSkills = [
     {
         name: "Terraform",
         years: 1,
-        image: "terraform.png"
+        image: "terraform.png",
+        tags: ["sre"]
     }, 
     {
         name: "Kubernetes",
         years: 1,
-        image: "kubes.png"
+        image: "kubes.png",
+        tags: ["sre"]
     }, 
     {
         name: "Jenkins",
         years: 2,
-        image: "jenkins.png"
+        image: "jenkins.png",
+        tags: ["cicd"]
     }, 
     {
         name: "PowerShell",
         years: 2,
-        image: "powershell.png"
+        image: "powershell.png",
+        tags: ["dev"]
     },
     {
         name: "Python",
         years: 3,
-        image: "python.png"
+        image: "python.png",
+        tags: ["dev"]
     },
     {
         name: "React",
         years: 2,
-        image: "react.png"
+        image: "react.png",
+        tags: ["dev"]
     },
     {
         name: "NodeJS",
         years: 3,
-        image: "node.png"
+        image: "node.png",
+        tags: ["dev"]
     },
     {
         name: "MongoDB",
         years: 2,
-        image: "mongo.png"
+        image: "mongo.png",
+        tags: ["dev"]
     },
     {
         name: "Azure",
         years: 2,
-        image: "azure.png"
+        image: "azure.png",
+        tags: ["sre"]
     }
 ]
 
@@ -140,22 +149,28 @@ export const work=[
 
 export const skillsMap = {
     public_speaking: {
-        icon: <RiUserVoiceLine />
+        icon: <RiUserVoiceLine />,
+        tags: ['soft']
     },
     programming: {
-        icon: <RiFileCodeLine />
+        icon: <RiFileCodeLine />,
+        tags: ['soft']
     },
     first_aid: {
-        icon: <RiFirstAidKitLine />
+        icon: <RiFirstAidKitLine />,
+        tags: ['soft']
     },
     time_management: {
-        icon: <RiTimeLine />
+        icon: <RiTimeLine />,
+        tags: ['soft']
     },
     teamwork: {
-        icon: <RiTeamLine />
+        icon: <RiTeamLine />,
+        tags: ['soft']
     },
     problem_solving: {
-        icon: <HiOutlinePuzzle />
+        icon: <HiOutlinePuzzle />,
+        tags: ['soft']
     }
 }
 
@@ -212,4 +227,11 @@ export const toolsMap = {
         icon: <SiHelm />,
         color: '#0f1689'
     }
+}
+
+export const tagMap = {
+    soft: ["first_aid", "problem_solving", "programming", "public_speaking", "teamwork", "time_management"],
+    cloud: ["azure", "kubernetes", "helm", "terraform"],
+    dev: ["powershell", "groovy", "python", "react", "golang", "node", "mongo"],
+    cicd: ["jenkins", "spinnaker"]
 }

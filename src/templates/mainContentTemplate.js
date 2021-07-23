@@ -1,6 +1,7 @@
 import React from "react";
 import "../styles/base.css"
 import "../styles/_images.css"
+import { Footer } from "../components/footer";
 
 function MainContentTemplate(props) {
 	return (
@@ -10,6 +11,8 @@ function MainContentTemplate(props) {
             </div>
             <div id="contentContainer">
                 {props.children}
+
+                <Footer />
             </div>
         </div>
 	);
