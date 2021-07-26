@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { IconContext } from "react-icons";
 
 import "../styles/templates/navbar.css";
-import { IconContext } from "react-icons";
 
 class NavItem extends React.Component {
 

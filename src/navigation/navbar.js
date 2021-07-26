@@ -21,7 +21,7 @@ class NavBar extends React.Component {
                     icon: <RiTaskLine size={25} />
                 },
                 {
-                    path: "/career",
+                    path: "/projects",
                     icon: <RiBriefcase2Line size={25} />
                 },
                 {

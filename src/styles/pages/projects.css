@@ -1,0 +1,21 @@
+.projectYearContainer {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.projectYear {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    width: 60px;
+    border-radius: 50px;
+    background-color: #314E52;
+}
+
+.projectYear p {
+    color: white;
+    margin-left: 0;
+}
