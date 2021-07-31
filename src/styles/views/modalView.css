@@ -22,10 +22,18 @@
     box-shadow: 3px 3px #ddd;
 }
 
+#modalToolsContainer {
+    display: flex;
+    flex-direction: row;
+}
+
 #modalInfoContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 60%;
+    width: 90%;
     align-self: center;
+    border-bottom: 1px solid #eee;
+    margin: 10px;
+    padding: 5px;
 }

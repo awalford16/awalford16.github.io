@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import ReactDOM from "react-dom";
-import { IconContext } from "react-icons";
+import {toolsMap} from "../content/content";
 
 import "../styles/views/modalView.css"
 import { TileIcon } from "../components/tileIcon";
@@ -12,10 +12,12 @@ export const ModalView = (props) => props.isVisible ? ReactDOM.createPortal(
                     <h2>{props.title}</h2>
                     <div id="modalInfoContainer">
                         <div id="modalToolsContainer">
-                            <TileIcon icon={props.toolsIcon} />
+                            {props.tools.map((tool) => (
+                                <TileIcon icon={toolsMap[tool].icon} color={toolsMap[tool].color} />
+                            ))}
                         </div>
                         <div id="modalLinksContainer">
-                            <TileIcon icon={props.icon} />
+                            <TileIcon icon={props.icon} color="#000" />
                         </div>
                     </div>
                     

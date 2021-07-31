@@ -235,3 +235,43 @@ export const tagMap = {
     dev: ["powershell", "groovy", "python", "react", "golang", "node", "mongo"],
     cicd: ["jenkins", "spinnaker"]
 }
+
+export const projects = {
+    2019: [
+        {
+            name: "AnonyQs",
+            tools: ["node"]
+        },
+        {
+            name: "Heart Disease Filter Selection",
+            tools: ["python"]
+        },
+        {
+            name: "Neural Network",
+            tools: ["python"]
+        },
+        {
+            name: "Spotify Playlist Generator",
+            tools: ["python"]
+        }
+    ],
+    2020: [
+        {
+            name: "Root",
+            description: "React native app for tracking environmentally friendly journeys.",
+            tools: ["react"]
+        },
+        {
+            name: "Revlet",
+            description: "Review Rental properties",
+            tools: ["react", "node", "mongo"]
+        }
+    ],
+    2021: [
+        {
+            name: "multictl",
+            description: "Golang CLI to control multiple kubernetes clusters",
+            tools: ["golang", "kubernetes"]
+        }
+    ]
+}

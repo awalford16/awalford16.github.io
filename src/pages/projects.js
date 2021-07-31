@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import MainContentTemplate from "../templates/mainContentTemplate";
-import {Modal} from "react-bootstrap"
+import {projects} from "../content/content";
 
 import "../styles/pages/projects.css"
 import { ModalView } from "../views/modalView";
@@ -8,20 +8,24 @@ import useModal from "../components/modal";
 import { RiGithubLine, RiReactjsLine } from "react-icons/ri";
 
 export default function Projects() {
-    const {isShowing, toggle} = useModal();
+    const {isShowing, toggle, currentContent} = useModal();
     return(
         <MainContentTemplate>
-            <ModalView isVisible={isShowing} hide={toggle} title="Root" icon={<RiGithubLine />} toolsIcon={<RiReactjsLine />}>
-                <p>React native project</p>
+            <ModalView isVisible={isShowing} hide={toggle} title={currentContent.name} links={currentContent.links} tools={currentContent.tools}>
+                <p>{currentContent.description}</p>
             </ModalView>
-            <div className="projectYearContainer">
-                <div className="projectYear">
-                    <p>2019</p>
+            {Object.keys(projects).map((year, i) => (
+                <div className="projectYearContainer">
+                    <div className="projectYear">
+                        <h2>{year}</h2>
+                    </div>
+                    <div className="projects">
+                    {projects[year].map((project, j) => (
+                        <button style={{ backgroundColor: `${currentContent.name == project.name ? "#F2A154" : "#314E52"}`}} onClick={() => toggle(project)}>{project.name}</button>
+                    ))}
+                    </div>
                 </div>
-            </div>
-            <div className="projects">
-                <button onClick={toggle}>Project 1</button>
-            </div>
+            ))}
         </MainContentTemplate>
     );
 }
