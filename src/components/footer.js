@@ -1,14 +1,19 @@
 import React from "react";
-import {RiInstagramLine, RiLinkedinLine} from "react-icons/ri";
+import { RiGithubLine, RiInstagramLine, RiLinkedinLine } from "react-icons/ri";
+import { FiGithub, FiInstagram, FiLinkedin } from "react-icons/fi"
 
 import "../styles/components/footer.css";
 
 export function Footer() {
-    return(
+    return (
         <div id="footerContainer">
             <div id="socials">
-                <RiInstagramLine size={20} />
-                <RiLinkedinLine size={20} />
+                <a href="https://www.linkedin.com/in/adam-walford-411047169/" className="footerLink">
+                    <RiLinkedinLine size={25} />
+                </a>
+                <a href="https://github.com/awalford16" className="footerLink">
+                    <RiGithubLine size={25} />
+                </a>
             </div>
         </div>
     );

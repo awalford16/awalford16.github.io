@@ -2,12 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import {Router, Switch, Route} from "react-router-dom";
+import { Router, Switch, Route } from "react-router-dom";
 
 import Routes from './navigation/routes';
 import Home from './pages/home';
-import Skills from './pages/skills';
-import Career from "./pages/career";
 import Projects from "./pages/projects";
 import history from './services/history';
 
@@ -21,10 +19,8 @@ ReactDOM.render(
     <Router history={history}>
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/skills" component={Skills} />
         <Route exact path="/projects" component={Projects} />
       </Switch>
-      <RouterSideNav />
     </Router>
   </React.StrictMode>,
   document.getElementById('root')

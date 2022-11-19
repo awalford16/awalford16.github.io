@@ -1,31 +1,46 @@
-import React, { Component } from "react";
-import MainContentTemplate from "../templates/mainContentTemplate";
-import {projects} from "../content/content";
+import React, { useState } from "react";
+import "../styles/pages/blogs.css"
+import { blogContent } from "../content/content";
+import CenterContentTemplate from "../templates/centerContentTemplate";
+import { Accordion, Card, Dropdown } from 'react-bootstrap';
+import ProjectDropdown from "../components/projectSelection";
 
-import "../styles/pages/projects.css"
-import { ModalView } from "../views/modalView";
-import useModal from "../components/modal";
-import { RiGithubLine, RiReactjsLine } from "react-icons/ri";
+function Projects() {
+    const [project, selectProject] = useState(blogContent[0])
 
-export default function Projects() {
-    const {isShowing, toggle, currentContent} = useModal();
-    return(
-        <MainContentTemplate>
-            <ModalView isVisible={isShowing} hide={toggle} title={currentContent.name} links={currentContent.links} tools={currentContent.tools}>
-                <p>{currentContent.description}</p>
-            </ModalView>
-            {Object.keys(projects).map((year, i) => (
-                <div className="projectYearContainer">
-                    <div className="projectYear">
-                        <h2>{year}</h2>
-                    </div>
-                    <div className="projects">
-                    {projects[year].map((project, j) => (
-                        <button style={{ backgroundColor: `${currentContent.name == project.name ? "#F2A154" : "#314E52"}`}} onClick={() => toggle(project)}>{project.name}</button>
+    const convert_header = (header) => {
+        return header.replaceAll("_", " ").toUpperCase();
+    }
+
+    return (
+        <CenterContentTemplate title="">
+            <ProjectDropdown select={selectProject} />
+
+            <h3>{project.title}</h3>
+
+            {Object.keys(project.content).map((c, i) => (
+                <div className="textBlock">
+                    <h4>{convert_header(c)}</h4>
+                    {project.content[c].map((text, i) => (
+                        <p key={i}>{text}</p>
                     ))}
-                    </div>
                 </div>
             ))}
-        </MainContentTemplate>
+            {/* {blogContent.map((content, i) => (
+                <Accordion className="blogContent">
+                    <Card>
+                        <Accordion.Toggle as={Card.Header} eventKey="0">
+                            <h3>{content.title}</h3>
+                        </Accordion.Toggle>
+                        <Accordion.Collapse eventKey="0">
+                            <Card.Body>
+                            </Card.Body>
+                        </Accordion.Collapse>
+                    </Card>
+                </Accordion>
+            ))} */}
+        </CenterContentTemplate>
     );
 }
+
+export default Projects;

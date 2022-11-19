@@ -2,23 +2,11 @@
     height: 100vh;
 }
 
-#homeContentContainer {
-    position: absolute;
-    top: 50px;
-    right: 180px;
-    /* background-color: #FAF3F3; */
-    border-radius: 10px;
-    width: 55%;
-    padding: 0 2%;
-}
-
 .homeContentContainer {
     display: flex;
     align-items: center;
-    width: 90%;
-    margin:5%;
+    margin: 10px;
     background-color: #fefefe;
-    border-radius: 30px;
     box-shadow: 2px 2px #eee;
 }
 

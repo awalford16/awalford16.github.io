@@ -1,3 +1,9 @@
 article {
     margin-bottom: 8%;
 }
+
+#pageContent {
+    display: flex;
+    flex-direction: "row";
+    margin-top: 20px;
+}

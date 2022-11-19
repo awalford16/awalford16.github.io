@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
 
 body {
-    font-family: 'Mulish';
+    font-family: 'Mitr';
 }
 
 h1 {
@@ -20,6 +20,12 @@ h2 {
     margin-bottom: 30px;
 }
 
+h3 {
+    font-size: 22px;
+    text-align: center;
+    color: #532a37
+}
+
 button {
     font-family: 'Mulish';
     font-size: 30px;
@@ -28,6 +34,10 @@ button {
 h4 {
     font-weight: 150;
     font-size: 15px;
-    font-style: italic;
-    /* margin-top: 0; */
+    font-style: bold;
+    color: #3d5d63;
+}
+
+p {
+    font-size: 15px;
 }
