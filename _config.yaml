@@ -1,5 +1,5 @@
-remote_theme: pages-themes/minimal@v0.2.0
-title: Adam Walford
-description: Welcome to my page
-plugins:
-- jekyll-remote-theme
+# remote_theme: pages-themes/minimal@v0.2.0
+# title: Adam Walford
+# description: Welcome to my page
+# plugins:
+# - jekyll-remote-theme

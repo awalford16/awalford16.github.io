@@ -1,0 +1,66 @@
+In order to be classified as a fully qualified electrician, there are multiple different criteria you need to meet and skills you need to be able to demonstrate.
+
+If you decide to go down the electrician certification route as well, I hope some of the blogs on this site will help provide some guidance.
+
+#Level 2
+
+Level 2 is targetted mostly at domestic installations.
+
+##Practical Exams
+
+There are 2 practical exams at level 2; one for inspection and testing, another for building containment systems. The inspection and testing exam will require you to conduct testing in the correct sequence on a radial, ring and lighting installation; while the containment exam will consist of constructing various containment systems from PVC and metal conduit, to cable tray and metal trunking.
+
+All other exams at level 2 are multiple choice, covering topics like health and safety, BS7671, Building Regulations and Electrical Science
+
+
+##BS7671
+
+One of the hardest exams at level 2 is the BS7671, which is a multiple choice exam which entails navigating the BS7671 regulations to the find answers to the questions. It will require a good amount of confidence in navigating the regulations.
+
+##Building Regulations
+
+The building regulations exam will require you to find information from the Building Regulations for Electricians book. It summarises all the different sections of the building regulations and goes into details about Part P (The section which refers to electrical work).
+
+The questions will cover topics such as how much space to leave when drilling into joists and what areas are considered safe zones for electrical cabling to be run without additional protection.
+
+Although this covers Part P, completing this exam does not mean that you are Part P qualified.
+
+##Electrical Science
+
+Electrical science covers some basic math that applies to electrical work. This includes calculating resistance in series and parallel as well as magnetic flux and power.
+
+#Level 3
+
+When training for level 3, I was required to attend a training center for 3 separate weeks. 
+
+Level 3 included: inspection and testing, fault finding, circuit design
+
+##Fault Finding
+
+##Inspection and Testing
+
+##Circuit Design
+
+Circuit design is arguably one of the most challenging weeks on the course.
+
+#Competent Person
+
+This is the golden standard. To be classed as a competent person, you must have gone through level 2, level 3 and your NVQ+AM2. Once you have completed all of this, you are eligable to apply for a gold card, which can cost upward of £800/year.
+
+However, the gold card gives you the capability to sign off your own work and the work of others, giving you much more freedom in the industry.
+
+#Qualification Extensions
+
+Other notable qualifications include:
+
+- 2391
+- Solar PV
+
+#My Thoughts
+
+In all honesty, I think the current standards are much too strict, and take far too long for someone to go out and be classed as competently able to do electrical installations. Level 2 means very little now, it is more just considered an entry level to help get an apprentice role.
+
+The reality is, the training centers are just filled with apprentices that already have the hands-on skills to be able to do the work well, they are just there for the paperwork. Realisticly, the true representation of a "competent person" is in the NVQ, why we require our workers to go through months to years of ordeal of repetetive exams just so they can sign off their own work as safe (when they have already been doing the work for months/years beforehand) is beyond me.
+
+If we want to be able to scale our trades skills will need to reduce the overhead in creating "competent workers". Provide meaningful, practical training beyond just multiple choice exams that teach us very little. I have more certifications than a lot of electricians working in the field today, so on paper I may be viewed as more competent to do the job, but when it comes to real world experience, I have been office based for all of my career.
+

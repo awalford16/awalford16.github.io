@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Blogs</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+    <div id="nav-placeholder"></div>
+    <script src="scripts/nav.js"></script>
+    <main>
+        <div class="container">
+            <div class="box">
+                <button class="big_button" onclick="update_service_type('electrical')">Electrical</button>
+            </div>
+            <div class="box">
+                <button class="big_button" onclick="update_service_type('networking')">Networking</button>
+            </div>
+            <div class="box">
+                <button class="big_button" onclick="update_service_type('operations')">Operations</button>
+            </div>
+        </div>
+        <div class="container">
+            <div class="left">
+                <ul id="left_nav">
+                </ul>
+            </div>
+            <div class="right" id="output">
+
+            </div>
+        </div>
+
+    </main>
+
+    <script src="scripts/blogs.js"></script>
+</body>
+
+</html>
