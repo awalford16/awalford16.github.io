@@ -1,1 +1,10 @@
-These are the networking services I can provide
+I have helped manage Datacenter networks for AI workloads for over 3 years, working mostly with Dell and Cisco.
+
+I can provide support with:
+
+- Identifying single points of failure or bottlenecks
+- Fault finding
+- Improving network security
+- Automating network changes/deployments with Terraform or Ansible
+- Network migrations
+- Hybrid cloud setup with IPSec VPN tunnels

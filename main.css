@@ -3,7 +3,7 @@ body {
     font-family: Arial, sans-serif;
     padding: 1em;
     color: #1e1e1e;
-    background-color: #eaeaea;
+    background-color: #e7dbe0d6;
 }
 
 h1 {
@@ -11,7 +11,9 @@ h1 {
 }
 
 nav {
+    background-color: #1E1E1E;
     border-bottom: 1px solid #1E1E1E;
+    border-radius: 10px;
     padding: 1em 0;
 }
 
@@ -28,7 +30,7 @@ nav li {
 }
 
 nav a {
-    color: #1e1e1e;
+    color: #e7dbe0d6;
     text-decoration: none;
     font-weight: bold;
 }
