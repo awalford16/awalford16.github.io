@@ -84,6 +84,12 @@ Other notable qualifications include:
 
 ##2391
 
+2391 is an additional qualification specifically for Inspection and Testing.
+
+As part of this qualification, you are required to show competence in inspecting an installation and providing a C-code (C1 - immediate danger, C2 - potential for danger, C3 - improvement recommended, F - Further investigation) based on some images of the installation (not a physical installtion that you can properly inspect..).
+
+Following this, you then have a practical test which will involve conducting an Electrical Installation Condition Report (EICR) on 3 circuits, and commissioning a new circuit with an Electrical Installation Certificate (EIC). There will be faults on one or two of the circuits which you will need to identify and C-code, as well as complete both types of certificates and deem whether the installation is satisfactory.
+
 There is a written exam which is part of the 2391 which requires a score of 100%. However you do get 2 attempts at the exam and are made aware of the questions which you answered incorrectly in between the attempts, giving you a chance to go and make sure you get them right the second time. The exam looks for very specific terminology in each answer.
 
 ##Part P
