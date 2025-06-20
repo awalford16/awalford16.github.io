@@ -4,7 +4,8 @@ let blogs = {
         // "Cable_Calculations"
     ],
     networking: [
-        "Networking_Terminology"
+        "Networking_Terminology",
+        "Hybrid_Cloud_Networking_to_Azure"
     ],
     operations: [
         "Openstack_Services"
