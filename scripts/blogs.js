@@ -5,7 +5,8 @@ let blogs = {
     ],
     networking: [
         "Networking_Terminology",
-        "Hybrid_Cloud_Networking_to_Azure"
+        "Hybrid_Cloud_Networking_to_Azure",
+        "VXLAN"
     ],
     operations: [
         "Openstack_Services"
