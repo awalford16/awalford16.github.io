@@ -67,8 +67,6 @@ pre {
 
 .container {
     display: flex;
-    gap: 1rem;
-    padding: 1rem;
     /* spacing between divs */
 }
 
@@ -131,4 +129,18 @@ button::first-letter {
 .left_box {
     text-align: left;
     padding: 1rem;
+}
+
+.show-on-small {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .hide-on-small {
+        display: none;
+    }
+
+    .show-on-small {
+        display: flex;
+    }
 }

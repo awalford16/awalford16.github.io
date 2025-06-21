@@ -15,6 +15,7 @@ let blogs = {
 
 let directory = 'electrical'
 let blog_file = blogs[directory][0]
+let current_index = 0
 
 function update_service_type(dir) {
     directory = dir
@@ -68,6 +69,25 @@ function show_blog(index) {
 
             document.getElementById('output').innerHTML = html;
         });
+    current_index = index
+}
+
+function next_blog(operator) {
+    switch (operator) {
+        case '+':
+            if (current_index + 1 == blogs[directory].length) {
+                show_blog(0)
+            } else {
+                show_blog(current_index + 1)
+            }
+            break
+        case '-':
+            if (current_index > 0) {
+                show_blog(current_index - 1)
+            }
+            break
+        default: throw new Error('Invalid operator');
+    }
 }
 
 function escapeHtml(text) {
