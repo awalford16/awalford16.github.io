@@ -9,7 +9,8 @@ let blogs = {
         "VXLAN"
     ],
     operations: [
-        "Openstack_Services"
+        "Openstack_Services",
+        "Ceph_Cluster_Setup"
     ]
 }
 
