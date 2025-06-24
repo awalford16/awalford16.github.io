@@ -1,41 +1,55 @@
-let blogs = {
-    electrical: [
-        "UK_Qualification_Requirements",
-        // "Cable_Calculations"
-    ],
-    networking: [
-        "Networking_Terminology",
-        "Hybrid_Cloud_Networking_to_Azure",
-        "VXLAN"
-    ],
-    operations: [
-        "Openstack_Services",
-        "Ceph_Cluster_Setup"
-    ]
+let content = {
+    electrical: {
+        services: [
+            "Inspection_and_Testing"
+        ],
+        blogs: [
+            "UK_Qualification_Requirements",
+            // "Cable_Calculations"
+        ]
+    },
+    networking: {
+        services: [],
+        blogs: [
+            "Networking_Terminology",
+            "Hybrid_Cloud_Networking_to_Azure",
+            "VXLAN"
+        ]
+    },
+    operations: {
+        services: [],
+        blogs: [
+            // "Openstack_Services",
+            "Ceph_Cluster_Setup"
+        ]
+    }
 }
 
-let directory = 'electrical'
-let blog_file = blogs[directory][0]
+// Use the file name to determine the service content to load
+let directory = window.location.pathname.split('/').pop().split(".")[0]
+let type = 'services'
+let content_file = content[directory][0]
 let current_index = 0
 
-function update_service_type(dir) {
+function update_content_type(dir, t) {
     directory = dir
-    blog_file = blogs[dir][0]
+    type = t
+    content_file = content[dir][0]
 
     // Update the navigation
     update_nav(dir)
 
-    // Update blogs container
-    show_blog(0)
+    // Update contents container
+    show_content(0)
 }
 
-function show_blog(index) {
-    blog_file = blogs[directory][index]
-    fetch(`blogs/${directory}/${blog_file.toLowerCase()}.txt`)
+function show_content(index) {
+    content_file = content[directory][type][index]
+    fetch(`content/${type}/${directory}/${content_file.toLowerCase()}.txt`)
         .then(res => res.text())
         .then(text => {
             const lines = text.split('\n');
-            let html = `<h2>${blog_file.replaceAll("_", " ")}</h2>\n`;
+            let html = `<h2>${content_file.replaceAll("_", " ")}</h2>\n`;
             let inCode = false;
             let codeLang = '';
             let codeBuffer = [];
@@ -73,18 +87,18 @@ function show_blog(index) {
     current_index = index
 }
 
-function next_blog(operator) {
+function next_content(operator) {
     switch (operator) {
         case '+':
-            if (current_index + 1 == blogs[directory].length) {
-                show_blog(0)
+            if (current_index + 1 == content[directory][type].length) {
+                show_content(0)
             } else {
-                show_blog(current_index + 1)
+                show_content(current_index + 1)
             }
             break
         case '-':
             if (current_index > 0) {
-                show_blog(current_index - 1)
+                show_content(current_index - 1)
             }
             break
         default: throw new Error('Invalid operator');
@@ -99,15 +113,15 @@ function escapeHtml(text) {
 }
 
 function update_nav(target) {
-    let html = `<h4>${target.toUpperCase()}</h4>`;
+    let html = `<h4>${type.toUpperCase()}</h4>`;
 
-    for (var i = 0; i < blogs[target].length; i++) {
-        blog_file = blogs[target][i]
-        html += `<li><button onclick="show_blog(${i})">${blog_file.replaceAll("_", " ")}</button></li>`
+    for (var i = 0; i < content[target][type].length; i++) {
+        content_file = content[target][type][i]
+        html += `<li><button onclick="show_content(${i})">${content_file.replaceAll("_", " ")}</button></li>`
     }
 
     document.getElementById("left_nav").innerHTML = html;
 }
 
-update_nav('electrical')
-show_blog(0)
+update_nav(window.location.pathname.split('/').pop().split(".")[0])
+show_content(0)

@@ -1,8 +1,0 @@
-I have worked in a cloud, platform and DevOps environment for over 5 years, helping teams automate deployments and scale workloads to over thousands of customers.
-
-- Setup automation for cloud or on-premise infrastructure (K8s, VMWare, Openstack, Azure, AWS)
-- Improve cloud or on-premise security
-- Provide support for SOC2 compliance
-- Automate cloud deployments and reduce toil in software delivery
-- Automate baremetal provisioning for datacenter workloads
-- Improve developer experience for on-premise consumption of products
