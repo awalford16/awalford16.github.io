@@ -1,3 +1,0 @@
-#What are Hugepages?
-
-Linux manages memory in pages

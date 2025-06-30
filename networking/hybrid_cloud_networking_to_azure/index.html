@@ -1,0 +1,270 @@
+<!doctype html>
+<html data-bs-theme="">
+    <head>
+                <title>Hybrid cloud networking to azure - AWNET</title>
+
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+            
+            
+            
+
+            
+                <link  rel="icon" type="image/x-icon" href="../../assets/img/favicon.ico">
+            
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+            <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+            <link rel="stylesheet" href="../../assets/css/root.min.css">
+            <link rel="stylesheet" href="../../assets/css/main.min.css">
+            <link rel="stylesheet" href="../../assets/css/media.min.css">
+            <link rel="stylesheet" href="../../assets/css/mkdocstrings.min.css">
+
+            
+                
+            
+    </head>
+
+    <body>
+        <div class="container py-3">
+            <header>
+                    <!-- block header -->
+<nav class="navbar navbar-expand-xl border-bottom">
+    <div class="container-fluid">
+        
+
+        
+            <span class=" fs-4 title-color site-name" id="component-site-name" style="text-transform: uppercase;">AWNET</span>
+        
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsMenu"
+            aria-controls="navbarsMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse flex-column ml-auto" id="navbarsMenu">
+            <ul class="navbar-nav">
+
+                <!-- block menu -->
+                <li class="nav-item">
+                    <!-- block menu -->
+    
+        <li class="nav-item" id="component-menu">
+            <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="
+                            nav-link text-gray text-decoration-none" href="../..">[Home]</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="
+                            nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Electrical]</a>
+                            <ul class="dropdown-menu">
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../electrical/uk_qualification_requirements/" class="dropdown-item text-decoration-none ">Uk qualification requirements</a>
+    </li>
+<!-- endblock -->
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class=" active 
+                            nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Networking]</a>
+                            <ul class="dropdown-menu">
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="./" class="dropdown-item text-decoration-none  active ">Hybrid cloud networking to azure</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../networking_terminology/" class="dropdown-item text-decoration-none ">Networking terminology</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../vxlan/" class="dropdown-item text-decoration-none ">Understanding VXLAN</a>
+    </li>
+<!-- endblock -->
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="
+                            nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Operations]</a>
+                            <ul class="dropdown-menu">
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../operations/ceph_deployment/" class="dropdown-item text-decoration-none ">Ceph deployment</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../operations/ceph_storage_systems/" class="dropdown-item text-decoration-none ">Ceph storage systems</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../operations/openstack_networking/" class="dropdown-item text-decoration-none ">Openstack networking</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../operations/openstack_setup/" class="dropdown-item text-decoration-none ">Openstack setup</a>
+    </li>
+<!-- endblock -->
+                            </ul>
+                        </li>
+            </ul>
+        </li>
+<!-- endblock -->
+                </li>
+                <!-- endblock -->
+
+                <!-- block search -->
+                <li class="nav-item">
+                    <a class="collapsed" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <div class="md-search-icon">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </div>
+                    </a>
+                </li>
+                <!--  endblock -->
+
+                <!-- block source -->
+                <li class="nav-item">
+                    
+                        
+                    
+                </li>
+                <!--  endblock -->
+            </ul>
+        </div>
+    </div>
+</nav>
+<!--  endblock -->
+            </header>
+
+            <main>
+
+                
+                        <!-- block content -->
+<section class="container post" id="component-content">
+    <article>
+        <header>
+            
+                <h1 class=" title" id="component-title">Hybrid cloud networking to azure</h1>
+            
+        </header>
+        <p><p>This doc provides an overview on connecting an on-premise network to Azure cloud via a IPSec VPN Tunnel (not an express-route).</p>
+<h2 id="azure-resources">Azure Resources</h2>
+<p>The Azure architecture side is built up of 5 main components: Virtual Network, Public IP, Local Network Gateway, Virtual Network Gateway and a Connection</p>
+<h3 id="virtual-network">Virtual Network</h3>
+<p>The gateway will need to be tied to a virtual network. From this network, it is possible to connect resources or peer other VNets which can communicate with the on-premise network.</p>
+<pre><code>az network vnet create -g $RG \
+    -n $VNET_NAME --address-prefix 10.1.0.0/24 \
+    --subnet-name $SUBNET_NAME \
+    --subnet-prefixes 10.1.0.0/24
+</code></pre>
+<p>Take note of the range used here, as this is what will need to be included in the routing table from the on-premise side of the tunnel.</p>
+<h3 id="public-ip-address">Public IP Address</h3>
+<p>The public IP address is required for the on-premise site to connect to. This IP will be assigned to the Virtual Network Gateway</p>
+<pre><code>az network public-ip create -g $RG -n $IP_NAME
+</code></pre>
+<h3 id="virtual-network-gateway">Virtual Network Gateway</h3>
+<p>The Virtual Network Gateway has the previously created public IP address assigned to it.</p>
+<p>Different gateway SKUs will offer different bandwidth</p>
+<pre><code>az network vnet-gateway create -g $RG \
+    -n vpn-gateway \
+    --public-ip-address $PUBLIC_IP \
+    --vnet $VNET_NAME --gateway-type Vpn \
+    --sku VpnGw1 \
+    --vpn-type RouteBased
+</code></pre>
+<h3 id="local-network-gateway">Local Network Gateway</h3>
+<p>The Local Network Gateway defines the routes for the local network at the other end of the tunnel. It's under this resource that all the IP ranges of the on-premise site are defined. Additionally, we need to set the on-premise public IP for Azure to connect to.</p>
+<p>In the example below, we are creating a local network gateway for our on-premise network which has a local range of 192.168.1.0/24 and 172.21.21.0/24</p>
+<pre><code>az network local-gateway create -g $RG \
+    -n local-gateway \
+    --gateway-ip-address $ON_PREM_PUBLIC_IP \
+    --local-address-prefixes 192.168.1.0/24 172.21.21.0/24
+</code></pre>
+<h3 id="connection">Connection</h3>
+<p>The connection resource ties together both the Virtual and Local Network Gateways and specifies the encruyption algorithms to be used.</p>
+<pre><code># Create the gateway connection
+az network vpn-connection create \
+    -g $RG -n vpn-connection \
+    --vnet-gateway1 $VPN_GATEWAY \
+    --local-gateway2 local-gateway \
+    --shared-key $RANDOM_GENERATED_SHARED_KEY
+
+# Add an IPSec policy defining the encryption algorithnm
+az network vpn-gateway connection ipsec-policy add \
+    --connection-name vpn-connection \
+    --dh-group DHGroup14 \
+    --ike-encryption AES256 \
+    --ike-integrity SHA256 \
+    --ipsec-encryption GCMAES256 \
+    --ipsec-integrity GCMAES256 \
+    --pfs-group ECP256 \
+    --resource-group $RG
+</code></pre>
+<h2 id="on-premise">On-Premise</h2>
+<p>From the on-premise firewall, configure an IPSec tunnel with the same encryption rules as specified above and set the same shared key that was specified on the connection resource.</p>
+<p>This document doesn't specify how to implement any routing protocols to dynamically learn accessible routes in the cloud, so you will need to statically define a route to the cloud based on the virtual network range created earlier with the next hop set to the IPSec tunnel.</p></p>
+    </article>
+</section>
+<!-- endblock -->
+                
+                
+            </main>
+
+            
+                    <!-- block preview -->
+    <div class="preview row row-cols-md-3 text-center pt-md-3" id="component-preview">
+        <div class="col themed-grid-col">
+            <a rel="prev" href="../../electrical/uk_qualification_requirements/" class="nav-link">
+                <i class="fa fa-arrow-left"></i> Previous
+            </a>
+        </div>
+        <div class="col themed-grid-col"></div>
+        <div class="col themed-grid-col">
+            <a rel="next" href="../networking_terminology/" class="nav-link">
+                Next <i class="fa fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+<!-- endblock -->
+            
+
+            
+                    <!-- block footer -->
+<footer class="pt-4 my-md-5 pt-md-5 border-top" id="component-footer">
+    <div class="row">
+        <div class="col-12 col-md">
+                <!-- block copyright -->
+
+    <small class="d-block mb-3">
+        Made with
+        <a href="https://github.com/FernandoCelmer/mkdocs-simple-blog" target="_blank" rel="noopener">
+            Simple Blog for MkDocs
+        </a>
+    </small>
+
+<!-- endblock -->
+        </div>
+    </div>
+</footer>
+<!-- endblock -->
+            
+        </div>
+
+            <script>var base_url = '../..';</script>
+            <script src="../../assets/js/jquery-3.3.1.slim.min.js""></script>
+            <script src="../../assets/js/bootstrap.bundle.min.js""></script>
+            <script src="../../assets/js/main.min.js""></script>
+
+    </body>
+
+</html>

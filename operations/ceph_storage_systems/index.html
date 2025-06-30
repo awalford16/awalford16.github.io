@@ -1,27 +1,27 @@
 <!doctype html>
 <html data-bs-theme="">
     <head>
-                <title>AWNET</title>
+                <title>Ceph storage systems - AWNET</title>
 
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-            <meta name="description" content="None">
+            
             
             
 
             
-                <link  rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+                <link  rel="icon" type="image/x-icon" href="../../assets/img/favicon.ico">
             
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-            <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-            <link rel="stylesheet" href="assets/css/root.min.css">
-            <link rel="stylesheet" href="assets/css/main.min.css">
-            <link rel="stylesheet" href="assets/css/media.min.css">
-            <link rel="stylesheet" href="assets/css/mkdocstrings.min.css">
+            <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+            <link rel="stylesheet" href="../../assets/css/root.min.css">
+            <link rel="stylesheet" href="../../assets/css/main.min.css">
+            <link rel="stylesheet" href="../../assets/css/media.min.css">
+            <link rel="stylesheet" href="../../assets/css/mkdocstrings.min.css">
 
             
                 
@@ -55,8 +55,8 @@
         <li class="nav-item" id="component-menu">
             <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class=" active 
-                            nav-link text-gray text-decoration-none" href=".">[Home]</a>
+                            <a class="
+                            nav-link text-gray text-decoration-none" href="../..">[Home]</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="
@@ -64,7 +64,7 @@
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="electrical/uk_qualification_requirements/" class="dropdown-item text-decoration-none ">Uk qualification requirements</a>
+        <a href="../../electrical/uk_qualification_requirements/" class="dropdown-item text-decoration-none ">Uk qualification requirements</a>
     </li>
 <!-- endblock -->
                             </ul>
@@ -75,43 +75,43 @@
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="networking/hybrid_cloud_networking_to_azure/" class="dropdown-item text-decoration-none ">Hybrid cloud networking to azure</a>
+        <a href="../../networking/hybrid_cloud_networking_to_azure/" class="dropdown-item text-decoration-none ">Hybrid cloud networking to azure</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="networking/networking_terminology/" class="dropdown-item text-decoration-none ">Networking terminology</a>
+        <a href="../../networking/networking_terminology/" class="dropdown-item text-decoration-none ">Networking terminology</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="networking/vxlan/" class="dropdown-item text-decoration-none ">Understanding VXLAN</a>
+        <a href="../../networking/vxlan/" class="dropdown-item text-decoration-none ">Understanding VXLAN</a>
     </li>
 <!-- endblock -->
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="
+                            <a class=" active 
                             nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Operations]</a>
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="operations/ceph_deployment/" class="dropdown-item text-decoration-none ">Ceph deployment</a>
+        <a href="../ceph_deployment/" class="dropdown-item text-decoration-none ">Ceph deployment</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="operations/ceph_storage_systems/" class="dropdown-item text-decoration-none ">Ceph storage systems</a>
+        <a href="./" class="dropdown-item text-decoration-none  active ">Ceph storage systems</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="operations/openstack_networking/" class="dropdown-item text-decoration-none ">Openstack networking</a>
+        <a href="../openstack_networking/" class="dropdown-item text-decoration-none ">Openstack networking</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="operations/openstack_setup/" class="dropdown-item text-decoration-none ">Openstack setup</a>
+        <a href="../openstack_setup/" class="dropdown-item text-decoration-none ">Openstack setup</a>
     </li>
 <!-- endblock -->
                             </ul>
@@ -154,10 +154,18 @@
     <article>
         <header>
             
-                <h1 class=" title" id="component-title">Home</h1>
+                <h1 class=" title" id="component-title">Ceph storage systems</h1>
             
         </header>
-        <p></p>
+        <p><p>Ceph can provide storage as block, object or file FileSystem</p>
+<h2 id="block">Block</h2>
+<p>A Ceph block device can be created with 2 commands:</p>
+<pre><code>ceph osd pool create POOL_NAME
+rbd pool init POOL_NAME
+</code></pre>
+<p>Block devices can be integrated with various tools such as Openstack and Kubernetes to provide backend block storage to VMs or PV storage via the Ceph CSI respectively.</p>
+<h2 id="file-system">File System</h2>
+<p>Ceph storage can also be overlayed with a filesystem using CephFS which can then be mounted.</p></p>
     </article>
 </section>
 <!-- endblock -->
@@ -169,13 +177,13 @@
                     <!-- block preview -->
     <div class="preview row row-cols-md-3 text-center pt-md-3" id="component-preview">
         <div class="col themed-grid-col">
-            <a rel="prev" class="nav-link disabled">
+            <a rel="prev" href="../ceph_deployment/" class="nav-link">
                 <i class="fa fa-arrow-left"></i> Previous
             </a>
         </div>
         <div class="col themed-grid-col"></div>
         <div class="col themed-grid-col">
-            <a rel="next" href="electrical/uk_qualification_requirements/" class="nav-link">
+            <a rel="next" href="../openstack_networking/" class="nav-link">
                 Next <i class="fa fa-arrow-right"></i>
             </a>
         </div>
@@ -205,10 +213,10 @@
             
         </div>
 
-            <script>var base_url = '.';</script>
-            <script src="assets/js/jquery-3.3.1.slim.min.js""></script>
-            <script src="assets/js/bootstrap.bundle.min.js""></script>
-            <script src="assets/js/main.min.js""></script>
+            <script>var base_url = '../..';</script>
+            <script src="../../assets/js/jquery-3.3.1.slim.min.js""></script>
+            <script src="../../assets/js/bootstrap.bundle.min.js""></script>
+            <script src="../../assets/js/main.min.js""></script>
 
     </body>
 

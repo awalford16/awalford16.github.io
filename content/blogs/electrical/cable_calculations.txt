@@ -1,3 +1,0 @@
-#Determining Cable Capacity
-
-Provide spreadsheet from circuit design week

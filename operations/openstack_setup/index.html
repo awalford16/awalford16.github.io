@@ -1,27 +1,27 @@
 <!doctype html>
 <html data-bs-theme="">
     <head>
-                <title>AWNET</title>
+                <title>Openstack setup - AWNET</title>
 
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-            <meta name="description" content="None">
+            
             
             
 
             
-                <link  rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+                <link  rel="icon" type="image/x-icon" href="../../assets/img/favicon.ico">
             
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono:400,700">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-            <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-            <link rel="stylesheet" href="assets/css/root.min.css">
-            <link rel="stylesheet" href="assets/css/main.min.css">
-            <link rel="stylesheet" href="assets/css/media.min.css">
-            <link rel="stylesheet" href="assets/css/mkdocstrings.min.css">
+            <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+            <link rel="stylesheet" href="../../assets/css/root.min.css">
+            <link rel="stylesheet" href="../../assets/css/main.min.css">
+            <link rel="stylesheet" href="../../assets/css/media.min.css">
+            <link rel="stylesheet" href="../../assets/css/mkdocstrings.min.css">
 
             
                 
@@ -55,8 +55,8 @@
         <li class="nav-item" id="component-menu">
             <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class=" active 
-                            nav-link text-gray text-decoration-none" href=".">[Home]</a>
+                            <a class="
+                            nav-link text-gray text-decoration-none" href="../..">[Home]</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="
@@ -64,7 +64,7 @@
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="electrical/uk_qualification_requirements/" class="dropdown-item text-decoration-none ">Uk qualification requirements</a>
+        <a href="../../electrical/uk_qualification_requirements/" class="dropdown-item text-decoration-none ">Uk qualification requirements</a>
     </li>
 <!-- endblock -->
                             </ul>
@@ -75,43 +75,43 @@
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="networking/hybrid_cloud_networking_to_azure/" class="dropdown-item text-decoration-none ">Hybrid cloud networking to azure</a>
+        <a href="../../networking/hybrid_cloud_networking_to_azure/" class="dropdown-item text-decoration-none ">Hybrid cloud networking to azure</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="networking/networking_terminology/" class="dropdown-item text-decoration-none ">Networking terminology</a>
+        <a href="../../networking/networking_terminology/" class="dropdown-item text-decoration-none ">Networking terminology</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="networking/vxlan/" class="dropdown-item text-decoration-none ">Understanding VXLAN</a>
+        <a href="../../networking/vxlan/" class="dropdown-item text-decoration-none ">Understanding VXLAN</a>
     </li>
 <!-- endblock -->
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="
+                            <a class=" active 
                             nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Operations]</a>
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="operations/ceph_deployment/" class="dropdown-item text-decoration-none ">Ceph deployment</a>
+        <a href="../ceph_deployment/" class="dropdown-item text-decoration-none ">Ceph deployment</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="operations/ceph_storage_systems/" class="dropdown-item text-decoration-none ">Ceph storage systems</a>
+        <a href="../ceph_storage_systems/" class="dropdown-item text-decoration-none ">Ceph storage systems</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="operations/openstack_networking/" class="dropdown-item text-decoration-none ">Openstack networking</a>
+        <a href="../openstack_networking/" class="dropdown-item text-decoration-none ">Openstack networking</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="operations/openstack_setup/" class="dropdown-item text-decoration-none ">Openstack setup</a>
+        <a href="./" class="dropdown-item text-decoration-none  active ">Openstack setup</a>
     </li>
 <!-- endblock -->
                             </ul>
@@ -154,10 +154,23 @@
     <article>
         <header>
             
-                <h1 class=" title" id="component-title">Home</h1>
+                <h1 class=" title" id="component-title">Openstack setup</h1>
             
         </header>
-        <p></p>
+        <p><h2 id="openstack-hardware">OpenStack Hardware</h2>
+<p>Openstack is built up of multiple hareware components. The core components are the controller and compute nodes. Optional additional hardware include a block and object storage node.</p>
+<h3 id="controller">Controller</h3>
+<p>The controller is responsible for running identity services, image services, placement services and management portions of compute, networking and agents.</p>
+<p>It can optionally run portions of the block storage, objects storage and orchestration.</p>
+<h3 id="compute">Compute</h3>
+<p>Compute nodes run the hypervisor portaion that operates instances using the KVM hypervisor.</p>
+<p>Additionally, it runs a networking service agent that connects instances to VNets and provides firewalling services to instances via security groups.</p>
+<h3 id="block-storage">Block storage</h3>
+<p>This node contains the disks</p>
+<p>Traffic between this node and compute nodes uses the management network. It is recommended for production setups to have a dedicated storage network to increase performance and security.</p>
+<h2 id="openstack-services">OpenStack services</h2>
+<h3 id="nova">Nova</h3>
+<p>Nova is the service for handling Virtual machines on hosts. Under the hood it uses KVM (<code>virsh</code>), a linux hypervisor built into a kernel module. So from a host running Nova, you can run <code>virsh list</code> to view the active VMs on that host.</p></p>
     </article>
 </section>
 <!-- endblock -->
@@ -169,13 +182,13 @@
                     <!-- block preview -->
     <div class="preview row row-cols-md-3 text-center pt-md-3" id="component-preview">
         <div class="col themed-grid-col">
-            <a rel="prev" class="nav-link disabled">
+            <a rel="prev" href="../openstack_networking/" class="nav-link">
                 <i class="fa fa-arrow-left"></i> Previous
             </a>
         </div>
         <div class="col themed-grid-col"></div>
         <div class="col themed-grid-col">
-            <a rel="next" href="electrical/uk_qualification_requirements/" class="nav-link">
+            <a rel="next" class="nav-link disabled">
                 Next <i class="fa fa-arrow-right"></i>
             </a>
         </div>
@@ -205,10 +218,10 @@
             
         </div>
 
-            <script>var base_url = '.';</script>
-            <script src="assets/js/jquery-3.3.1.slim.min.js""></script>
-            <script src="assets/js/bootstrap.bundle.min.js""></script>
-            <script src="assets/js/main.min.js""></script>
+            <script>var base_url = '../..';</script>
+            <script src="../../assets/js/jquery-3.3.1.slim.min.js""></script>
+            <script src="../../assets/js/bootstrap.bundle.min.js""></script>
+            <script src="../../assets/js/main.min.js""></script>
 
     </body>
 
