@@ -1,7 +1,7 @@
 <!doctype html>
 <html data-bs-theme="">
     <head>
-                <title>Wip understanding voip - AWNET</title>
+                <title>Service Deployment with Kayobe - AWNET</title>
 
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -80,6 +80,11 @@
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
+        <a href="../../networking/mclag/" class="dropdown-item text-decoration-none ">What is MCLAG?</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
         <a href="../../networking/networking_terminology/" class="dropdown-item text-decoration-none ">Networking terminology</a>
     </li>
 <!-- endblock -->
@@ -91,27 +96,37 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="
+                            <a class=" active 
                             nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Operations]</a>
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../operations/ceph_deployment/" class="dropdown-item text-decoration-none ">Ceph deployment</a>
+        <a href="../ceph_deployment/" class="dropdown-item text-decoration-none ">Deploying a Ceph Cluster with cephadm</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../operations/ceph_storage_systems/" class="dropdown-item text-decoration-none ">Ceph storage systems</a>
+        <a href="../ceph_storage_systems/" class="dropdown-item text-decoration-none ">Ceph storage systems</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../operations/openstack_networking/" class="dropdown-item text-decoration-none ">Openstack networking</a>
+        <a href="../ceph_terminology/" class="dropdown-item text-decoration-none ">Ceph terminology</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../operations/openstack_setup/" class="dropdown-item text-decoration-none ">Openstack setup</a>
+        <a href="./" class="dropdown-item text-decoration-none  active ">Service Deployment with Kayobe</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../openstack_networking/" class="dropdown-item text-decoration-none ">Openstack networking</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../openstack_setup/" class="dropdown-item text-decoration-none ">Openstack setup</a>
     </li>
 <!-- endblock -->
                             </ul>
@@ -154,10 +169,35 @@
     <article>
         <header>
             
-                <h1 class=" title" id="component-title">Wip understanding voip</h1>
+                <h1 class=" title" id="component-title">Service Deployment with Kayobe</h1>
             
         </header>
-        <p></p>
+        <p><h1 id="service-deployment-with-kayobe">Service Deployment with Kayobe</h1>
+<p>Openstack can be deployed in a number of ways. A popular tool for deployment is Kayobe which deploys the Openstack services to machines as docker containers.</p>
+<p>Kayobe uses kolla-ansible to automate the deployment of Openstack services.</p>
+<h2 id="kayobe">Kayobe</h2>
+<pre><code># Configure Seed hypervisor
+kayobe seed hypervisor host configure
+
+# Configure a Seed host
+kayobe seed host configure
+
+# Configure an overcloud host
+kayobe overcloud host configure
+</code></pre>
+<p>Kayobe has global configuration for each of these type of hosts under $KAYOBE_CONFIG_PATH. The configuration files names represent the host type.</p>
+<pre><code>seed.yml
+controller.yml
+compute.yml
+</code></pre>
+<h2 id="service-deployment">Service Deployment</h2>
+<p>With the Kayobe host configured, the services can be deployed.</p>
+<pre><code># Deploy services for seed host
+kayobe seed service deploy
+
+# Deploy services for overcloud hosts
+kayobe overcloud service deploy
+</code></pre></p>
     </article>
 </section>
 <!-- endblock -->
@@ -169,13 +209,13 @@
                     <!-- block preview -->
     <div class="preview row row-cols-md-3 text-center pt-md-3" id="component-preview">
         <div class="col themed-grid-col">
-            <a rel="prev" href="../wip_routing_protocols/" class="nav-link">
+            <a rel="prev" href="../ceph_terminology/" class="nav-link">
                 <i class="fa fa-arrow-left"></i> Previous
             </a>
         </div>
         <div class="col themed-grid-col"></div>
         <div class="col themed-grid-col">
-            <a rel="next" href="../wip_useful_networking_tools/" class="nav-link">
+            <a rel="next" href="../openstack_networking/" class="nav-link">
                 Next <i class="fa fa-arrow-right"></i>
             </a>
         </div>

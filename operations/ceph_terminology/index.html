@@ -1,7 +1,7 @@
 <!doctype html>
 <html data-bs-theme="">
     <head>
-                <title>OSPF - AWNET</title>
+                <title>Ceph terminology - AWNET</title>
 
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -80,6 +80,11 @@
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
+        <a href="../../networking/mclag/" class="dropdown-item text-decoration-none ">What is MCLAG?</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
         <a href="../../networking/networking_terminology/" class="dropdown-item text-decoration-none ">Networking terminology</a>
     </li>
 <!-- endblock -->
@@ -91,27 +96,37 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="
+                            <a class=" active 
                             nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Operations]</a>
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../operations/ceph_deployment/" class="dropdown-item text-decoration-none ">Ceph deployment</a>
+        <a href="../ceph_deployment/" class="dropdown-item text-decoration-none ">Deploying a Ceph Cluster with cephadm</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../operations/ceph_storage_systems/" class="dropdown-item text-decoration-none ">Ceph storage systems</a>
+        <a href="../ceph_storage_systems/" class="dropdown-item text-decoration-none ">Ceph storage systems</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../operations/openstack_networking/" class="dropdown-item text-decoration-none ">Openstack networking</a>
+        <a href="./" class="dropdown-item text-decoration-none  active ">Ceph terminology</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../operations/openstack_setup/" class="dropdown-item text-decoration-none ">Openstack setup</a>
+        <a href="../openstack_kolla_deployment/" class="dropdown-item text-decoration-none ">Service Deployment with Kayobe</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../openstack_networking/" class="dropdown-item text-decoration-none ">Openstack networking</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../openstack_setup/" class="dropdown-item text-decoration-none ">Openstack setup</a>
     </li>
 <!-- endblock -->
                             </ul>
@@ -154,11 +169,46 @@
     <article>
         <header>
             
-                <h1 class=" title" id="component-title">OSPF</h1>
+                <h1 class=" title" id="component-title">Ceph terminology</h1>
             
         </header>
-        <p><h1 id="ospf">OSPF</h1>
-<h1 id="rip">RIP</h1></p>
+        <p><h2 id="crush">CRUSH</h2>
+<p>CRUSH controls where and how the data is stored in a Ceph cluster. It also enables mass scalability to distributing the work across the clients in the cluster.</p>
+<p>A Ceph client will be running LIBRADOS which will run the object through CRUSH. This produces the destination OSDs for the data to be stored.</p>
+<p>CRUSH rules are assigned to a pool so objects stored as part of that pool are allocated specific OSDs to be stored on.</p>
+<p>The CRUSH rules assigned to specific OSDs can be viewed with one of the following commands:</p>
+<pre><code>ceph osd pool ls detail
+ceph osd pool get POOL_NAME crush_rule
+</code></pre>
+<h2 id="placement-groups">Placement Groups</h2>
+<p>Ceph can allocate OSDs to a "pool" which can be allocated for specific types of data. When pools are created, it also creates a set of PGs. </p>
+<p>PGs are identified with the format of <code>POOL_ID.PG_ID</code> where the PG ID is a hexidecimal number. Each of these PGs map to a random set of OSDs which can be viewed by running the command <code>ceph pg map $PG_ID</code>.</p>
+<p>Data is always stored as an object, so the file is split into objects to be stored into placement groups.</p>
+<p>The overall object is assigned to a pool of disks, whereas the split up objects are assigned placement groups which are assigned to specific disks. The placement group ensures that the replicated data is not stored on the same disk.</p>
+<p>Further crush rules can be configured to ensure replicas are stored on different hosts in the cluster, or different racks in the datacenter.</p>
+<p>It is possible to see th replicas of a placement group with the below command:</p>
+<pre><code>ceph pg map $PG_ID
+</code></pre>
+<p>Placement groups should preferably be in an active and clean state. The state can checked with:</p>
+<pre><code>ceph pg stat
+</code></pre>
+<h2 id="protecetion-mechanisms">Protecetion Mechanisms</h2>
+<h3 id="replication">Replication</h3>
+<p>Replication will replicate an object X times. It will be sent to 3 different placement groups on 3 different OSDs.</p>
+<p>When sending the data, the object will only be sent once (to th primary OSD). The primary OSD will then replicate the file accordingly to other OSDs.</p>
+<p>The maximum usable storage of a Ceph cluster will depend on the replication configuration. If replication is set to 3 on a 100TB cluster, only 33.3TB will be usable.</p>
+<h3 id="erasure-encoding">Erasure Encoding</h3>
+<p>A file is split into X chunks and is appended with Y encoding chunks. Both of these sets of chunks are written to OSDs. The Y value is recommended to be 2 or more to prevent data loss, this provides redundancy in the event of a OSD failure.</p>
+<p>There is a lot more overhead for writing and reading this type of data, but much more space efficient.</p>
+<p>Pools can be configured with ECP with the following command:</p>
+<pre><code>ceph osd pool create NAME erasure
+</code></pre>
+<p>The Erasure code profile can be seen with:</p>
+<pre><code>ceph osd erasure-code-profile get default
+</code></pre>
+<p>To understand the overhead associated with the k/m values of the profile, see the ceph docs: https://docs.ceph.com/en/reef/rados/operations/erasure-code/#erasure-coded-pool-overhead</p>
+<h2 id="applications">Applications</h2>
+<p>Applications refer to the client usage of a Ceph pool.</p></p>
     </article>
 </section>
 <!-- endblock -->
@@ -170,13 +220,13 @@
                     <!-- block preview -->
     <div class="preview row row-cols-md-3 text-center pt-md-3" id="component-preview">
         <div class="col themed-grid-col">
-            <a rel="prev" href="../protective_devices/" class="nav-link">
+            <a rel="prev" href="../ceph_storage_systems/" class="nav-link">
                 <i class="fa fa-arrow-left"></i> Previous
             </a>
         </div>
         <div class="col themed-grid-col"></div>
         <div class="col themed-grid-col">
-            <a rel="next" href="../wip_understanding_voip/" class="nav-link">
+            <a rel="next" href="../openstack_kolla_deployment/" class="nav-link">
                 Next <i class="fa fa-arrow-right"></i>
             </a>
         </div>

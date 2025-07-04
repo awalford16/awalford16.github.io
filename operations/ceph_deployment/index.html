@@ -1,7 +1,7 @@
 <!doctype html>
 <html data-bs-theme="">
     <head>
-                <title>Ceph deployment - AWNET</title>
+                <title>Deploying a Ceph Cluster with cephadm - AWNET</title>
 
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -80,6 +80,11 @@
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
+        <a href="../../networking/mclag/" class="dropdown-item text-decoration-none ">What is MCLAG?</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
         <a href="../../networking/networking_terminology/" class="dropdown-item text-decoration-none ">Networking terminology</a>
     </li>
 <!-- endblock -->
@@ -96,12 +101,22 @@
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="./" class="dropdown-item text-decoration-none  active ">Ceph deployment</a>
+        <a href="./" class="dropdown-item text-decoration-none  active ">Deploying a Ceph Cluster with cephadm</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
         <a href="../ceph_storage_systems/" class="dropdown-item text-decoration-none ">Ceph storage systems</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../ceph_terminology/" class="dropdown-item text-decoration-none ">Ceph terminology</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../openstack_kolla_deployment/" class="dropdown-item text-decoration-none ">Service Deployment with Kayobe</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
@@ -154,10 +169,11 @@
     <article>
         <header>
             
-                <h1 class=" title" id="component-title">Ceph deployment</h1>
+                <h1 class=" title" id="component-title">Deploying a Ceph Cluster with cephadm</h1>
             
         </header>
-        <p><h2 id="host-setup">Host Setup</h2>
+        <p><h1 id="deploying-a-ceph-cluster-with-cephadm">Deploying a Ceph Cluster with cephadm</h1>
+<h2 id="host-setup">Host Setup</h2>
 <p>For a Ceph cluster you require a minimum of 3 hosts. This setup was done using Rocky Linux 9 so commands used here will only work with a CentOS distro.</p>
 <p>The primary host will need to have SSH access to all other hosts in the Ceph cluster.</p>
 <p>All hosts need to have <code>podman</code> and <code>lvm2</code> installed:</p>
@@ -173,6 +189,9 @@ dnf install --assumeyes cephadm
 <pre><code>cephadm bootstrap --mon-ip=MONITOR_IP
 </code></pre>
 <h2 id="add-hosts-to-cluster">Add Hosts to Cluster</h2>
+<p>Firstly, the public key generated for the Ceph cluster needs to be shared to the other cluster hosts:</p>
+<pre><code>ssh-copy-id -f -i /etc/ceph/ceph.pub root@$HOST_IP
+</code></pre>
 <p>From the primary host, run the following commands to add a new host to the Ceph cluster:</p>
 <pre><code>cephadm shell
 ceph orch host add ceph-X $HOST_IP
@@ -187,7 +206,7 @@ ceph orch host add ceph-X $HOST_IP
 <h2 id="object-storage-daemon">Object Storage Daemon</h2>
 <p>The Ceph OSD is deployed on Ceph cluster hosts to manage block storage devices.</p>
 <p>The below command will show what devices are available from what hosts:</p>
-<pre><code>ceph orch device ls
+<pre><code>ceph orch device ls --refresh
 
 ##########################################################################################################################################################
 HOST    PATH      TYPE  DEVICE ID                                                 SIZE  AVAILABLE  REFRESHED  REJECT REASONS
@@ -205,6 +224,17 @@ ceph-3  /dev/sr0  hdd   QEMU_DVD-ROM_QM00003                                    
 # Alternatively target specific device
 ceph orch daemon add osd ceph-1:/dev/sdb
 </code></pre>
+<p>You can be even more granular with the OSD specifications using the Ceph orchestrator. Below is an example of a yaml file which specifies to use spinning disks for the OSD and the Bluestore database to be configured on SSD.</p>
+<pre><code class="language-yaml">service_type: osd
+service_id: osd_all
+placement:
+  host_pattern: ceph-0
+data_devices:
+  rotational: 1
+db_devices:
+  rotational: 0
+</code></pre>
+<p>This will deploy a new orch service which</p>
 <p>A new OSD daemon conatiner will be visible under the podman running containers. Once they have registered, the storage should be visible on the cluster:</p>
 <pre><code>[ceph: root@ceph-1 /]# ceph status
   cluster:

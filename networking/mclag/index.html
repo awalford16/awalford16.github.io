@@ -1,7 +1,7 @@
 <!doctype html>
 <html data-bs-theme="">
     <head>
-                <title>Protective devices - AWNET</title>
+                <title>What is MCLAG? - AWNET</title>
 
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -70,22 +70,27 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="
+                            <a class=" active 
                             nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Networking]</a>
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../networking/hybrid_cloud_networking_to_azure/" class="dropdown-item text-decoration-none ">Hybrid cloud networking to azure</a>
+        <a href="../hybrid_cloud_networking_to_azure/" class="dropdown-item text-decoration-none ">Hybrid cloud networking to azure</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../networking/networking_terminology/" class="dropdown-item text-decoration-none ">Networking terminology</a>
+        <a href="./" class="dropdown-item text-decoration-none  active ">What is MCLAG?</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../networking/vxlan/" class="dropdown-item text-decoration-none ">Understanding VXLAN</a>
+        <a href="../networking_terminology/" class="dropdown-item text-decoration-none ">Networking terminology</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../vxlan/" class="dropdown-item text-decoration-none ">Understanding VXLAN</a>
     </li>
 <!-- endblock -->
                             </ul>
@@ -96,12 +101,22 @@
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../operations/ceph_deployment/" class="dropdown-item text-decoration-none ">Ceph deployment</a>
+        <a href="../../operations/ceph_deployment/" class="dropdown-item text-decoration-none ">Deploying a Ceph Cluster with cephadm</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
         <a href="../../operations/ceph_storage_systems/" class="dropdown-item text-decoration-none ">Ceph storage systems</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../operations/ceph_terminology/" class="dropdown-item text-decoration-none ">Ceph terminology</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../operations/openstack_kolla_deployment/" class="dropdown-item text-decoration-none ">Service Deployment with Kayobe</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
@@ -154,10 +169,35 @@
     <article>
         <header>
             
-                <h1 class=" title" id="component-title">Protective devices</h1>
+                <h1 class=" title" id="component-title">What is MCLAG?</h1>
             
         </header>
-        <p></p>
+        <p><h1 id="what-is-mclag">What is MCLAG?</h1>
+<p>Link aggregation provides load balancing across two physical links between 2 devices.</p>
+<p>Multi-Chassis Link Aggregation Groups allow for a single leaf switch to be connected to two spine switches via a single LAG connection.</p>
+<p>This eliminates the need for Spanning Tree protocol to block ports and make use of all connections between switches.</p>
+<p>The approach is also very scalable, since new spine switches can be added to existing LAGs.</p>
+<h1 id="how-to-configure-mclag">How to configure MCLAG</h1>
+<p>The commands below are for Dell SONiC switches.</p>
+<h2 id="create-a-lag">Create a LAG</h2>
+<p>Firstly, a LAG needs to be setup on each of the switches</p>
+<pre><code>interface PortChannel X
+switchport trunk allowed vlan $VLAN_ID
+</code></pre>
+<h2 id="create-an-mclag-domain">Create an MCLAG Domain</h2>
+<p>For each member of the MCLAG, they need to be registered to the MCLAG domain. A switch can only support one MCLAG domain.</p>
+<pre><code>mclag domain $ID
+peer-link $INTERFACE
+</code></pre>
+<p>The peer link refers to the interface port or port channel which links the spine switches.</p>
+<p>A keepalive link connects MCLAG peer switches to carry out periodic heatbeat messages. This should be configured on each of the peer switches (e.g. spine switches) used.</p>
+<pre><code>source-ip $PEER1_IP
+peer-ip $PEER2-IP
+</code></pre>
+<p>Finally, the port channel interface needs to be added to the MCLAG</p>
+<pre><code>interface PortChannel X
+mclag $ID
+</code></pre></p>
     </article>
 </section>
 <!-- endblock -->
@@ -169,13 +209,13 @@
                     <!-- block preview -->
     <div class="preview row row-cols-md-3 text-center pt-md-3" id="component-preview">
         <div class="col themed-grid-col">
-            <a rel="prev" href="../openstack_services/" class="nav-link">
+            <a rel="prev" href="../hybrid_cloud_networking_to_azure/" class="nav-link">
                 <i class="fa fa-arrow-left"></i> Previous
             </a>
         </div>
         <div class="col themed-grid-col"></div>
         <div class="col themed-grid-col">
-            <a rel="next" href="../wip_routing_protocols/" class="nav-link">
+            <a rel="next" href="../networking_terminology/" class="nav-link">
                 Next <i class="fa fa-arrow-right"></i>
             </a>
         </div>
