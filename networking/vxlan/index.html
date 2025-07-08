@@ -1,7 +1,7 @@
 <!doctype html>
 <html data-bs-theme="">
     <head>
-                <title>Understanding VXLAN - AWNET</title>
+                <title>Vxlan - AWNET</title>
 
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -64,6 +64,11 @@
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
+        <a href="../../electrical/electrical_certificates/" class="dropdown-item text-decoration-none ">Electrical certificates</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
         <a href="../../electrical/uk_qualification_requirements/" class="dropdown-item text-decoration-none ">Uk qualification requirements</a>
     </li>
 <!-- endblock -->
@@ -90,7 +95,7 @@
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="./" class="dropdown-item text-decoration-none  active ">Understanding VXLAN</a>
+        <a href="./" class="dropdown-item text-decoration-none  active ">Vxlan</a>
     </li>
 <!-- endblock -->
                             </ul>
@@ -169,12 +174,12 @@
     <article>
         <header>
             
-                <h1 class=" title" id="component-title">Understanding VXLAN</h1>
+                <h1 class=" title" id="component-title">Vxlan</h1>
             
         </header>
-        <p><h1 id="understanding-vxlan">Understanding VXLAN</h1>
+        <p><h2 id="what-is-vxlan">What is VXLAN?</h2>
 <p>VXLAN uses UDP port 4789</p>
-<p>In a physical network (underlay network) setup, the network may be segmented by multiple s"ubnets which require layer 3 routing to route between hosts. This is not ideal in cloud solutions when virtual machines are deployed in the same virtual network but deployed to hosts in separate underlay networks.</p>
+<p>In a physical network (underlay network) setup, the network may be segmented by multiple subnets which require layer 3 routing to route between hosts. This is not ideal in cloud solutions when virtual machines are deployed in the same virtual network but deployed to hosts in separate underlay networks.</p>
 <p>VXLAN is an overlay network designed so that virtual machines on hosts in two different subnets can talk to each other from what appears to be layer 2. This is achieved with virtual switches running on the hypervisor which encapsulates the layer 2 packets with information that allows it to traverse the layer 3 network between hypervisor hosts.</p>
 <h2 id="overlay-networking">Overlay Networking</h2>
 <p>The only requirement for overlay networking, is that the 2 physical hosts can reach each other on the physical network.</p>
