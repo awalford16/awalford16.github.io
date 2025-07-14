@@ -121,6 +121,11 @@
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
+        <a href="../openstack_ironic_states/" class="dropdown-item text-decoration-none ">Openstack ironic states</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
         <a href="../openstack_kolla_deployment/" class="dropdown-item text-decoration-none ">Service Deployment with Kayobe</a>
     </li>
 <!-- endblock -->
@@ -182,11 +187,12 @@
 <p>A Ceph client will be running LIBRADOS which will run the object through CRUSH. This produces the destination OSDs for the data to be stored.</p>
 <p>CRUSH rules are assigned to a pool so objects stored as part of that pool are allocated specific OSDs to be stored on.</p>
 <p>The CRUSH rules assigned to specific OSDs can be viewed with one of the following commands:</p>
-<pre><code>ceph osd pool ls detail
+<pre><code>ceph osd crush rule ls
+ceph osd pool ls detail
 ceph osd pool get POOL_NAME crush_rule
 </code></pre>
 <h2 id="placement-groups">Placement Groups</h2>
-<p>Ceph can allocate OSDs to a "pool" which can be allocated for specific types of data. When pools are created, it also creates a set of PGs. </p>
+<p>Ceph can allocate OSDs to a "pool" which can be allocated for specific types of data. When pools are created, it also creates a set of PGs.</p>
 <p>PGs are identified with the format of <code>POOL_ID.PG_ID</code> where the PG ID is a hexidecimal number. Each of these PGs map to a random set of OSDs which can be viewed by running the command <code>ceph pg map $PG_ID</code>.</p>
 <p>Data is always stored as an object, so the file is split into objects to be stored into placement groups.</p>
 <p>The overall object is assigned to a pool of disks, whereas the split up objects are assigned placement groups which are assigned to specific disks. The placement group ensures that the replicated data is not stored on the same disk.</p>
@@ -197,7 +203,7 @@ ceph osd pool get POOL_NAME crush_rule
 <p>Placement groups should preferably be in an active and clean state. The state can checked with:</p>
 <pre><code>ceph pg stat
 </code></pre>
-<h2 id="protecetion-mechanisms">Protecetion Mechanisms</h2>
+<h2 id="protection-mechanisms">Protection Mechanisms</h2>
 <h3 id="replication">Replication</h3>
 <p>Replication will replicate an object X times. It will be sent to 3 different placement groups on 3 different OSDs.</p>
 <p>When sending the data, the object will only be sent once (to th primary OSD). The primary OSD will then replicate the file accordingly to other OSDs.</p>
@@ -213,7 +219,15 @@ ceph osd pool get POOL_NAME crush_rule
 </code></pre>
 <p>To understand the overhead associated with the k/m values of the profile, see the ceph docs: https://docs.ceph.com/en/reef/rados/operations/erasure-code/#erasure-coded-pool-overhead</p>
 <h2 id="applications">Applications</h2>
-<p>Applications refer to the client usage of a Ceph pool.</p></p>
+<p>Applications refer to the client usage of a Ceph pool. You can enable specific applications on pools such as object storage or block storage.</p>
+<pre><code># Enable block storage on ceph pool
+ceph osd pool application enable $POOL_NAME rbd
+</code></pre>
+<h2 id="cephfs-and-mds">CephFS and MDS</h2>
+<p>MDS is the filesystem daemon required to be running for <code>cephfs</code> to work. It stands for Metadata Server.</p>
+<p>CephFS setups require a metadata pool and a data pool when being configured</p>
+<h2 id="rgw">RGW</h2>
+<p>RGW stands for Rados Gateway.</p></p>
     </article>
 </section>
 <!-- endblock -->
@@ -231,7 +245,7 @@ ceph osd pool get POOL_NAME crush_rule
         </div>
         <div class="col themed-grid-col"></div>
         <div class="col themed-grid-col">
-            <a rel="next" href="../openstack_kolla_deployment/" class="nav-link">
+            <a rel="next" href="../openstack_ironic_states/" class="nav-link">
                 Next <i class="fa fa-arrow-right"></i>
             </a>
         </div>

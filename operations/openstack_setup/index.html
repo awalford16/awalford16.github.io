@@ -121,6 +121,11 @@
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
+        <a href="../openstack_ironic_states/" class="dropdown-item text-decoration-none ">Openstack ironic states</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
         <a href="../openstack_kolla_deployment/" class="dropdown-item text-decoration-none ">Service Deployment with Kayobe</a>
     </li>
 <!-- endblock -->
@@ -193,7 +198,8 @@
 <p>Nova is the service for handling Virtual machines on hosts. Under the hood it uses KVM (<code>virsh</code>), a linux hypervisor built into a kernel module. So from a host running Nova, you can run <code>virsh list</code> to view the active VMs on that host.</p>
 <h3 id="ironic">Ironic</h3>
 <p>Ironic is the service which manages the baremetal hosts within Openstack. New baremetal hosts are registered with the Ironic service.</p>
-<p>Ironic keeps track of the state of the host. See this diagram for more details: https://docs.openstack.org/ironic/latest/_images/states.svg</p>
+<p>Ironic keeps track of the state of the host. See this diagram for more details: https://docs.openstack.org/ironic/latest/_images/states.svg. Detail of the states is also provided in <a href="../openstack_ironic_states/">Openstack Ironic States</a></p>
+<p>You can manage baremetal nodes in Ironic with the <code>openstack baremetal node</code> CLI, which allows for a host to be transitioned through different states and be put into maintenance mode.</p>
 <p>Once a host is managed by Ironic, it will be viewable by the openstack admin using the command below:</p>
 <pre><code>openstack baremetal node list
 </code></pre></p>
