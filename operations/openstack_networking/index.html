@@ -64,12 +64,12 @@
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../electrical/electrical_certificates/" class="dropdown-item text-decoration-none ">Electrical certificates</a>
+        <a href="../../electrical/UK_Qualification_Requirements/" class="dropdown-item text-decoration-none ">UK Qualification Requirements</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../electrical/uk_qualification_requirements/" class="dropdown-item text-decoration-none ">Uk qualification requirements</a>
+        <a href="../../electrical/electrical_certificates/" class="dropdown-item text-decoration-none ">Electrical certificates</a>
     </li>
 <!-- endblock -->
                             </ul>
@@ -217,7 +217,10 @@
 <p>Self-service networks use segmentation methods such as VXLAN and routes virtual networks to physical networks using NAT.</p>
 <p>Using the benefits and dynamic approach of VXLAN, users can create their own virtual networks without needing to rely on changes to the underlying physical network.</p>
 <h2 id="open-vswitch">Open VSwitch</h2>
-<p>When deploying Openstack with Kolla, each host will get an <code>openvswitch-vswitchd</code> container deployed. This is responsible for running OpenVSwitch and handling bridge networking across the virtual machines deployed on the host.</p></p>
+<p>When deploying Openstack with Kolla, each host will get an <code>openvswitch-vswitchd</code> container deployed. This is responsible for running OpenVSwitch and handling bridge networking across the virtual machines deployed on the host.</p>
+<h2 id="network-automation-during-enroll">Network Automation during Enroll</h2>
+<p>As a baremetal host transitions through different states such as cleaning, inspection and provisioning, openstack can be configured to automatically configure the leaf switches to update switch ports to the appropriate VLAN required for PXE booting.</p>
+<p>This is handled using Netmiko, a Python-based tool used for automating the configuration of switches. In particular, openstack <a href="https://github.com/openstack/networking-generic-switch">network-generic-switch</a> which is a wrapping layer between Openstack and Netmiko.</p></p>
     </article>
 </section>
 <!-- endblock -->
