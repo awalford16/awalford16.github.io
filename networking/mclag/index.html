@@ -1,7 +1,7 @@
 <!doctype html>
 <html data-bs-theme="">
     <head>
-                <title>What is MCLAG? - AWNET</title>
+                <title>MCLAG - AWNET</title>
 
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -80,17 +80,22 @@
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
+        <a href="./" class="dropdown-item text-decoration-none  active ">MCLAG</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
         <a href="../hybrid_cloud_networking_to_azure/" class="dropdown-item text-decoration-none ">Hybrid cloud networking to azure</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="./" class="dropdown-item text-decoration-none  active ">What is MCLAG?</a>
+        <a href="../networking_terminology/" class="dropdown-item text-decoration-none ">Networking terminology</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../networking_terminology/" class="dropdown-item text-decoration-none ">Networking terminology</a>
+        <a href="../spanning_tree/" class="dropdown-item text-decoration-none ">Spanning tree</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
@@ -106,32 +111,12 @@
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../operations/ceph_deployment/" class="dropdown-item text-decoration-none ">Deploying a Ceph Cluster with cephadm</a>
-    </li>
-<!-- endblock -->
-                                    <!-- block dropdown-menu -->
-    <li>
-        <a href="../../operations/ceph_storage_systems/" class="dropdown-item text-decoration-none ">Ceph storage systems</a>
-    </li>
-<!-- endblock -->
-                                    <!-- block dropdown-menu -->
-    <li>
-        <a href="../../operations/ceph_terminology/" class="dropdown-item text-decoration-none ">Ceph terminology</a>
-    </li>
-<!-- endblock -->
-                                    <!-- block dropdown-menu -->
-    <li>
-        <a href="../../operations/lustre_overview/" class="dropdown-item text-decoration-none ">Lustre overview</a>
-    </li>
-<!-- endblock -->
-                                    <!-- block dropdown-menu -->
-    <li>
         <a href="../../operations/openstack_ironic_states/" class="dropdown-item text-decoration-none ">Openstack ironic states</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../operations/openstack_kolla_deployment/" class="dropdown-item text-decoration-none ">Service Deployment with Kayobe</a>
+        <a href="../../operations/openstack_kolla_deployment/" class="dropdown-item text-decoration-none ">Openstack kolla deployment</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
@@ -144,9 +129,51 @@
         <a href="../../operations/openstack_setup/" class="dropdown-item text-decoration-none ">Openstack setup</a>
     </li>
 <!-- endblock -->
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="
+                            nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Storage]</a>
+                            <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../operations/zfs_terminology/" class="dropdown-item text-decoration-none ">Zfs terminology</a>
+        <a href="../../storage/ceph_deployment/" class="dropdown-item text-decoration-none ">Deploying a Ceph Cluster with cephadm</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../storage/ceph_storage_systems/" class="dropdown-item text-decoration-none ">Ceph storage systems</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../storage/ceph_terminology/" class="dropdown-item text-decoration-none ">Ceph terminology</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../storage/linux_storage_commands/" class="dropdown-item text-decoration-none ">Linux storage commands</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../storage/lustre_overview/" class="dropdown-item text-decoration-none ">Lustre overview</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../storage/zfs_terminology/" class="dropdown-item text-decoration-none ">Zfs terminology</a>
+    </li>
+<!-- endblock -->
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="
+                            nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Wip]</a>
+                            <ul class="dropdown-menu">
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../wip/n8n_on_premise/" class="dropdown-item text-decoration-none ">N8n on premise</a>
     </li>
 <!-- endblock -->
                             </ul>
@@ -189,22 +216,21 @@
     <article>
         <header>
             
-                <h1 class=" title" id="component-title">What is MCLAG?</h1>
+                <h1 class=" title" id="component-title">MCLAG</h1>
             
         </header>
-        <p><h1 id="what-is-mclag">What is MCLAG?</h1>
+        <p><h2 id="what-is-mclag">What is MCLAG?</h2>
 <p>Link aggregation provides load balancing across two physical links between 2 devices.</p>
-<p>Multi-Chassis Link Aggregation Groups allow for a single leaf switch to be connected to two spine switches via a single LAG connection.</p>
+<p>Multi-Chassis Link Aggregation Groups allow for a single leaf switch to be connected to two spine switches via a single LAG connection, treating it as a single spine switch to prevent L2 loops, providing redundancy.</p>
 <p>This eliminates the need for Spanning Tree protocol to block ports and make use of all connections between switches.</p>
-<p>The approach is also very scalable, since new spine switches can be added to existing LAGs.</p>
-<h1 id="how-to-configure-mclag">How to configure MCLAG</h1>
+<h2 id="how-to-configure-mclag">How to configure MCLAG</h2>
 <p>The commands below are for Dell SONiC switches.</p>
-<h2 id="create-a-lag">Create a LAG</h2>
+<h3 id="create-a-lag">Create a LAG</h3>
 <p>Firstly, a LAG needs to be setup on each of the switches</p>
 <pre><code>interface PortChannel X
 switchport trunk allowed vlan $VLAN_ID
 </code></pre>
-<h2 id="create-an-mclag-domain">Create an MCLAG Domain</h2>
+<h3 id="create-an-mclag-domain">Create an MCLAG Domain</h3>
 <p>For each member of the MCLAG, they need to be registered to the MCLAG domain. A switch can only support one MCLAG domain.</p>
 <pre><code>mclag domain $ID
 peer-link $INTERFACE
@@ -229,13 +255,13 @@ mclag $ID
                     <!-- block preview -->
     <div class="preview row row-cols-md-3 text-center pt-md-3" id="component-preview">
         <div class="col themed-grid-col">
-            <a rel="prev" href="../hybrid_cloud_networking_to_azure/" class="nav-link">
+            <a rel="prev" href="../../electrical/uk_qualification_requirements/" class="nav-link">
                 <i class="fa fa-arrow-left"></i> Previous
             </a>
         </div>
         <div class="col themed-grid-col"></div>
         <div class="col themed-grid-col">
-            <a rel="next" href="../networking_terminology/" class="nav-link">
+            <a rel="next" href="../hybrid_cloud_networking_to_azure/" class="nav-link">
                 Next <i class="fa fa-arrow-right"></i>
             </a>
         </div>

@@ -80,17 +80,22 @@
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
+        <a href="../MCLAG/" class="dropdown-item text-decoration-none ">MCLAG</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
         <a href="../hybrid_cloud_networking_to_azure/" class="dropdown-item text-decoration-none ">Hybrid cloud networking to azure</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../mclag/" class="dropdown-item text-decoration-none ">What is MCLAG?</a>
+        <a href="./" class="dropdown-item text-decoration-none  active ">Networking terminology</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="./" class="dropdown-item text-decoration-none  active ">Networking terminology</a>
+        <a href="../spanning_tree/" class="dropdown-item text-decoration-none ">Spanning tree</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
@@ -106,32 +111,12 @@
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../operations/ceph_deployment/" class="dropdown-item text-decoration-none ">Deploying a Ceph Cluster with cephadm</a>
-    </li>
-<!-- endblock -->
-                                    <!-- block dropdown-menu -->
-    <li>
-        <a href="../../operations/ceph_storage_systems/" class="dropdown-item text-decoration-none ">Ceph storage systems</a>
-    </li>
-<!-- endblock -->
-                                    <!-- block dropdown-menu -->
-    <li>
-        <a href="../../operations/ceph_terminology/" class="dropdown-item text-decoration-none ">Ceph terminology</a>
-    </li>
-<!-- endblock -->
-                                    <!-- block dropdown-menu -->
-    <li>
-        <a href="../../operations/lustre_overview/" class="dropdown-item text-decoration-none ">Lustre overview</a>
-    </li>
-<!-- endblock -->
-                                    <!-- block dropdown-menu -->
-    <li>
         <a href="../../operations/openstack_ironic_states/" class="dropdown-item text-decoration-none ">Openstack ironic states</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../operations/openstack_kolla_deployment/" class="dropdown-item text-decoration-none ">Service Deployment with Kayobe</a>
+        <a href="../../operations/openstack_kolla_deployment/" class="dropdown-item text-decoration-none ">Openstack kolla deployment</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
@@ -144,9 +129,51 @@
         <a href="../../operations/openstack_setup/" class="dropdown-item text-decoration-none ">Openstack setup</a>
     </li>
 <!-- endblock -->
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="
+                            nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Storage]</a>
+                            <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../operations/zfs_terminology/" class="dropdown-item text-decoration-none ">Zfs terminology</a>
+        <a href="../../storage/ceph_deployment/" class="dropdown-item text-decoration-none ">Deploying a Ceph Cluster with cephadm</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../storage/ceph_storage_systems/" class="dropdown-item text-decoration-none ">Ceph storage systems</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../storage/ceph_terminology/" class="dropdown-item text-decoration-none ">Ceph terminology</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../storage/linux_storage_commands/" class="dropdown-item text-decoration-none ">Linux storage commands</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../storage/lustre_overview/" class="dropdown-item text-decoration-none ">Lustre overview</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../storage/zfs_terminology/" class="dropdown-item text-decoration-none ">Zfs terminology</a>
+    </li>
+<!-- endblock -->
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="
+                            nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Wip]</a>
+                            <ul class="dropdown-menu">
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../wip/n8n_on_premise/" class="dropdown-item text-decoration-none ">N8n on premise</a>
     </li>
 <!-- endblock -->
                             </ul>
@@ -193,12 +220,14 @@
             
         </header>
         <p><h2 id="arp">ARP</h2>
-<p>Address Resolution Protocol is an protocol for discovering devices on the local network. A device will send a broadcast message out asking for a device with a particular IP address. This broadcast will reach every device on the layer 2 network. The device that has that IP address will respond to the ARP request with its MAC address. </p>
+<p>Address Resolution Protocol is an protocol for discovering devices on the local network. A device will send a broadcast message out asking for a device with a particular IP address. This broadcast will reach every device on the layer 2 network. The device that has that IP address will respond to the ARP request with its MAC address.</p>
 <p>ARP packets are sent when a device does not know how to reach another device on the same network. Once ARP is successful the device will no longer need to send ARP requests everytime it needs to route to that device, it knows the target MAC address and can route the reqeust accordingly.</p>
-<p>Devices will then build ARP tables, keeping track of the MAC address of particular devices. </p>
+<p>Devices will then build ARP tables, keeping track of the MAC address of particular devices.</p>
 <pre><code># Show MAC Address table on mac or linux
 arp -a
 </code></pre>
+<h2 id="gratuitous-arp">Gratuitous ARP</h2>
+<p>Gratuitous ARP works in the opposite direction to ARP. Instead of waiting for a device to ask for an IP address, a device broadcasts its IP address across the network.</p>
 <h2 id="broadcast">Broadcast</h2>
 <p>A broadcast message is a network packet send out to every device on the network. When it reaches a network device like a switch, the packet is sent out of every port in the same VLAN.</p>
 <h2 id="default-gateway">Default Gateway</h2>
@@ -236,13 +265,13 @@ arp -a
                     <!-- block preview -->
     <div class="preview row row-cols-md-3 text-center pt-md-3" id="component-preview">
         <div class="col themed-grid-col">
-            <a rel="prev" href="../mclag/" class="nav-link">
+            <a rel="prev" href="../hybrid_cloud_networking_to_azure/" class="nav-link">
                 <i class="fa fa-arrow-left"></i> Previous
             </a>
         </div>
         <div class="col themed-grid-col"></div>
         <div class="col themed-grid-col">
-            <a rel="next" href="../vxlan/" class="nav-link">
+            <a rel="next" href="../spanning_tree/" class="nav-link">
                 Next <i class="fa fa-arrow-right"></i>
             </a>
         </div>

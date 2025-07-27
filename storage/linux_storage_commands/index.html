@@ -1,7 +1,7 @@
 <!doctype html>
 <html data-bs-theme="">
     <head>
-                <title>Lustre overview - AWNET</title>
+                <title>Linux storage commands - AWNET</title>
 
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -80,17 +80,22 @@
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
+        <a href="../../networking/MCLAG/" class="dropdown-item text-decoration-none ">MCLAG</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
         <a href="../../networking/hybrid_cloud_networking_to_azure/" class="dropdown-item text-decoration-none ">Hybrid cloud networking to azure</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../networking/mclag/" class="dropdown-item text-decoration-none ">What is MCLAG?</a>
+        <a href="../../networking/networking_terminology/" class="dropdown-item text-decoration-none ">Networking terminology</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../networking/networking_terminology/" class="dropdown-item text-decoration-none ">Networking terminology</a>
+        <a href="../../networking/spanning_tree/" class="dropdown-item text-decoration-none ">Spanning tree</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
@@ -101,8 +106,34 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class=" active 
+                            <a class="
                             nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Operations]</a>
+                            <ul class="dropdown-menu">
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../operations/openstack_ironic_states/" class="dropdown-item text-decoration-none ">Openstack ironic states</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../operations/openstack_kolla_deployment/" class="dropdown-item text-decoration-none ">Openstack kolla deployment</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../operations/openstack_networking/" class="dropdown-item text-decoration-none ">Openstack networking</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../operations/openstack_setup/" class="dropdown-item text-decoration-none ">Openstack setup</a>
+    </li>
+<!-- endblock -->
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class=" active 
+                            nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Storage]</a>
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
@@ -121,32 +152,28 @@
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="./" class="dropdown-item text-decoration-none  active ">Lustre overview</a>
+        <a href="./" class="dropdown-item text-decoration-none  active ">Linux storage commands</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../openstack_ironic_states/" class="dropdown-item text-decoration-none ">Openstack ironic states</a>
-    </li>
-<!-- endblock -->
-                                    <!-- block dropdown-menu -->
-    <li>
-        <a href="../openstack_kolla_deployment/" class="dropdown-item text-decoration-none ">Service Deployment with Kayobe</a>
-    </li>
-<!-- endblock -->
-                                    <!-- block dropdown-menu -->
-    <li>
-        <a href="../openstack_networking/" class="dropdown-item text-decoration-none ">Openstack networking</a>
-    </li>
-<!-- endblock -->
-                                    <!-- block dropdown-menu -->
-    <li>
-        <a href="../openstack_setup/" class="dropdown-item text-decoration-none ">Openstack setup</a>
+        <a href="../lustre_overview/" class="dropdown-item text-decoration-none ">Lustre overview</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
         <a href="../zfs_terminology/" class="dropdown-item text-decoration-none ">Zfs terminology</a>
+    </li>
+<!-- endblock -->
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="
+                            nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Wip]</a>
+                            <ul class="dropdown-menu">
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../wip/n8n_on_premise/" class="dropdown-item text-decoration-none ">N8n on premise</a>
     </li>
 <!-- endblock -->
                             </ul>
@@ -189,12 +216,22 @@
     <article>
         <header>
             
-                <h1 class=" title" id="component-title">Lustre overview</h1>
+                <h1 class=" title" id="component-title">Linux storage commands</h1>
             
         </header>
-        <p><h2 id="benefits-of-lustre">Benefits of Lustre</h2>
-<p>Lustre is a storage system primarily used by HPC due to its high-bandwidth storage access.</p>
-<p>Lustre stripes data across multiple OSTs (Object Storage Targets). When accessing these OSTs, it can be done in parallel which helps reduce IO strain on a single machine.</p></p>
+        <p><pre><code># View storage consumption of disk/mounts
+df -h
+
+# View block storage devices
+lsblk
+
+# Generate a file of particular size
+# Reads from /dev/zero to generate a 0.5GB file full of 0s
+dd if=/dev/zero of=NAME bs=512M count=1
+
+# Check storage consumption recusively throughout a path
+ncdu -x $PATH
+</code></pre></p>
     </article>
 </section>
 <!-- endblock -->
@@ -212,7 +249,7 @@
         </div>
         <div class="col themed-grid-col"></div>
         <div class="col themed-grid-col">
-            <a rel="next" href="../openstack_ironic_states/" class="nav-link">
+            <a rel="next" href="../lustre_overview/" class="nav-link">
                 Next <i class="fa fa-arrow-right"></i>
             </a>
         </div>
