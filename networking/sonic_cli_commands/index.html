@@ -1,7 +1,7 @@
 <!doctype html>
 <html data-bs-theme="">
     <head>
-                <title>Openstack ironic states - AWNET</title>
+                <title>Sonic cli commands - AWNET</title>
 
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -75,58 +75,73 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="
+                            <a class=" active 
                             nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Networking]</a>
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../networking/MCLAG/" class="dropdown-item text-decoration-none ">MCLAG</a>
+        <a href="../hybrid_cloud_networking_to_azure/" class="dropdown-item text-decoration-none ">Hybrid cloud networking to azure</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../networking/hybrid_cloud_networking_to_azure/" class="dropdown-item text-decoration-none ">Hybrid cloud networking to azure</a>
+        <a href="../mclag/" class="dropdown-item text-decoration-none ">Mclag</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../networking/networking_terminology/" class="dropdown-item text-decoration-none ">Networking terminology</a>
+        <a href="../networking_terminology/" class="dropdown-item text-decoration-none ">Networking terminology</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../networking/spanning_tree/" class="dropdown-item text-decoration-none ">Spanning tree</a>
+        <a href="./" class="dropdown-item text-decoration-none  active ">Sonic cli commands</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../networking/vxlan/" class="dropdown-item text-decoration-none ">Vxlan</a>
+        <a href="../spanning_tree/" class="dropdown-item text-decoration-none ">Spanning tree</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../vxlan/" class="dropdown-item text-decoration-none ">Vxlan</a>
     </li>
 <!-- endblock -->
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class=" active 
+                            <a class="
                             nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Operations]</a>
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="./" class="dropdown-item text-decoration-none  active ">Openstack ironic states</a>
+        <a href="../../operations/build_you_own_chatgpt/" class="dropdown-item text-decoration-none ">Build you own chatgpt</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../openstack_kolla_deployment/" class="dropdown-item text-decoration-none ">Openstack kolla deployment</a>
+        <a href="../../operations/openstack_baremetal_enroll/" class="dropdown-item text-decoration-none ">Openstack baremetal enroll</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../openstack_networking/" class="dropdown-item text-decoration-none ">Openstack networking</a>
+        <a href="../../operations/openstack_images/" class="dropdown-item text-decoration-none ">Openstack images</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../openstack_setup/" class="dropdown-item text-decoration-none ">Openstack setup</a>
+        <a href="../../operations/openstack_kolla_deployment/" class="dropdown-item text-decoration-none ">Openstack kolla deployment</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../operations/openstack_networking/" class="dropdown-item text-decoration-none ">Openstack networking</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../operations/openstack_setup/" class="dropdown-item text-decoration-none ">Openstack setup</a>
     </li>
 <!-- endblock -->
                             </ul>
@@ -205,27 +220,18 @@
     <article>
         <header>
             
-                <h1 class=" title" id="component-title">Openstack ironic states</h1>
+                <h1 class=" title" id="component-title">Sonic cli commands</h1>
             
         </header>
-        <p><p>When a new baremetal node is ingested into Ironic, it goes through a couple of states before it can be available for scheduling.</p>
-<h2 id="enroll">Enroll</h2>
-<p>This is the very first stage of a baremetal host. It cannot yet be used for contacting the BMC or provisioning. From this state, the node must be explicitly promoted to a "manageable" state in order to start running inspections etc.</p>
-<h2 id="manageable">Manageable</h2>
-<p>A baremetal node can be taken from the enroll state, to the manage state using <code>openstack baremetal node manage</code>.</p>
-<p>This state ensures that Ironic can talk to the node's BMC, and allows for administrative tasks such as cleaning, inspection and updating hardware properties.</p>
-<h2 id="inspecting">Inspecting</h2>
-<p>There are 2 types of inspetion done by Ironic:</p>
-<p><strong>In-Band</strong></p>
-<p>This is run on the new baremetal node itself. It PXE boots a RAMDisk image which collects information about the host such as CPU cores, RAM, Disk storage etc.</p>
-<p>While this approach is slower than out-of-band, it is able to gather much more accurate information about the host, and support a wider range of hardware information.</p>
-<p><strong>Out-of-Band</strong></p>
-<p>This runs from the Ironic Conductor service and collects hardware information about the host remotely via the BMC using IPMI or Redfish.</p>
-<h2 id="cleaning">Cleaning</h2>
-<p>Ironic will put a node into a state of cleaning before provisioning or after deletion. This is to ensure that it is fully clean before anything is run on the host. This will include wiping the disk so there is no left over state.</p>
-<h2 id="available">Available</h2>
-<p>Before a node can be deployed, the baremetal host must first be placed in an "Available" state. It is not possible to deploy a node from the "manageable" state.</p>
-<p>Baremetal nodes can be made available with <code>openstack baremetal node provide</code></p></p>
+        <p><pre><code># Show VLANs and respective interfaces
+sudo show vlan brief
+
+# Add interface member to vlan (-u for untagged)
+sudo config vlan member add -u VLAN_ID INTERFACE
+
+# Remove interface from VLAN
+sudo config vlan member del VLAN_ID INTERFACE
+</code></pre></p>
     </article>
 </section>
 <!-- endblock -->
@@ -237,13 +243,13 @@
                     <!-- block preview -->
     <div class="preview row row-cols-md-3 text-center pt-md-3" id="component-preview">
         <div class="col themed-grid-col">
-            <a rel="prev" href="../../networking/vxlan/" class="nav-link">
+            <a rel="prev" href="../networking_terminology/" class="nav-link">
                 <i class="fa fa-arrow-left"></i> Previous
             </a>
         </div>
         <div class="col themed-grid-col"></div>
         <div class="col themed-grid-col">
-            <a rel="next" href="../openstack_kolla_deployment/" class="nav-link">
+            <a rel="next" href="../spanning_tree/" class="nav-link">
                 Next <i class="fa fa-arrow-right"></i>
             </a>
         </div>

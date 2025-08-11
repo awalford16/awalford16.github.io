@@ -80,17 +80,22 @@
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../networking/MCLAG/" class="dropdown-item text-decoration-none ">MCLAG</a>
-    </li>
-<!-- endblock -->
-                                    <!-- block dropdown-menu -->
-    <li>
         <a href="../../networking/hybrid_cloud_networking_to_azure/" class="dropdown-item text-decoration-none ">Hybrid cloud networking to azure</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
+        <a href="../../networking/mclag/" class="dropdown-item text-decoration-none ">Mclag</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
         <a href="../../networking/networking_terminology/" class="dropdown-item text-decoration-none ">Networking terminology</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../networking/sonic_cli_commands/" class="dropdown-item text-decoration-none ">Sonic cli commands</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
@@ -111,7 +116,17 @@
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../openstack_ironic_states/" class="dropdown-item text-decoration-none ">Openstack ironic states</a>
+        <a href="../build_you_own_chatgpt/" class="dropdown-item text-decoration-none ">Build you own chatgpt</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../openstack_baremetal_enroll/" class="dropdown-item text-decoration-none ">Openstack baremetal enroll</a>
+    </li>
+<!-- endblock -->
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../openstack_images/" class="dropdown-item text-decoration-none ">Openstack images</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
@@ -224,7 +239,7 @@
 <p>Nova is the service for handling Virtual machines on hosts. Under the hood it uses KVM (<code>virsh</code>), a linux hypervisor built into a kernel module. So from a host running Nova, you can run <code>virsh list</code> to view the active VMs on that host.</p>
 <h3 id="ironic">Ironic</h3>
 <p>Ironic is the service which manages the baremetal hosts within Openstack. New baremetal hosts are registered with the Ironic service.</p>
-<p>Ironic keeps track of the state of the host. See this diagram for more details: https://docs.openstack.org/ironic/latest/_images/states.svg. Detail of the states is also provided in <a href="../openstack_ironic_states/">Openstack Ironic States</a></p>
+<p>Ironic keeps track of the state of the host. See this diagram for more details: https://docs.openstack.org/ironic/latest/_images/states.svg. Detail of the states is also provided in <a href="../openstack_baremetal_enroll/">Openstack Ironic States</a></p>
 <p>You can manage baremetal nodes in Ironic with the <code>openstack baremetal node</code> CLI, which allows for a host to be transitioned through different states and be put into maintenance mode.</p>
 <p>Once a host is managed by Ironic, it will be viewable by the openstack admin using the command below:</p>
 <pre><code>openstack baremetal node list

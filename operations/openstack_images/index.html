@@ -1,7 +1,7 @@
 <!doctype html>
 <html data-bs-theme="">
     <head>
-                <title>Hybrid cloud networking to azure - AWNET</title>
+                <title>Openstack images - AWNET</title>
 
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -75,73 +75,73 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class=" active 
+                            <a class="
                             nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Networking]</a>
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="./" class="dropdown-item text-decoration-none  active ">Hybrid cloud networking to azure</a>
+        <a href="../../networking/hybrid_cloud_networking_to_azure/" class="dropdown-item text-decoration-none ">Hybrid cloud networking to azure</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../mclag/" class="dropdown-item text-decoration-none ">Mclag</a>
+        <a href="../../networking/mclag/" class="dropdown-item text-decoration-none ">Mclag</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../networking_terminology/" class="dropdown-item text-decoration-none ">Networking terminology</a>
+        <a href="../../networking/networking_terminology/" class="dropdown-item text-decoration-none ">Networking terminology</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../sonic_cli_commands/" class="dropdown-item text-decoration-none ">Sonic cli commands</a>
+        <a href="../../networking/sonic_cli_commands/" class="dropdown-item text-decoration-none ">Sonic cli commands</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../spanning_tree/" class="dropdown-item text-decoration-none ">Spanning tree</a>
+        <a href="../../networking/spanning_tree/" class="dropdown-item text-decoration-none ">Spanning tree</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../vxlan/" class="dropdown-item text-decoration-none ">Vxlan</a>
+        <a href="../../networking/vxlan/" class="dropdown-item text-decoration-none ">Vxlan</a>
     </li>
 <!-- endblock -->
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="
+                            <a class=" active 
                             nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Operations]</a>
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../operations/build_you_own_chatgpt/" class="dropdown-item text-decoration-none ">Build you own chatgpt</a>
+        <a href="../build_you_own_chatgpt/" class="dropdown-item text-decoration-none ">Build you own chatgpt</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../operations/openstack_baremetal_enroll/" class="dropdown-item text-decoration-none ">Openstack baremetal enroll</a>
+        <a href="../openstack_baremetal_enroll/" class="dropdown-item text-decoration-none ">Openstack baremetal enroll</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../operations/openstack_images/" class="dropdown-item text-decoration-none ">Openstack images</a>
+        <a href="./" class="dropdown-item text-decoration-none  active ">Openstack images</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../operations/openstack_kolla_deployment/" class="dropdown-item text-decoration-none ">Openstack kolla deployment</a>
+        <a href="../openstack_kolla_deployment/" class="dropdown-item text-decoration-none ">Openstack kolla deployment</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../operations/openstack_networking/" class="dropdown-item text-decoration-none ">Openstack networking</a>
+        <a href="../openstack_networking/" class="dropdown-item text-decoration-none ">Openstack networking</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../operations/openstack_setup/" class="dropdown-item text-decoration-none ">Openstack setup</a>
+        <a href="../openstack_setup/" class="dropdown-item text-decoration-none ">Openstack setup</a>
     </li>
 <!-- endblock -->
                             </ul>
@@ -220,65 +220,14 @@
     <article>
         <header>
             
-                <h1 class=" title" id="component-title">Hybrid cloud networking to azure</h1>
+                <h1 class=" title" id="component-title">Openstack images</h1>
             
         </header>
-        <p><p>This doc provides an overview on connecting an on-premise network to Azure cloud via a IPSec VPN Tunnel (not an express-route).</p>
-<h2 id="azure-resources">Azure Resources</h2>
-<p>The Azure architecture side is built up of 5 main components: Virtual Network, Public IP, Local Network Gateway, Virtual Network Gateway and a Connection</p>
-<h3 id="virtual-network">Virtual Network</h3>
-<p>The gateway will need to be tied to a virtual network. From this network, it is possible to connect resources or peer other VNets which can communicate with the on-premise network.</p>
-<pre><code>az network vnet create -g $RG \
-    -n $VNET_NAME --address-prefix 10.1.0.0/24 \
-    --subnet-name $SUBNET_NAME \
-    --subnet-prefixes 10.1.0.0/24
-</code></pre>
-<p>Take note of the range used here, as this is what will need to be included in the routing table from the on-premise side of the tunnel.</p>
-<h3 id="public-ip-address">Public IP Address</h3>
-<p>The public IP address is required for the on-premise site to connect to. This IP will be assigned to the Virtual Network Gateway</p>
-<pre><code>az network public-ip create -g $RG -n $IP_NAME
-</code></pre>
-<h3 id="virtual-network-gateway">Virtual Network Gateway</h3>
-<p>The Virtual Network Gateway has the previously created public IP address assigned to it.</p>
-<p>Different gateway SKUs will offer different bandwidth</p>
-<pre><code>az network vnet-gateway create -g $RG \
-    -n vpn-gateway \
-    --public-ip-address $PUBLIC_IP \
-    --vnet $VNET_NAME --gateway-type Vpn \
-    --sku VpnGw1 \
-    --vpn-type RouteBased
-</code></pre>
-<h3 id="local-network-gateway">Local Network Gateway</h3>
-<p>The Local Network Gateway defines the routes for the local network at the other end of the tunnel. It's under this resource that all the IP ranges of the on-premise site are defined. Additionally, we need to set the on-premise public IP for Azure to connect to.</p>
-<p>In the example below, we are creating a local network gateway for our on-premise network which has a local range of 192.168.1.0/24 and 172.21.21.0/24</p>
-<pre><code>az network local-gateway create -g $RG \
-    -n local-gateway \
-    --gateway-ip-address $ON_PREM_PUBLIC_IP \
-    --local-address-prefixes 192.168.1.0/24 172.21.21.0/24
-</code></pre>
-<h3 id="connection">Connection</h3>
-<p>The connection resource ties together both the Virtual and Local Network Gateways and specifies the encruyption algorithms to be used.</p>
-<pre><code># Create the gateway connection
-az network vpn-connection create \
-    -g $RG -n vpn-connection \
-    --vnet-gateway1 $VPN_GATEWAY \
-    --local-gateway2 local-gateway \
-    --shared-key $RANDOM_GENERATED_SHARED_KEY
-
-# Add an IPSec policy defining the encryption algorithnm
-az network vpn-gateway connection ipsec-policy add \
-    --connection-name vpn-connection \
-    --dh-group DHGroup14 \
-    --ike-encryption AES256 \
-    --ike-integrity SHA256 \
-    --ipsec-encryption GCMAES256 \
-    --ipsec-integrity GCMAES256 \
-    --pfs-group ECP256 \
-    --resource-group $RG
-</code></pre>
-<h2 id="on-premise">On-Premise</h2>
-<p>From the on-premise firewall, configure an IPSec tunnel with the same encryption rules as specified above and set the same shared key that was specified on the connection resource.</p>
-<p>This document doesn't specify how to implement any routing protocols to dynamically learn accessible routes in the cloud, so you will need to statically define a route to the cloud based on the virtual network range created earlier with the next hop set to the IPSec tunnel.</p></p>
+        <p><h2 id="baremetal-images-and-user-images">Baremetal Images and User Images</h2>
+<p>Baremetal servers managed in Ironic require their own deploy images which prepare the BM server for OS deployments.</p>
+<p>On top of these baremetal images, user images are deployed which are the images actually used by the end user.</p>
+<h2 id="disk-image-builder">Disk Image Builder</h2>
+<p>You can install the diskimage-builder package to be able to build user images.</p></p>
     </article>
 </section>
 <!-- endblock -->
@@ -290,13 +239,13 @@ az network vpn-gateway connection ipsec-policy add \
                     <!-- block preview -->
     <div class="preview row row-cols-md-3 text-center pt-md-3" id="component-preview">
         <div class="col themed-grid-col">
-            <a rel="prev" href="../../electrical/electrical_certificates/" class="nav-link">
+            <a rel="prev" href="../openstack_baremetal_enroll/" class="nav-link">
                 <i class="fa fa-arrow-left"></i> Previous
             </a>
         </div>
         <div class="col themed-grid-col"></div>
         <div class="col themed-grid-col">
-            <a rel="next" href="../mclag/" class="nav-link">
+            <a rel="next" href="../openstack_kolla_deployment/" class="nav-link">
                 Next <i class="fa fa-arrow-right"></i>
             </a>
         </div>
