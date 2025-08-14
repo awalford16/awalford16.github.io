@@ -76,6 +76,17 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="
+                            nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Hpc]</a>
+                            <ul class="dropdown-menu">
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../hpc/slurm_basics/" class="dropdown-item text-decoration-none ">Slurm basics</a>
+    </li>
+<!-- endblock -->
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="
                             nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Networking]</a>
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
@@ -141,7 +152,7 @@
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../openstack_setup/" class="dropdown-item text-decoration-none ">Openstack setup</a>
+        <a href="../openstack_overview/" class="dropdown-item text-decoration-none ">Openstack overview</a>
     </li>
 <!-- endblock -->
                             </ul>
@@ -247,6 +258,30 @@ kayobe seed service deploy
 
 # Deploy services for overcloud hosts
 kayobe overcloud service deploy
+</code></pre>
+<h2 id="service-upgrade">Service Upgrade</h2>
+<p>This docs assumes an Openstack deployment with Kayobe. Official Github docs for updates can be found <a href="https://github.com/stackhpc/stackhpc-kayobe-config/blob/staggered-upgrade/doc/source/operations/upgrading-openstack.rst#ovs">here</a></p>
+<h3 id="overcloud">Overcloud</h3>
+<pre><code># Make database backup
+kayobe overcloud database backup
+
+# Pull host containers
+kayobe overcloud container image pull
+
+# Update host packages
+kayobe overcloud host package update --packages &quot;*&quot;
+
+# Update host components (pip packages etc.)
+kayobe overcloud host upgrade
+
+# Stop health manager service (from controllers)
+# Checking for loadbalancer states to see if they need to failover (upgrade can cause them to go into an error state)
+# Loadbalancers wont come out of error state
+docker stop octavia_health_manager
+
+# Upgrade services
+# Skip sensitive services like nova and networking services
+kayobe overcloud service upgrade --kolla-skip-tags neutron,nova,openvswitch
 </code></pre></p>
     </article>
 </section>

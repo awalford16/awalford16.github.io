@@ -76,6 +76,17 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="
+                            nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Hpc]</a>
+                            <ul class="dropdown-menu">
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../hpc/slurm_basics/" class="dropdown-item text-decoration-none ">Slurm basics</a>
+    </li>
+<!-- endblock -->
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="
                             nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Networking]</a>
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
@@ -141,7 +152,7 @@
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../openstack_setup/" class="dropdown-item text-decoration-none ">Openstack setup</a>
+        <a href="../openstack_overview/" class="dropdown-item text-decoration-none ">Openstack overview</a>
     </li>
 <!-- endblock -->
                             </ul>
@@ -231,11 +242,25 @@
 <h3 id="self-service-networks">Self-service Networks</h3>
 <p>Self-service networks use segmentation methods such as VXLAN and routes virtual networks to physical networks using NAT.</p>
 <p>Using the benefits and dynamic approach of VXLAN, users can create their own virtual networks without needing to rely on changes to the underlying physical network.</p>
-<h2 id="open-vswitch">Open VSwitch</h2>
+<h2 id="network-architectures">Network Architectures</h2>
+<h3 id="open-vswitch-ovs">Open VSwitch (OVS)</h3>
+<p>Open VSwitch acts like a traffic manager. Neutron feeds OVS with traffic routing rules which define which packets should be sent where.</p>
+<p>The main drawback of OVS is that each time a VM moves or changes are made to the system, Neutron needs to notify all the OVS agents in the system with the updated routing rules.</p>
 <p>When deploying Openstack with Kolla, each host will get an <code>openvswitch-vswitchd</code> container deployed. This is responsible for running OpenVSwitch and handling bridge networking across the virtual machines deployed on the host.</p>
+<h3 id="open-virtual-network-ovn">Open Virtual Network (OVN)</h3>
+<p>Instead of individual agents, there is a centralised controller with Northbound and Southbound databases. Every node will still be running Open VSwitch, but each OVS agent will download the data from the OVN controller. Now, whenever there is a change to the network, the network rules only need to be updated in one place, making the setup much more scalable.</p>
 <h2 id="network-automation-during-enroll">Network Automation during Enroll</h2>
 <p>As a baremetal host transitions through different states such as cleaning, inspection and provisioning, openstack can be configured to automatically configure the leaf switches to update switch ports to the appropriate VLAN required for PXE booting.</p>
-<p>This is handled using Netmiko, a Python-based tool used for automating the configuration of switches. In particular, openstack <a href="https://github.com/openstack/networking-generic-switch">network-generic-switch</a> which is a wrapping layer between Openstack and Netmiko.</p></p>
+<p>This is handled using Netmiko, a Python-based tool used for automating the configuration of switches. In particular, openstack <a href="https://github.com/openstack/networking-generic-switch">network-generic-switch</a> which is a wrapping layer between Openstack and Netmiko.</p>
+<h2 id="network-types">Network Types</h2>
+<p>When deploying with Kayobe, there are a few classes of networks which are defined by default:</p>
+<p>Overcloud Out-of-band | Used by seed host to access the OOB mgmt controllers of the bare metal hosts
+Overcloud Provisioning | Used by the seed host to provision cloud hosts
+Workload Out-of-band | Used by overcloud hsots to access the PPB mgmt controllers of bare metal hosts
+Workload Provisioning | Used by the cloud hosts to provision the baremetal compute hosts
+Internal | For internal and admin API endpoints
+Public | Public API endpoints
+External | Provide external network access for hosts in the system</p></p>
     </article>
 </section>
 <!-- endblock -->
@@ -253,7 +278,7 @@
         </div>
         <div class="col themed-grid-col"></div>
         <div class="col themed-grid-col">
-            <a rel="next" href="../openstack_setup/" class="nav-link">
+            <a rel="next" href="../openstack_overview/" class="nav-link">
                 Next <i class="fa fa-arrow-right"></i>
             </a>
         </div>

@@ -1,7 +1,7 @@
 <!doctype html>
 <html data-bs-theme="">
     <head>
-                <title>Ceph storage systems - AWNET</title>
+                <title>Slurm basics - AWNET</title>
 
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -75,12 +75,12 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="
+                            <a class=" active 
                             nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Hpc]</a>
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../hpc/slurm_basics/" class="dropdown-item text-decoration-none ">Slurm basics</a>
+        <a href="./" class="dropdown-item text-decoration-none  active ">Slurm basics</a>
     </li>
 <!-- endblock -->
                             </ul>
@@ -158,37 +158,37 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class=" active 
+                            <a class="
                             nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Storage]</a>
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../ceph_deployment/" class="dropdown-item text-decoration-none ">Deploying a Ceph Cluster with cephadm</a>
+        <a href="../../storage/ceph_deployment/" class="dropdown-item text-decoration-none ">Deploying a Ceph Cluster with cephadm</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="./" class="dropdown-item text-decoration-none  active ">Ceph storage systems</a>
+        <a href="../../storage/ceph_storage_systems/" class="dropdown-item text-decoration-none ">Ceph storage systems</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../ceph_terminology/" class="dropdown-item text-decoration-none ">Ceph terminology</a>
+        <a href="../../storage/ceph_terminology/" class="dropdown-item text-decoration-none ">Ceph terminology</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../linux_storage_commands/" class="dropdown-item text-decoration-none ">Linux storage commands</a>
+        <a href="../../storage/linux_storage_commands/" class="dropdown-item text-decoration-none ">Linux storage commands</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../lustre_overview/" class="dropdown-item text-decoration-none ">Lustre overview</a>
+        <a href="../../storage/lustre_overview/" class="dropdown-item text-decoration-none ">Lustre overview</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../zfs_terminology/" class="dropdown-item text-decoration-none ">Zfs terminology</a>
+        <a href="../../storage/zfs_terminology/" class="dropdown-item text-decoration-none ">Zfs terminology</a>
     </li>
 <!-- endblock -->
                             </ul>
@@ -231,18 +231,31 @@
     <article>
         <header>
             
-                <h1 class=" title" id="component-title">Ceph storage systems</h1>
+                <h1 class=" title" id="component-title">Slurm basics</h1>
             
         </header>
-        <p><p>Ceph can provide storage as block, object or file FileSystem</p>
-<h2 id="block">Block</h2>
-<p>A Ceph block device can be created with 2 commands:</p>
-<pre><code>ceph osd pool create POOL_NAME
-rbd pool init POOL_NAME
+        <p><h2 id="slurm-basics">Slurm Basics</h2>
+<h3 id="commands">Commands</h3>
+<pre><code># Show cluster information
+sinfo
+
+# Show jobs in queue
+squeue
+
+# Submit script to cluster
+sbatch FILE.sbatch
 </code></pre>
-<p>Block devices can be integrated with various tools such as Openstack and Kubernetes to provide backend block storage to VMs or PV storage via the Ceph CSI respectively.</p>
-<h2 id="file-system">File System</h2>
-<p>Ceph storage can also be overlayed with a filesystem using CephFS which can then be mounted.</p></p>
+<h3 id="job-submission">Job Submission</h3>
+<p>Create an <code>sbatch</code> file to be submitted to Slurm:</p>
+<pre><code>#!/bin/bash
+#SBATCH --job-name=ior
+#SBATCH --ntasks=10
+#SBATCH --output=%x.out
+
+module load intelmpi
+mpirun ./ior -w -r -o=/shared/test_dir -b=256m -a=POSIX -i=5 -F -z -t=64m -C
+</code></pre>
+<p>The script above makes use <code>ior</code> which is an IO performance tool for parallel file systems. This is assuming a host running Intel MPI.</p></p>
     </article>
 </section>
 <!-- endblock -->
@@ -254,13 +267,13 @@ rbd pool init POOL_NAME
                     <!-- block preview -->
     <div class="preview row row-cols-md-3 text-center pt-md-3" id="component-preview">
         <div class="col themed-grid-col">
-            <a rel="prev" href="../ceph_deployment/" class="nav-link">
+            <a rel="prev" href="../../electrical/electrical_certificates/" class="nav-link">
                 <i class="fa fa-arrow-left"></i> Previous
             </a>
         </div>
         <div class="col themed-grid-col"></div>
         <div class="col themed-grid-col">
-            <a rel="next" href="../ceph_terminology/" class="nav-link">
+            <a rel="next" href="../../networking/hybrid_cloud_networking_to_azure/" class="nav-link">
                 Next <i class="fa fa-arrow-right"></i>
             </a>
         </div>
