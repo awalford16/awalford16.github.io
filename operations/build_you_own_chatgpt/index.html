@@ -236,7 +236,31 @@
         </header>
         <p><h2 id="chatgpt-on-premise-but-why">ChatGPT On-Premise... but why?</h2>
 <p>ChatGPT has become an incredibly useful tool since its release in 2022. One of the most powerful things you can do with ChatGPT is to prompt it to become your own personal advisor in a wide range of issues. We can leverage it to be our own project manager or even a fitness coach/planner. There is just one issue though; these prompts and the information we provide to ChatGPT can get personal, and all of it goes out to the internet. This data that we provide to OpenAI can be used in model training and has been known to get exposed in the past.</p>
-<p>Meta provide an opensource LLM called Llama. You can run a small version of it (8B parameters) on a Mac. It wont be as powerful as the models running behind ChatGPT, but we can have some sense of security.</p>
+<p>Thanksfully, there are hundreds of open source LLMs which we can run ourselves, allowing the information we pass to the model to stay within our home network. With lower-parameter models like <code>llama3:8b</code> and <code>gemma3:12b</code>, it is possible to run an LLM on something like a Mac or a home lab computer with a GPU. They may not be as accurate as what is running behind OpenAI but it can still be a very powerful tool with an increased sense of security.</p>
+<h2 id="hardware-recommendations">Hardware Recommendations</h2>
+<p>This demo is deploying <code>llama3:8b</code> on an M2 Mac Mini with 16GB of RAM. For context, here is the recommended hardware specs for some of the available opensource LLMs to still achieve a good throughput.</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Min. GPU VRAM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>llama3:8b</td>
+<td>6GB</td>
+</tr>
+<tr>
+<td>gemma3:12b</td>
+<td>9GB</td>
+</tr>
+<tr>
+<td>qwen2.5:32b</td>
+<td>24GB</td>
+</tr>
+</tbody>
+</table>
 <h2 id="ollama">Ollama</h2>
 <p>Ollama is a tool used for running LLMs locally. It can be run very easily with just a docker container:</p>
 <pre><code># Make a directory for ollama to download models to
