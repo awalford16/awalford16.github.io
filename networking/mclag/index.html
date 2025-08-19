@@ -64,12 +64,12 @@
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../electrical/electrical_certificates/" class="dropdown-item text-decoration-none ">Electrical certificates</a>
+        <a href="../../electrical/UK_Qualification_Requirements/" class="dropdown-item text-decoration-none ">UK Qualification Requirements</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../electrical/uk_qualification_requirements/" class="dropdown-item text-decoration-none ">Uk qualification requirements</a>
+        <a href="../../electrical/electrical_certificates/" class="dropdown-item text-decoration-none ">Electrical certificates</a>
     </li>
 <!-- endblock -->
                             </ul>
@@ -241,7 +241,7 @@
 <h2 id="how-to-configure-mclag">How to configure MCLAG</h2>
 <p>The commands below are for Dell SONiC switches.</p>
 <h3 id="create-a-lag">Create a LAG</h3>
-<p>Firstly, a LAG needs to be setup on each of the switches</p>
+<p>Firstly, a LAG needs to be setup on each of the spine switches which will go down to the leaf switch.</p>
 <pre><code>interface PortChannel X
 switchport trunk allowed vlan $VLAN_ID
 </code></pre>
@@ -250,7 +250,7 @@ switchport trunk allowed vlan $VLAN_ID
 <pre><code>mclag domain $ID
 peer-link $INTERFACE
 </code></pre>
-<p>The peer link refers to the interface port or port channel which links the spine switches.</p>
+<p>The peer link refers to the interface port which links the 2 spine switches together. This can also be configured to be a port channel for extra redundancy.</p>
 <p>A keepalive link connects MCLAG peer switches to carry out periodic heatbeat messages. This should be configured on each of the peer switches (e.g. spine switches) used.</p>
 <pre><code>source-ip $PEER1_IP
 peer-ip $PEER2-IP
@@ -258,6 +258,22 @@ peer-ip $PEER2-IP
 <p>Finally, the port channel interface needs to be added to the MCLAG</p>
 <pre><code>interface PortChannel X
 mclag $ID
+</code></pre>
+<h2 id="gateway-mac">Gateway Mac</h2>
+<p>MCLAG will use the active switche's system mac address for handling L3 traffic. To have both switches in the pair be able to response on the same mac address, a gateway mac can be configured.</p>
+<pre><code># Run on both sides of the mclag
+mclag gateway-mc $MAC_ADDRESS
+</code></pre>
+<p>Running <code>show ip arp</code> will show all IP addresses configured on these switches will resolve to the gateway mac address. If the IP addresses need to explicitly respond from one of the switches in the pair, the SVI can be configured as a <code>mclag-separate-ip</code></p>
+<pre><code>interface vlan X
+mclag-separate-ip
+</code></pre>
+<h2 id="mclag-commands">MCLAG Commands</h2>
+<pre><code># See status of mclag
+show mclag brief
+
+# See which southbound interfaces are up/down
+show mclag interface $INTERFACE
 </code></pre></p>
     </article>
 </section>
