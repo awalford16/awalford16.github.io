@@ -64,12 +64,12 @@
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../electrical/UK_Qualification_Requirements/" class="dropdown-item text-decoration-none ">UK Qualification Requirements</a>
+        <a href="../../electrical/electrical_certificates/" class="dropdown-item text-decoration-none ">Electrical certificates</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../electrical/electrical_certificates/" class="dropdown-item text-decoration-none ">Electrical certificates</a>
+        <a href="../../electrical/uk_qualification_requirements/" class="dropdown-item text-decoration-none ">Uk qualification requirements</a>
     </li>
 <!-- endblock -->
                             </ul>
@@ -234,17 +234,50 @@
                 <h1 class=" title" id="component-title">Build you own chatgpt</h1>
             
         </header>
-        <p><h2 id="ollama">Ollama</h2>
+        <p><h2 id="chatgpt-on-premise-but-why">ChatGPT On-Premise... but why?</h2>
+<p>ChatGPT has become an incredibly useful tool since its release in 2022. One of the most powerful things you can do with ChatGPT is to prompt it to become your own personal advisor in a wide range of issues. We can leverage it to be our own project manager or even a fitness coach/planner. There is just one issue though; these prompts and the information we provide to ChatGPT can get personal, and all of it goes out to the internet. This data that we provide to OpenAI can be used in model training and has been known to get exposed in the past.</p>
+<p>Meta provide an opensource LLM called Llama. You can run a small version of it (8B parameters) on a Mac. It wont be as powerful as the models running behind ChatGPT, but we can have some sense of security.</p>
+<h2 id="ollama">Ollama</h2>
 <p>Ollama is a tool used for running LLMs locally. It can be run very easily with just a docker container:</p>
 <pre><code># Make a directory for ollama to download models to
 mkdir ollama
 docker run ollama/ollama:0.10.0-rc3 -p 11434:11434 -v ./ollama:/root/.ollama
 </code></pre>
-<p>For context, I am running the <code>llama3:8b</code> model on my M2 Mac Mini with 16GB of RAM.</p>
+<p>Or in docker compose:</p>
+<pre><code class="language-yaml">ollama:
+    image: ollama/ollama:0.10.0-rc3
+    container_name: ollama
+    ports:
+      - 11434:11434
+    volumes:
+      - ./ollama:/root/.ollama
+    restart: unless-stopped
+</code></pre>
+<p>We wont have any models available to talk to yet, but they can be downloaded with the command:</p>
+<pre><code>docker exec -it ollama ollama pull MODEL_NAME
+</code></pre>
+<h3 id="quantization">Quantization</h3>
+<p>Since we are running locally, we may not have access to a huge amount of storage, especially if we want to offer a range of models to try within our own ChatGPT. However, we can take advantage of QAT or post-training quantized models, which can reduce their memory footprint significantly.</p>
+<p>Take Google's <code>gemma3:12b</code> model. The original model takes up 24GB in space, Google leveraged Quantized Aware Training (QAT), which reduces the precision of the models weights and biases from BF16 to Int4, taking the model size down to just 8GB. QAT is supposedly meant to keep the accuracy of the model better and post-training quantization, so we can also try add the <code>gemma3:12b-it-qat</code> model.</p>
 <h2 id="open-webui">Open WebUI</h2>
+<p>So we have ollama running, but it is not the most user-friendly interface. Each time we stop ollama, it loses all memory of our conversations.</p>
 <p><a href="https://github.com/open-webui/open-webui">Open WebUI</a> is an open-source tool for providing a ChatGPT-like interface which can be used to point at your own locally-run LLMs. Meaning you can point it at your previously deployed ollama model, completing your completely on-premise ChatGPT.</p>
-<p>The README for this repo is pretty useful, and provides a way that you can bundle the deployment of Open WebUI along with ollama, but I like to stick to running all my general web services on K8s. There is already a Helm chart built for running Open WebUI.</p>
-<p>The chart actually comes with Ollama out of the box however, I will be running Open WebUI on a raspberry pi and point it to my externally running ollama instance.</p></p>
+<p>Docker compose example:</p>
+<pre><code>open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    environment:
+      - OLLAMA_BASE_URL=http://YOUR_IP:11434
+      - 'WEBUI_SECRET_KEY='
+    ports:
+      - 3000:8080
+    volumes:
+      - ./open-webui:/app/backend/data
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    restart: unless-stopped
+</code></pre>
+<p>It takes a little while for the container to start, but once it is up, we can hit <code>localhost:3000</code> and be greated with a very familiar looking interface.</p></p>
     </article>
 </section>
 <!-- endblock -->
