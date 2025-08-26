@@ -1,7 +1,7 @@
 <!doctype html>
 <html data-bs-theme="">
     <head>
-                <title>Openstack baremetal enroll - AWNET</title>
+                <title>Openstack images - AWNET</title>
 
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -123,21 +123,21 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class=" active 
-                            nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Operations]</a>
+                            nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Openstack]</a>
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../build_you_own_chatgpt/" class="dropdown-item text-decoration-none ">Build you own chatgpt</a>
+        <a href="../azimuth/" class="dropdown-item text-decoration-none ">Azimuth</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="./" class="dropdown-item text-decoration-none  active ">Openstack baremetal enroll</a>
+        <a href="../openstack_baremetal_enroll/" class="dropdown-item text-decoration-none ">Openstack baremetal enroll</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../openstack_images/" class="dropdown-item text-decoration-none ">Openstack images</a>
+        <a href="./" class="dropdown-item text-decoration-none  active ">Openstack images</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
@@ -153,6 +153,17 @@
                                     <!-- block dropdown-menu -->
     <li>
         <a href="../openstack_overview/" class="dropdown-item text-decoration-none ">Openstack overview</a>
+    </li>
+<!-- endblock -->
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="
+                            nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Operations]</a>
+                            <ul class="dropdown-menu">
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../operations/build_you_own_chatgpt/" class="dropdown-item text-decoration-none ">Build you own chatgpt</a>
     </li>
 <!-- endblock -->
                             </ul>
@@ -231,38 +242,14 @@
     <article>
         <header>
             
-                <h1 class=" title" id="component-title">Openstack baremetal enroll</h1>
+                <h1 class=" title" id="component-title">Openstack images</h1>
             
         </header>
-        <p><h2 id="enroll-process">Enroll Process</h2>
-<ul>
-<li>Attempts PXE boot responded to by DHCP server running on controller nodes</li>
-<li>PXE deploys the IPA ramdisk image</li>
-<li>This talks to the Ironic API to determine the next state the node needs to run</li>
-</ul>
-<h3 id="ironic-python-agent-ipa">Ironic Python Agent (IPA)</h3>
-<p>As the baremetal machine transitions through the different states, the host is booted with an Ironic python agent deployed as a ramdisk on the server. This agent helps control how images are deployed to the server.</p>
-<p>The ironic controller will make API calls to the agent to help the machine through the provisioning lifecycle.</p>
-<p>It is possible to debug issues with the enroll stages by configuring a user on the IPA ramdisk image which can be SSH'd into during the boot process.</p>
-<h2 id="states">States</h2>
-<p>When a new baremetal node is ingested into Ironic, it goes through a couple of states before it can be available for scheduling.</p>
-<h3 id="enroll">Enroll</h3>
-<p>This is the very first stage of a baremetal host. It cannot yet be used for contacting the BMC or provisioning. From this state, the node must be explicitly promoted to a "manageable" state in order to start running inspections etc.</p>
-<h3 id="manageable">Manageable</h3>
-<p>A baremetal node can be taken from the enroll state, to the manage state using <code>openstack baremetal node manage</code>.</p>
-<p>This state ensures that Ironic can talk to the node's BMC, and allows for administrative tasks such as cleaning, inspection and updating hardware properties.</p>
-<h3 id="inspecting">Inspecting</h3>
-<p>There are 2 types of inspetion done by Ironic:</p>
-<p><strong>In-Band</strong></p>
-<p>This is run on the new baremetal node itself. It PXE boots a RAMDisk image which collects information about the host such as CPU cores, RAM, Disk storage etc.</p>
-<p>While this approach is slower than out-of-band, it is able to gather much more accurate information about the host, and support a wider range of hardware information.</p>
-<p><strong>Out-of-Band</strong></p>
-<p>This runs from the Ironic Conductor service and collects hardware information about the host remotely via the BMC using IPMI or Redfish.</p>
-<h3 id="cleaning">Cleaning</h3>
-<p>Ironic will put a node into a state of cleaning before provisioning or after deletion. This is to ensure that it is fully clean before anything is run on the host. This will include wiping the disk so there is no left over state.</p>
-<h3 id="available">Available</h3>
-<p>Before a node can be deployed, the baremetal host must first be placed in an "Available" state. It is not possible to deploy a node from the "manageable" state.</p>
-<p>Baremetal nodes can be made available with <code>openstack baremetal node provide</code></p></p>
+        <p><h2 id="baremetal-images-and-user-images">Baremetal Images and User Images</h2>
+<p>Baremetal servers managed in Ironic require their own deploy images which prepare the BM server for OS deployments.</p>
+<p>On top of these baremetal images, user images are deployed which are the images actually used by the end user.</p>
+<h2 id="disk-image-builder">Disk Image Builder</h2>
+<p>You can install the diskimage-builder package to be able to build user images.</p></p>
     </article>
 </section>
 <!-- endblock -->
@@ -274,13 +261,13 @@
                     <!-- block preview -->
     <div class="preview row row-cols-md-3 text-center pt-md-3" id="component-preview">
         <div class="col themed-grid-col">
-            <a rel="prev" href="../build_you_own_chatgpt/" class="nav-link">
+            <a rel="prev" href="../openstack_baremetal_enroll/" class="nav-link">
                 <i class="fa fa-arrow-left"></i> Previous
             </a>
         </div>
         <div class="col themed-grid-col"></div>
         <div class="col themed-grid-col">
-            <a rel="next" href="../openstack_images/" class="nav-link">
+            <a rel="next" href="../openstack_kolla_deployment/" class="nav-link">
                 Next <i class="fa fa-arrow-right"></i>
             </a>
         </div>

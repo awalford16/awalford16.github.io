@@ -1,7 +1,7 @@
 <!doctype html>
 <html data-bs-theme="">
     <head>
-                <title>Zfs terminology - AWNET</title>
+                <title>Openstack baremetal enroll - AWNET</title>
 
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -122,37 +122,37 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="
+                            <a class=" active 
                             nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Openstack]</a>
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../openstack/azimuth/" class="dropdown-item text-decoration-none ">Azimuth</a>
+        <a href="../azimuth/" class="dropdown-item text-decoration-none ">Azimuth</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../openstack/openstack_baremetal_enroll/" class="dropdown-item text-decoration-none ">Openstack baremetal enroll</a>
+        <a href="./" class="dropdown-item text-decoration-none  active ">Openstack baremetal enroll</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../openstack/openstack_images/" class="dropdown-item text-decoration-none ">Openstack images</a>
+        <a href="../openstack_images/" class="dropdown-item text-decoration-none ">Openstack images</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../openstack/openstack_kolla_deployment/" class="dropdown-item text-decoration-none ">Openstack kolla deployment</a>
+        <a href="../openstack_kolla_deployment/" class="dropdown-item text-decoration-none ">Openstack kolla deployment</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../openstack/openstack_networking/" class="dropdown-item text-decoration-none ">Openstack networking</a>
+        <a href="../openstack_networking/" class="dropdown-item text-decoration-none ">Openstack networking</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../openstack/openstack_overview/" class="dropdown-item text-decoration-none ">Openstack overview</a>
+        <a href="../openstack_overview/" class="dropdown-item text-decoration-none ">Openstack overview</a>
     </li>
 <!-- endblock -->
                             </ul>
@@ -169,37 +169,37 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class=" active 
+                            <a class="
                             nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Storage]</a>
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../ceph_deployment/" class="dropdown-item text-decoration-none ">Deploying a Ceph Cluster with cephadm</a>
+        <a href="../../storage/ceph_deployment/" class="dropdown-item text-decoration-none ">Deploying a Ceph Cluster with cephadm</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../ceph_storage_systems/" class="dropdown-item text-decoration-none ">Ceph storage systems</a>
+        <a href="../../storage/ceph_storage_systems/" class="dropdown-item text-decoration-none ">Ceph storage systems</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../ceph_terminology/" class="dropdown-item text-decoration-none ">Ceph terminology</a>
+        <a href="../../storage/ceph_terminology/" class="dropdown-item text-decoration-none ">Ceph terminology</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../linux_storage_commands/" class="dropdown-item text-decoration-none ">Linux storage commands</a>
+        <a href="../../storage/linux_storage_commands/" class="dropdown-item text-decoration-none ">Linux storage commands</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../lustre_overview/" class="dropdown-item text-decoration-none ">Lustre overview</a>
+        <a href="../../storage/lustre_overview/" class="dropdown-item text-decoration-none ">Lustre overview</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="./" class="dropdown-item text-decoration-none  active ">Zfs terminology</a>
+        <a href="../../storage/zfs_terminology/" class="dropdown-item text-decoration-none ">Zfs terminology</a>
     </li>
 <!-- endblock -->
                             </ul>
@@ -242,51 +242,38 @@
     <article>
         <header>
             
-                <h1 class=" title" id="component-title">Zfs terminology</h1>
+                <h1 class=" title" id="component-title">Openstack baremetal enroll</h1>
             
         </header>
-        <p><h2 id="pooling">Pooling</h2>
-<p>ZFS allocates volumes into pools, so storage can be spread across multiple storage devices.</p>
-<p>ZFS removes the concept of volumes sitting between a set of storage devices and file systems. Instead it replaces it with a single storage pool. All the storage in the pool is shared.</p>
-<p>This allows for automatic growing and shrinking of the pool.</p>
-<h2 id="data-integrity">Data Integrity</h2>
-<p>ZFS detects and corrects data corruption. There are occasions where bits can flip within the file data which causes corruption. As far as file-system and metadata are aware, the file is fine, despite the data being corrupted. ZFS will do regular checksums to validate the data integrity and prevent these silent bit flip issues.</p>
-<p>Silent and noisy data corruption are becoming more frequent with the increase in storage size and # of devices per deployment. CERN ran a test to verify a 1GB file write/read operation against 3000 rack servers with HW RAID. After 3 weeks there were 152 instances of silent data corruption. HW RAID only detected noisy data errors.</p>
-<h3 id="e2e-data-integrity">E2E Data Integrity</h3>
-<p>A checksum is stored in the parent pointer and there is fault isolation between the data and the checksum. A checksum hierarchy forms a self-validating Merkle tree. ZFS will then validate the entire I/O path which helps catching silent data corruption.</p>
-<p>These checksums help detect issues in mirroring. It verifies the good data from the healthy mirrored data block, and uses this to repair the bad data on the mirrored disk.</p>
-<h2 id="copy-on-write">Copy On Write</h2>
-<p>The atomic nature of changes are achieved via COW. When changes are made to data, it will make a copy of the initial data and only update the pointers for the portions of data that have changed. These changes need to be refelcted up the tree so the initial top-level block of the filesystem checksum will need to be updated.</p>
-<p>If there is an issue during the write process, the initial tree representing the data will still have it's pointers pointing at the initial state of the data, ensuring the atomic nature of the write process.</p>
-<h2 id="management-improvements">Management Improvements</h2>
-<p>ZFS is smart enough to know if a system uses big or little endian. Which means file systems can be switched between different hardware and still operate as normal.</p>
-<h2 id="zpl">ZPL</h2>
-<p>ZFS POSIX Layer is an atomic object-based transaction. The transaction will not be marked as complete until all objects/changes have been correctly stored. This ensures that if there is a power failure during changes, all the changes will be reverted to ensure a clean state on retry.</p>
-<h2 id="dmu">DMU</h2>
-<p>Data Management Unit is a transaction group commit which is atomic for an entire group.</p>
-<h2 id="spa">SPA</h2>
-<p>Storage Pool Allocator is a Transaction Group Batch I/O which can schedule, aggregate and issue I/O at will. This part of the stack talks directly to the disks and handles where data should be written based on the current allocation of data.</p>
-<h2 id="constant-time-snapshots">Constant Time Snapshots</h2>
-<p>On completion of a change, a snapshot root will point at the original data.</p>
-<h2 id="raid-z">RAID-Z</h2>
-<p>Dynamic stripe width with a variable block size so each logical block has its own stripe.</p>
-<p>All writes are full-stripe writes which eliminates read-modify-write and the RAID-5 write hole</p>
-<p>Detects and corrects silent data corruption.</p>
-<h2 id="resilvering">Resilvering</h2>
-<p>Refers to recovering data on disk.</p>
-<p>ZFS resilvers the storage pool's block tree from teh root down, meaning the most important blocks are restored first. There is no time wasted copying free space, unlike traditional RAID, as it only copies live blocks.</p>
-<p>ZFS records the transaction group window that a device misses, and will re-walk the tree up to that point of data loss to recover from transient outages/dirty writes.</p>
-<h2 id="ditto-blocks">Ditto Blocks</h2>
-<p>Data can be replicated to update 3 physical blocks to help with recovery of corrupted data. When different devices are not available, it will be replicated to different places on the same device.</p>
-<h2 id="disk-scrubbing">Disk Scrubbing</h2>
-<p>Finds latent errors while they're still correctable. It verifies the integrity of all data by traversing pool metadata to read every copy of every block (mirror copies, RAID-Z parity and ditto blocks) using its 256-bit checksum and repairs as it goes.</p>
-<p>This process has a low I/O priority to ensure that scrubbing does not interrupt day-to-day activities.</p>
-<h2 id="intelligent-prefetch">Intelligent Prefetch</h2>
-<p>ZFS is able to predict and prefetch the data. It will detect any linear access pattern.</p>
-<h2 id="variable-block-size">Variable Block Size</h2>
-<p>No single block size which allows for per-object granularity so read/write times closely represent the size of the data.</p>
-<h2 id="zones">Zones</h2>
-<p>ZFS allows for part of the pool to be separated into zones for specific use-cases</p></p>
+        <p><h2 id="enroll-process">Enroll Process</h2>
+<ul>
+<li>Attempts PXE boot responded to by DHCP server running on controller nodes</li>
+<li>PXE deploys the IPA ramdisk image</li>
+<li>This talks to the Ironic API to determine the next state the node needs to run</li>
+</ul>
+<h3 id="ironic-python-agent-ipa">Ironic Python Agent (IPA)</h3>
+<p>As the baremetal machine transitions through the different states, the host is booted with an Ironic python agent deployed as a ramdisk on the server. This agent helps control how images are deployed to the server.</p>
+<p>The ironic controller will make API calls to the agent to help the machine through the provisioning lifecycle.</p>
+<p>It is possible to debug issues with the enroll stages by configuring a user on the IPA ramdisk image which can be SSH'd into during the boot process.</p>
+<h2 id="states">States</h2>
+<p>When a new baremetal node is ingested into Ironic, it goes through a couple of states before it can be available for scheduling.</p>
+<h3 id="enroll">Enroll</h3>
+<p>This is the very first stage of a baremetal host. It cannot yet be used for contacting the BMC or provisioning. From this state, the node must be explicitly promoted to a "manageable" state in order to start running inspections etc.</p>
+<h3 id="manageable">Manageable</h3>
+<p>A baremetal node can be taken from the enroll state, to the manage state using <code>openstack baremetal node manage</code>.</p>
+<p>This state ensures that Ironic can talk to the node's BMC, and allows for administrative tasks such as cleaning, inspection and updating hardware properties.</p>
+<h3 id="inspecting">Inspecting</h3>
+<p>There are 2 types of inspetion done by Ironic:</p>
+<p><strong>In-Band</strong></p>
+<p>This is run on the new baremetal node itself. It PXE boots a RAMDisk image which collects information about the host such as CPU cores, RAM, Disk storage etc.</p>
+<p>While this approach is slower than out-of-band, it is able to gather much more accurate information about the host, and support a wider range of hardware information.</p>
+<p><strong>Out-of-Band</strong></p>
+<p>This runs from the Ironic Conductor service and collects hardware information about the host remotely via the BMC using IPMI or Redfish.</p>
+<h3 id="cleaning">Cleaning</h3>
+<p>Ironic will put a node into a state of cleaning before provisioning or after deletion. This is to ensure that it is fully clean before anything is run on the host. This will include wiping the disk so there is no left over state.</p>
+<h3 id="available">Available</h3>
+<p>Before a node can be deployed, the baremetal host must first be placed in an "Available" state. It is not possible to deploy a node from the "manageable" state.</p>
+<p>Baremetal nodes can be made available with <code>openstack baremetal node provide</code></p></p>
     </article>
 </section>
 <!-- endblock -->
@@ -298,13 +285,13 @@
                     <!-- block preview -->
     <div class="preview row row-cols-md-3 text-center pt-md-3" id="component-preview">
         <div class="col themed-grid-col">
-            <a rel="prev" href="../lustre_overview/" class="nav-link">
+            <a rel="prev" href="../azimuth/" class="nav-link">
                 <i class="fa fa-arrow-left"></i> Previous
             </a>
         </div>
         <div class="col themed-grid-col"></div>
         <div class="col themed-grid-col">
-            <a rel="next" class="nav-link disabled">
+            <a rel="next" href="../openstack_images/" class="nav-link">
                 Next <i class="fa fa-arrow-right"></i>
             </a>
         </div>

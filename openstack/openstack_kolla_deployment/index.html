@@ -1,7 +1,7 @@
 <!doctype html>
 <html data-bs-theme="">
     <head>
-                <title>Openstack networking - AWNET</title>
+                <title>Openstack kolla deployment - AWNET</title>
 
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -123,11 +123,11 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class=" active 
-                            nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Operations]</a>
+                            nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Openstack]</a>
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../build_you_own_chatgpt/" class="dropdown-item text-decoration-none ">Build you own chatgpt</a>
+        <a href="../azimuth/" class="dropdown-item text-decoration-none ">Azimuth</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
@@ -142,17 +142,28 @@
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../openstack_kolla_deployment/" class="dropdown-item text-decoration-none ">Openstack kolla deployment</a>
+        <a href="./" class="dropdown-item text-decoration-none  active ">Openstack kolla deployment</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="./" class="dropdown-item text-decoration-none  active ">Openstack networking</a>
+        <a href="../openstack_networking/" class="dropdown-item text-decoration-none ">Openstack networking</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
         <a href="../openstack_overview/" class="dropdown-item text-decoration-none ">Openstack overview</a>
+    </li>
+<!-- endblock -->
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="
+                            nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Operations]</a>
+                            <ul class="dropdown-menu">
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../operations/build_you_own_chatgpt/" class="dropdown-item text-decoration-none ">Build you own chatgpt</a>
     </li>
 <!-- endblock -->
                             </ul>
@@ -231,36 +242,58 @@
     <article>
         <header>
             
-                <h1 class=" title" id="component-title">Openstack networking</h1>
+                <h1 class=" title" id="component-title">Openstack kolla deployment</h1>
             
         </header>
-        <p><h2 id="networking-options">Networking Options</h2>
-<p>Openstack provides 2 options for networking.</p>
-<h3 id="provider-networks">Provider Networks</h3>
-<p>Openstack bridges virtual networks to physical networks and relies on physical network infrastructure for layer 3 routing. A DHCP service provides IP address information to instances.</p>
-<p>This option lacks support for self-service networks as well as LBaaS and FWaaS</p>
-<h3 id="self-service-networks">Self-service Networks</h3>
-<p>Self-service networks use segmentation methods such as VXLAN and routes virtual networks to physical networks using NAT.</p>
-<p>Using the benefits and dynamic approach of VXLAN, users can create their own virtual networks without needing to rely on changes to the underlying physical network.</p>
-<h2 id="network-architectures">Network Architectures</h2>
-<h3 id="open-vswitch-ovs">Open VSwitch (OVS)</h3>
-<p>Open VSwitch acts like a traffic manager. Neutron feeds OVS with traffic routing rules which define which packets should be sent where.</p>
-<p>The main drawback of OVS is that each time a VM moves or changes are made to the system, Neutron needs to notify all the OVS agents in the system with the updated routing rules.</p>
-<p>When deploying Openstack with Kolla, each host will get an <code>openvswitch-vswitchd</code> container deployed. This is responsible for running OpenVSwitch and handling bridge networking across the virtual machines deployed on the host.</p>
-<h3 id="open-virtual-network-ovn">Open Virtual Network (OVN)</h3>
-<p>Instead of individual agents, there is a centralised controller with Northbound and Southbound databases. Every node will still be running Open VSwitch, but each OVS agent will download the data from the OVN controller. Now, whenever there is a change to the network, the network rules only need to be updated in one place, making the setup much more scalable.</p>
-<h2 id="network-automation-during-enroll">Network Automation during Enroll</h2>
-<p>As a baremetal host transitions through different states such as cleaning, inspection and provisioning, openstack can be configured to automatically configure the leaf switches to update switch ports to the appropriate VLAN required for PXE booting.</p>
-<p>This is handled using Netmiko, a Python-based tool used for automating the configuration of switches. In particular, openstack <a href="https://github.com/openstack/networking-generic-switch">network-generic-switch</a> which is a wrapping layer between Openstack and Netmiko.</p>
-<h2 id="network-types">Network Types</h2>
-<p>When deploying with Kayobe, there are a few classes of networks which are defined by default:</p>
-<p>Overcloud Out-of-band | Used by seed host to access the OOB mgmt controllers of the bare metal hosts
-Overcloud Provisioning | Used by the seed host to provision cloud hosts
-Workload Out-of-band | Used by overcloud hsots to access the PPB mgmt controllers of bare metal hosts
-Workload Provisioning | Used by the cloud hosts to provision the baremetal compute hosts
-Internal | For internal and admin API endpoints
-Public | Public API endpoints
-External | Provide external network access for hosts in the system</p></p>
+        <p><p>Openstack can be deployed in a number of ways. A popular tool for deployment is Kayobe which deploys the Openstack services to machines as docker containers.</p>
+<p>Kayobe uses kolla-ansible to automate the deployment of Openstack services.</p>
+<h2 id="kayobe">Kayobe</h2>
+<pre><code># Configure Seed hypervisor
+kayobe seed hypervisor host configure
+
+# Configure a Seed host
+kayobe seed host configure
+
+# Configure an overcloud host
+kayobe overcloud host configure
+</code></pre>
+<p>Kayobe has global configuration for each of these type of hosts under $KAYOBE_CONFIG_PATH. The configuration files names represent the host type.</p>
+<pre><code>seed.yml
+controller.yml
+compute.yml
+</code></pre>
+<h2 id="service-deployment">Service Deployment</h2>
+<p>With the Kayobe host configured, the services can be deployed.</p>
+<pre><code># Deploy services for seed host
+kayobe seed service deploy
+
+# Deploy services for overcloud hosts
+kayobe overcloud service deploy
+</code></pre>
+<h2 id="service-upgrade">Service Upgrade</h2>
+<p>This docs assumes an Openstack deployment with Kayobe. Official Github docs for updates can be found <a href="https://github.com/stackhpc/stackhpc-kayobe-config/blob/staggered-upgrade/doc/source/operations/upgrading-openstack.rst#ovs">here</a></p>
+<h3 id="overcloud">Overcloud</h3>
+<pre><code># Make database backup
+kayobe overcloud database backup
+
+# Pull host containers
+kayobe overcloud container image pull
+
+# Update host packages
+kayobe overcloud host package update --packages &quot;*&quot;
+
+# Update host components (pip packages etc.)
+kayobe overcloud host upgrade
+
+# Stop health manager service (from controllers)
+# Checking for loadbalancer states to see if they need to failover (upgrade can cause them to go into an error state)
+# Loadbalancers wont come out of error state
+docker stop octavia_health_manager
+
+# Upgrade services
+# Skip sensitive services like nova and networking services
+kayobe overcloud service upgrade --kolla-skip-tags neutron,nova,openvswitch
+</code></pre></p>
     </article>
 </section>
 <!-- endblock -->
@@ -272,13 +305,13 @@ External | Provide external network access for hosts in the system</p></p>
                     <!-- block preview -->
     <div class="preview row row-cols-md-3 text-center pt-md-3" id="component-preview">
         <div class="col themed-grid-col">
-            <a rel="prev" href="../openstack_kolla_deployment/" class="nav-link">
+            <a rel="prev" href="../openstack_images/" class="nav-link">
                 <i class="fa fa-arrow-left"></i> Previous
             </a>
         </div>
         <div class="col themed-grid-col"></div>
         <div class="col themed-grid-col">
-            <a rel="next" href="../openstack_overview/" class="nav-link">
+            <a rel="next" href="../openstack_networking/" class="nav-link">
                 Next <i class="fa fa-arrow-right"></i>
             </a>
         </div>

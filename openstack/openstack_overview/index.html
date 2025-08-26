@@ -1,7 +1,7 @@
 <!doctype html>
 <html data-bs-theme="">
     <head>
-                <title>Openstack images - AWNET</title>
+                <title>Openstack overview - AWNET</title>
 
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -123,11 +123,11 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class=" active 
-                            nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Operations]</a>
+                            nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Openstack]</a>
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../build_you_own_chatgpt/" class="dropdown-item text-decoration-none ">Build you own chatgpt</a>
+        <a href="../azimuth/" class="dropdown-item text-decoration-none ">Azimuth</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
@@ -137,7 +137,7 @@
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="./" class="dropdown-item text-decoration-none  active ">Openstack images</a>
+        <a href="../openstack_images/" class="dropdown-item text-decoration-none ">Openstack images</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
@@ -152,7 +152,18 @@
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../openstack_overview/" class="dropdown-item text-decoration-none ">Openstack overview</a>
+        <a href="./" class="dropdown-item text-decoration-none  active ">Openstack overview</a>
+    </li>
+<!-- endblock -->
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="
+                            nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Operations]</a>
+                            <ul class="dropdown-menu">
+                                    <!-- block dropdown-menu -->
+    <li>
+        <a href="../../operations/build_you_own_chatgpt/" class="dropdown-item text-decoration-none ">Build you own chatgpt</a>
     </li>
 <!-- endblock -->
                             </ul>
@@ -231,14 +242,65 @@
     <article>
         <header>
             
-                <h1 class=" title" id="component-title">Openstack images</h1>
+                <h1 class=" title" id="component-title">Openstack overview</h1>
             
         </header>
-        <p><h2 id="baremetal-images-and-user-images">Baremetal Images and User Images</h2>
-<p>Baremetal servers managed in Ironic require their own deploy images which prepare the BM server for OS deployments.</p>
-<p>On top of these baremetal images, user images are deployed which are the images actually used by the end user.</p>
-<h2 id="disk-image-builder">Disk Image Builder</h2>
-<p>You can install the diskimage-builder package to be able to build user images.</p></p>
+        <p><h2 id="openstack-hardware">OpenStack Hardware</h2>
+<p>Openstack is built up of multiple hareware components. The core components are the controller and compute nodes. Optional additional hardware include a block and object storage node.</p>
+<h3 id="seed-host">Seed Host</h3>
+<p>The Seed host manages all the provisioning of the controller, compute, networking and storage hosts.</p>
+<p>The seed host runs a bifros container which is used to provision the cloud hosts (controllers + compute etc.).</p>
+<h3 id="controller">Controller</h3>
+<p>The controller is responsible for running identity services, image services, placement services and management portions of compute and networking agents.</p>
+<p>It can optionally run portions of the block storage, objects storage and orchestration.</p>
+<h3 id="networking">Networking</h3>
+<p>Network hosts run the neutron networking services and load balancers for API services.</p>
+<h3 id="compute">Compute</h3>
+<p>Compute hosts can be either hypervisors or baremetal hosts. Baremetal hosts will be managed by the Ironic service. Alternatively, hypervisor hosts will run additional compute, networking and storage services for managing Virtual Machines.</p>
+<h3 id="block-storage">Block storage</h3>
+<p>This node contains the disks</p>
+<p>Traffic between this node and compute nodes uses the management network. It is recommended for production setups to have a dedicated storage network to increase performance and security.</p>
+<h2 id="openstack-services">OpenStack services</h2>
+<h3 id="nova">Nova</h3>
+<p>Nova is the service for handling Virtual machines on hosts. Under the hood it uses KVM (<code>virsh</code>), a linux hypervisor built into a kernel module. So from a host running Nova, you can run <code>virsh list</code> to view the active VMs on that host.</p>
+<h3 id="ironic">Ironic</h3>
+<p>Ironic is the service which manages the baremetal hosts within Openstack. New baremetal hosts are registered with the Ironic service.</p>
+<p>Ironic keeps track of the state of the host. See this diagram for more details: https://docs.openstack.org/ironic/latest/_images/states.svg. Detail of the states is also provided in <a href="../openstack_baremetal_enroll/">Openstack Ironic States</a></p>
+<p>You can manage baremetal nodes in Ironic with the <code>openstack baremetal node</code> CLI, which allows for a host to be transitioned through different states and be put into maintenance mode.</p>
+<p>Once a host is managed by Ironic, it will be viewable by the openstack admin using the command below:</p>
+<pre><code>openstack baremetal node list
+</code></pre>
+<h3 id="neutron">Neutron</h3>
+<p>Neutron is the networking service which handles the configuration of network interfaces on the hosts and supporting tools like VXLAN.</p>
+<p>The Neutron server routes API requests to the appropriate network plugins based on the request.</p>
+<p>More detail can be found in <a href="../openstack_networking/">Openstack Networking</a>.</p>
+<h3 id="storage">Storage</h3>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cinder</td>
+<td>Block storage service responsible for integrating with block storage devices to provision volumes and mount volumes to hosts.</td>
+</tr>
+<tr>
+<td>Swift</td>
+<td>Object storage for storing VM images and data.</td>
+</tr>
+<tr>
+<td>Manila</td>
+<td>Provides file shares to virtual machines</td>
+</tr>
+</tbody>
+</table>
+<h3 id="glance">Glance</h3>
+<p>Manages images in Openstack which are used for VM provisioning.</p>
+<h3 id="octavia">Octavia</h3>
+<p>Manages Loadbalancer resources.</p></p>
     </article>
 </section>
 <!-- endblock -->
@@ -250,13 +312,13 @@
                     <!-- block preview -->
     <div class="preview row row-cols-md-3 text-center pt-md-3" id="component-preview">
         <div class="col themed-grid-col">
-            <a rel="prev" href="../openstack_baremetal_enroll/" class="nav-link">
+            <a rel="prev" href="../openstack_networking/" class="nav-link">
                 <i class="fa fa-arrow-left"></i> Previous
             </a>
         </div>
         <div class="col themed-grid-col"></div>
         <div class="col themed-grid-col">
-            <a rel="next" href="../openstack_kolla_deployment/" class="nav-link">
+            <a rel="next" href="../../operations/build_you_own_chatgpt/" class="nav-link">
                 Next <i class="fa fa-arrow-right"></i>
             </a>
         </div>
