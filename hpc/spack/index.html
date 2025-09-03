@@ -1,7 +1,7 @@
 <!doctype html>
 <html data-bs-theme="">
     <head>
-                <title>Hybrid cloud networking to azure - AWNET</title>
+                <title>Spack - AWNET</title>
 
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -75,63 +75,63 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="
+                            <a class=" active 
                             nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Hpc]</a>
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../hpc/aws_parallel_cluster/" class="dropdown-item text-decoration-none ">Aws parallel cluster</a>
+        <a href="../aws_parallel_cluster/" class="dropdown-item text-decoration-none ">Aws parallel cluster</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../hpc/slurm_basics/" class="dropdown-item text-decoration-none ">Slurm basics</a>
+        <a href="../slurm_basics/" class="dropdown-item text-decoration-none ">Slurm basics</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../hpc/spack/" class="dropdown-item text-decoration-none ">Spack</a>
+        <a href="./" class="dropdown-item text-decoration-none  active ">Spack</a>
     </li>
 <!-- endblock -->
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class=" active 
+                            <a class="
                             nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Networking]</a>
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="./" class="dropdown-item text-decoration-none  active ">Hybrid cloud networking to azure</a>
+        <a href="../../networking/hybrid_cloud_networking_to_azure/" class="dropdown-item text-decoration-none ">Hybrid cloud networking to azure</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../mclag/" class="dropdown-item text-decoration-none ">Mclag</a>
+        <a href="../../networking/mclag/" class="dropdown-item text-decoration-none ">Mclag</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../networking_terminology/" class="dropdown-item text-decoration-none ">Networking terminology</a>
+        <a href="../../networking/networking_terminology/" class="dropdown-item text-decoration-none ">Networking terminology</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../radius/" class="dropdown-item text-decoration-none ">Radius</a>
+        <a href="../../networking/radius/" class="dropdown-item text-decoration-none ">Radius</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../sonic_cli_commands/" class="dropdown-item text-decoration-none ">Sonic cli commands</a>
+        <a href="../../networking/sonic_cli_commands/" class="dropdown-item text-decoration-none ">Sonic cli commands</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../spanning_tree/" class="dropdown-item text-decoration-none ">Spanning tree</a>
+        <a href="../../networking/spanning_tree/" class="dropdown-item text-decoration-none ">Spanning tree</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../vxlan/" class="dropdown-item text-decoration-none ">Vxlan</a>
+        <a href="../../networking/vxlan/" class="dropdown-item text-decoration-none ">Vxlan</a>
     </li>
 <!-- endblock -->
                             </ul>
@@ -257,65 +257,89 @@
     <article>
         <header>
             
-                <h1 class=" title" id="component-title">Hybrid cloud networking to azure</h1>
+                <h1 class=" title" id="component-title">Spack</h1>
             
         </header>
-        <p><p>This doc provides an overview on connecting an on-premise network to Azure cloud via a IPSec VPN Tunnel (not an express-route).</p>
-<h2 id="azure-resources">Azure Resources</h2>
-<p>The Azure architecture side is built up of 5 main components: Virtual Network, Public IP, Local Network Gateway, Virtual Network Gateway and a Connection</p>
-<h3 id="virtual-network">Virtual Network</h3>
-<p>The gateway will need to be tied to a virtual network. From this network, it is possible to connect resources or peer other VNets which can communicate with the on-premise network.</p>
-<pre><code>az network vnet create -g $RG \
-    -n $VNET_NAME --address-prefix 10.1.0.0/24 \
-    --subnet-name $SUBNET_NAME \
-    --subnet-prefixes 10.1.0.0/24
-</code></pre>
-<p>Take note of the range used here, as this is what will need to be included in the routing table from the on-premise side of the tunnel.</p>
-<h3 id="public-ip-address">Public IP Address</h3>
-<p>The public IP address is required for the on-premise site to connect to. This IP will be assigned to the Virtual Network Gateway</p>
-<pre><code>az network public-ip create -g $RG -n $IP_NAME
-</code></pre>
-<h3 id="virtual-network-gateway">Virtual Network Gateway</h3>
-<p>The Virtual Network Gateway has the previously created public IP address assigned to it.</p>
-<p>Different gateway SKUs will offer different bandwidth</p>
-<pre><code>az network vnet-gateway create -g $RG \
-    -n vpn-gateway \
-    --public-ip-address $PUBLIC_IP \
-    --vnet $VNET_NAME --gateway-type Vpn \
-    --sku VpnGw1 \
-    --vpn-type RouteBased
-</code></pre>
-<h3 id="local-network-gateway">Local Network Gateway</h3>
-<p>The Local Network Gateway defines the routes for the local network at the other end of the tunnel. It's under this resource that all the IP ranges of the on-premise site are defined. Additionally, we need to set the on-premise public IP for Azure to connect to.</p>
-<p>In the example below, we are creating a local network gateway for our on-premise network which has a local range of 192.168.1.0/24 and 172.21.21.0/24</p>
-<pre><code>az network local-gateway create -g $RG \
-    -n local-gateway \
-    --gateway-ip-address $ON_PREM_PUBLIC_IP \
-    --local-address-prefixes 192.168.1.0/24 172.21.21.0/24
-</code></pre>
-<h3 id="connection">Connection</h3>
-<p>The connection resource ties together both the Virtual and Local Network Gateways and specifies the encruyption algorithms to be used.</p>
-<pre><code># Create the gateway connection
-az network vpn-connection create \
-    -g $RG -n vpn-connection \
-    --vnet-gateway1 $VPN_GATEWAY \
-    --local-gateway2 local-gateway \
-    --shared-key $RANDOM_GENERATED_SHARED_KEY
+        <p><h2 id="why-use-spack">Why use Spack?</h2>
+<h3 id="reproducibility">reproducibility</h3>
+<p>Spack makes advancements on the traditional binary package managers like <code>apt</code> and <code>yum</code> by allowing a system to support multiple different versions and dependency trees.</p>
+<p>Spack abstracts away a lot of the complexity of pacakage management on HPC systems and allows for easy reproducibility of research software runtime environments. On top of this, it provides a much more friendly CLI for managing these dependency trees of varying complexity.</p>
+<p>Spack ensures reproducibility by tying dependency trees and linking packages to their dependent compilers, so environments can be rebuilt in a consistent way. It can also speed up installations by aiming to build dependency trees based on what the machine already has.</p>
+<p>While reproducibility can be solved by tools like Virtual Machine Images and Docker, Spack attempts to handle the reproducibility on the package level, without having to make an entire copy of the system.</p>
+<h3 id="compiler-and-architecture-considerations">Compiler and Architecture Considerations</h3>
+<p>Spack ensures that packages being installed a compatible with the host and relevant to the compiler version and architectures avilable. All libraries in a depency chain should use compatible compilers to ensure ABI and linking compatibility.</p>
+<h2 id="environments">Environments</h2>
+<p>Environments are cirtualised spack instances that can be used to aggregate package installations for a project.</p>
+<pre><code>spack env create myenv
+spack env activate myenv
 
-# Add an IPSec policy defining the encryption algorithnm
-az network vpn-gateway connection ipsec-policy add \
-    --connection-name vpn-connection \
-    --dh-group DHGroup14 \
-    --ike-encryption AES256 \
-    --ike-integrity SHA256 \
-    --ipsec-encryption GCMAES256 \
-    --ipsec-integrity GCMAES256 \
-    --pfs-group ECP256 \
-    --resource-group $RG
+# Add a package into an environment
+spack add tcl
+spack install
+
+# Remove a package from an environment
+spack remove tcl
+
+# Concretize the environment
+spack concretize
+
+spack env deactivate
 </code></pre>
-<h2 id="on-premise">On-Premise</h2>
-<p>From the on-premise firewall, configure an IPSec tunnel with the same encryption rules as specified above and set the same shared key that was specified on the connection resource.</p>
-<p>This document doesn't specify how to implement any routing protocols to dynamically learn accessible routes in the cloud, so you will need to statically define a route to the cloud based on the virtual network range created earlier with the next hop set to the IPSec tunnel.</p></p>
+<p>It is still possible to use globally installed packages within an environment, but commands like <code>spack find</code> will show no installed packaages.</p>
+<p>Spack environments will spit out a <code>spack.lock</code> which can be shared for reproducibility.</p>
+<h2 id="mirrors">Mirrors</h2>
+<p>Spack mirrors are designed to host local repositories where hosts can get their files from. This is used in the event of the host not having access to the internet or the site where the packages are typically installed from.</p>
+<h2 id="concretization">Concretization</h2>
+<p>Concretization fills out any missing configuration details on a dependency graph when a user is not explicit. This will then explicitly set versions, compilers, architectures and compiler versions for each package in the dependency graph for guaranteed reproducibility.</p>
+<h2 id="complexity-handling">Complexity Handling</h2>
+<p>Spack ensures that multiple different versions and variations can be installed by taking a hash of the dependency graph for each installed package. The hash is then appended to each package prefix and saved under the relevant compiler in the spack directory. This ensures that each unique dependency graph is a unique configuration meaning multiple configurations of the same package can coexist on the system.</p>
+<h2 id="external-software">External Software</h2>
+<p>Spack packages can be built with external software so not all packages need to be spack packages. The main issue with using external software is that the DAG gets pruned meaning Spack does not know anything about the external software below it in the tree.</p>
+<p>External software can be configured in the <code>packages.yaml</code>, specifying the path to where the external software can be found.</p>
+<h2 id="commands">Commands</h2>
+<pre><code># List all packages from repository
+spack list
+
+# Show installed packages and different versions
+spack find
+
+# Show spack compilers
+spack compilers
+
+# Configure a spack mirror
+spack mirror mymirror /mirror
+
+# Find location of package
+spack location -i gcc@12
+
+# Specify the compiler for the install
+spack install gmake %clang
+
+# Explicitly specify the version of a dependency
+spack install tcl ^zlib-ng@2.0.7 %clang
+
+# Install package from package has
+spack install tcl ^/6bh
+
+# Disable a dependency
+spack install hdf5~mpi
+
+# Graphical view of dependencies
+spack graph
+
+# Uninstall pacakages (Remove zlib-ng built with gcc version 10)
+spack uninstall zlib-ng %gcc@10
+
+# Spack will attempt to prevent uninstalling pacakages that are used as a dependency
+# Uninstall dependents along with package
+spack uninstall --dependents zlib-ng/$HASH
+
+# Target a specific architecture
+spack install mpileaks@3.3 target=cascadelake
+
+# Get spack config
+spack config get
+</code></pre></p>
     </article>
 </section>
 <!-- endblock -->
@@ -327,13 +351,13 @@ az network vpn-gateway connection ipsec-policy add \
                     <!-- block preview -->
     <div class="preview row row-cols-md-3 text-center pt-md-3" id="component-preview">
         <div class="col themed-grid-col">
-            <a rel="prev" href="../../hpc/spack/" class="nav-link">
+            <a rel="prev" href="../slurm_basics/" class="nav-link">
                 <i class="fa fa-arrow-left"></i> Previous
             </a>
         </div>
         <div class="col themed-grid-col"></div>
         <div class="col themed-grid-col">
-            <a rel="next" href="../mclag/" class="nav-link">
+            <a rel="next" href="../../networking/hybrid_cloud_networking_to_azure/" class="nav-link">
                 Next <i class="fa fa-arrow-right"></i>
             </a>
         </div>
