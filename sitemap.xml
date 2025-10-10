@@ -1,115 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://awalford16.github.io/notes/</loc>
+         <loc>https://awalford16.github.io/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/notes/HPC/AWS_parallel_cluster/</loc>
+         <loc>https://awalford16.github.io/HPC/AWS_parallel_cluster/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/notes/HPC/slurm_basics/</loc>
+         <loc>https://awalford16.github.io/HPC/slurm_basics/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/notes/HPC/spack/</loc>
+         <loc>https://awalford16.github.io/HPC/spack/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/notes/electrical/UK_Qualification_Requirements/</loc>
+         <loc>https://awalford16.github.io/electrical/UK_Qualification_Requirements/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/notes/electrical/electrical_certificates/</loc>
+         <loc>https://awalford16.github.io/electrical/electrical_certificates/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/notes/networking/FEC/</loc>
+         <loc>https://awalford16.github.io/networking/FEC/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/notes/networking/MCLAG/</loc>
+         <loc>https://awalford16.github.io/networking/MCLAG/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/notes/networking/VXLAN/</loc>
+         <loc>https://awalford16.github.io/networking/VXLAN/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/notes/networking/hybrid_cloud_networking_to_azure/</loc>
+         <loc>https://awalford16.github.io/networking/hybrid_cloud_networking_to_azure/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/notes/networking/networking_terminology/</loc>
+         <loc>https://awalford16.github.io/networking/networking_terminology/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/notes/networking/radius/</loc>
+         <loc>https://awalford16.github.io/networking/radius/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/notes/networking/sonic_cli_commands/</loc>
+         <loc>https://awalford16.github.io/networking/sonic_cli_commands/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/notes/networking/spanning_tree/</loc>
+         <loc>https://awalford16.github.io/networking/spanning_tree/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/notes/openstack/azimuth/</loc>
+         <loc>https://awalford16.github.io/openstack/azimuth/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/notes/openstack/openstack_baremetal_enroll/</loc>
+         <loc>https://awalford16.github.io/openstack/openstack_baremetal_enroll/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/notes/openstack/openstack_images/</loc>
+         <loc>https://awalford16.github.io/openstack/openstack_images/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/notes/openstack/openstack_kolla_deployment/</loc>
+         <loc>https://awalford16.github.io/openstack/openstack_kolla_deployment/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/notes/openstack/openstack_networking/</loc>
+         <loc>https://awalford16.github.io/openstack/openstack_networking/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/notes/openstack/openstack_overview/</loc>
+         <loc>https://awalford16.github.io/openstack/openstack_overview/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/notes/operations/Build_you_own_ChatGPT/</loc>
+         <loc>https://awalford16.github.io/operations/Build_you_own_ChatGPT/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/notes/storage/ZFS_terminology/</loc>
+         <loc>https://awalford16.github.io/storage/ZFS_terminology/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/notes/storage/ceph_deployment/</loc>
+         <loc>https://awalford16.github.io/storage/ceph_deployment/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/notes/storage/ceph_storage_systems/</loc>
+         <loc>https://awalford16.github.io/storage/ceph_storage_systems/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/notes/storage/ceph_terminology/</loc>
+         <loc>https://awalford16.github.io/storage/ceph_terminology/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/notes/storage/linux_storage_commands/</loc>
+         <loc>https://awalford16.github.io/storage/linux_storage_commands/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/notes/storage/lustre_overview/</loc>
+         <loc>https://awalford16.github.io/storage/lustre_overview/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/notes/storage/minio_kube_auth/</loc>
+         <loc>https://awalford16.github.io/storage/minio_kube_auth/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
 </urlset>
