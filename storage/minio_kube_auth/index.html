@@ -1,7 +1,7 @@
 <!doctype html>
 <html data-bs-theme="">
     <head>
-                <title>Build you own chatgpt - AWNET</title>
+                <title>Minio kube auth - AWNET</title>
 
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -178,53 +178,53 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class=" active 
+                            <a class="
                             nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Operations]</a>
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="./" class="dropdown-item text-decoration-none  active ">Build you own chatgpt</a>
+        <a href="../../operations/build_you_own_chatgpt/" class="dropdown-item text-decoration-none ">Build you own chatgpt</a>
     </li>
 <!-- endblock -->
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="
+                            <a class=" active 
                             nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Storage]</a>
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../storage/ceph_deployment/" class="dropdown-item text-decoration-none ">Deploying a Ceph Cluster with cephadm</a>
+        <a href="../ceph_deployment/" class="dropdown-item text-decoration-none ">Deploying a Ceph Cluster with cephadm</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../storage/ceph_storage_systems/" class="dropdown-item text-decoration-none ">Ceph storage systems</a>
+        <a href="../ceph_storage_systems/" class="dropdown-item text-decoration-none ">Ceph storage systems</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../storage/ceph_terminology/" class="dropdown-item text-decoration-none ">Ceph terminology</a>
+        <a href="../ceph_terminology/" class="dropdown-item text-decoration-none ">Ceph terminology</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../storage/linux_storage_commands/" class="dropdown-item text-decoration-none ">Linux storage commands</a>
+        <a href="../linux_storage_commands/" class="dropdown-item text-decoration-none ">Linux storage commands</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../storage/lustre_overview/" class="dropdown-item text-decoration-none ">Lustre overview</a>
+        <a href="../lustre_overview/" class="dropdown-item text-decoration-none ">Lustre overview</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../storage/minio_kube_auth/" class="dropdown-item text-decoration-none ">Minio kube auth</a>
+        <a href="./" class="dropdown-item text-decoration-none  active ">Minio kube auth</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../storage/zfs_terminology/" class="dropdown-item text-decoration-none ">Zfs terminology</a>
+        <a href="../zfs_terminology/" class="dropdown-item text-decoration-none ">Zfs terminology</a>
     </li>
 <!-- endblock -->
                             </ul>
@@ -267,77 +267,130 @@
     <article>
         <header>
             
-                <h1 class=" title" id="component-title">Build you own chatgpt</h1>
+                <h1 class=" title" id="component-title">Minio kube auth</h1>
             
         </header>
-        <p><h2 id="chatgpt-on-premise-but-why">ChatGPT On-Premise... but why?</h2>
-<p>ChatGPT has become an incredibly useful tool since its release in 2022. One of the most powerful things you can do with ChatGPT is to prompt it to become your own personal advisor in a wide range of issues. We can leverage it to be our own project manager or even a fitness coach/planner. There is just one issue though; these prompts and the information we provide to ChatGPT can get personal, and all of it goes out to the internet. This data that we provide to OpenAI can be used in model training and has been known to get exposed in the past.</p>
-<p>Thanksfully, there are hundreds of open source LLMs which we can run ourselves, allowing the information we pass to the model to stay within our home network. With lower-parameter models like <code>llama3:8b</code> and <code>gemma3:12b</code>, it is possible to run an LLM on something like a Mac or a home lab computer with a GPU. They may not be as accurate as what is running behind OpenAI but it can still be a very powerful tool with an increased sense of security.</p>
-<h2 id="hardware-recommendations">Hardware Recommendations</h2>
-<p>This demo is deploying <code>llama3:8b</code> on an M2 Mac Mini with 16GB of RAM. For context, here is the recommended hardware specs for some of the available opensource LLMs to still achieve a good throughput.</p>
-<table>
-<thead>
-<tr>
-<th>Model</th>
-<th>Min. GPU VRAM</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>llama3:8b</td>
-<td>6GB</td>
-</tr>
-<tr>
-<td>gemma3:12b</td>
-<td>9GB</td>
-</tr>
-<tr>
-<td>qwen2.5:32b</td>
-<td>24GB</td>
-</tr>
-</tbody>
-</table>
-<h2 id="ollama">Ollama</h2>
-<p>Ollama is a tool used for running LLMs locally. It can be run very easily with just a docker container:</p>
-<pre><code># Make a directory for ollama to download models to
-mkdir ollama
-docker run ollama/ollama:0.10.0-rc3 -p 11434:11434 -v ./ollama:/root/.ollama
+        <p><h2 id="sts-authentication">STS Authentication</h2>
+<p>Minio Security Token Service provides a way of authenticating with Minio tenants without needing to create authentication credentials on the tenant.</p>
+<p>In this set, we will be using Kubernetes service accounts with the <code>AssumeRoleWithWebIdentity</code> action for acquiring Minio access credentials.</p>
+<h3 id="minio-setup">Minio Setup</h3>
+<p>We will be using the Minio helm chart to deploy a tenant for testing the STS authantication. Add the Minio Helm repository:</p>
+<pre><code>helm repo add minio https://operator.min.io
+helm repo update
 </code></pre>
-<p>Or in docker compose:</p>
-<pre><code class="language-yaml">ollama:
-    image: ollama/ollama:0.10.0-rc3
-    container_name: ollama
-    ports:
-      - 11434:11434
-    volumes:
-      - ./ollama:/root/.ollama
-    restart: unless-stopped
+<p>Install the Minio Operator:</p>
+<pre><code>helm install operator minio/operator -n minio-operator --create-namespace
 </code></pre>
-<p>We wont have any models available to talk to yet, but they can be downloaded with the command:</p>
-<pre><code>docker exec -it ollama ollama pull MODEL_NAME
+<p>The operator allows us to provision multiple Minio tenants using Minio CRDs. We can now deploy a Minio tenant once the operator pods are up and running:</p>
+<pre><code>helm install tenant minio/tenant -n minio-tenant --create-namespace
 </code></pre>
-<h3 id="quantization">Quantization</h3>
-<p>Since we are running locally, we may not have access to a huge amount of storage, especially if we want to offer a range of models to try within our own ChatGPT. However, we can take advantage of QAT or post-training quantized models, which can reduce their memory footprint significantly.</p>
-<p>Take Google's <code>gemma3:12b</code> model. The original model takes up 24GB in space, Google leveraged Quantized Aware Training (QAT), which reduces the precision of the models weights and biases from BF16 to Int4, taking the model size down to just 8GB. QAT is supposedly meant to keep the accuracy of the model better and post-training quantization, so we can also try add the <code>gemma3:12b-it-qat</code> model.</p>
-<h2 id="open-webui">Open WebUI</h2>
-<p>So we have ollama running, but it is not the most user-friendly interface. Each time we stop ollama, it loses all memory of our conversations.</p>
-<p><a href="https://github.com/open-webui/open-webui">Open WebUI</a> is an open-source tool for providing a ChatGPT-like interface which can be used to point at your own locally-run LLMs. Meaning you can point it at your previously deployed ollama model, completing your completely on-premise ChatGPT.</p>
-<p>Docker compose example:</p>
-<pre><code>open-webui:
-    image: ghcr.io/open-webui/open-webui:main
-    container_name: open-webui
-    environment:
-      - OLLAMA_BASE_URL=http://YOUR_IP:11434
-      - 'WEBUI_SECRET_KEY='
-    ports:
-      - 3000:8080
-    volumes:
-      - ./open-webui:/app/backend/data
-    extra_hosts:
-      - host.docker.internal:host-gateway
-    restart: unless-stopped
+<p>This will deploy a <code>tenant</code> custom resource which can be checked with <code>kubectl get tenants</code>.</p>
+<p>The tenants will need to be configured with TLS enabled. By default the Helm chart configures the tenants with "auto-cert", which will use the Kubernetes CA cert on the cluster for generating TLS certificates for communication between the client, tenant and the Minio operator. This can be disabled and certs can be managed manually by configurating the chart valies with <code>certificate.requestAutoCert=false</code>. There are Minio STS deployment examples here on how to configure certificates with CertManager: https://github.com/minio/operator/tree/master/examples/kustomization/sts-example.</p>
+<h3 id="service-account-setup">Service Account Setup</h3>
+<p>The token that will be passed to the STS endpoint for authentication will be the JWT tied to a Kubernetes service account. The <code>yaml</code> below will create a service account in the cluster which will be assigned to a client service.</p>
+<pre><code class="language-yaml">apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: minio-client-sa
 </code></pre>
-<p>It takes a little while for the container to start, but once it is up, we can hit <code>localhost:3000</code> and be greated with a very familiar looking interface.</p></p>
+<p>When assigning the service account to the client deployment, the <code>sts.min.io</code> audience needs to be added to the token, which can be achieved using projected volume mounts:</p>
+<pre><code class="language-yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minio-client
+spec:
+  template:
+    spec:
+      containers:
+        - name: minio-client
+          image: $IMAGE
+          name: fridge-api-server
+          ports:
+            - containerPort: 8000
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /minio
+              name: minio-client-sa
+              readOnly: true
+      serviceAccountName: minio-client-sa
+      volumes:
+        - name: minio-client-sa
+          projected:
+            sources:
+              - serviceAccountToken:
+                  audience: sts.min.io
+                  path: token
+</code></pre>
+<p>The service account token with the projected audience will be mounted at <code>/minio/token</code>.</p>
+<h3 id="policy-binding">Policy Binding</h3>
+<p>The service account needs to be bound to a Minio policy. This can be achieved using the Minio <code>PolicyBinding</code> CRD:</p>
+<pre><code class="language-yaml">apiVersion: sts.min.io/v1beta1
+kind: PolicyBinding
+metadata:
+  name: minio-client-readonly
+spec:
+  application:
+    namespace: client # Namespace of the client using the service account
+    serviceaccount: minio-client-sa # Service account name
+  policies:
+    - readonly
+</code></pre>
+<h3 id="python-client">Python Client</h3>
+<p>Minio STS requires TLS encryption to work. Since the certificates used by the Minio tenant and operator are issued by the cluster CA, the CA cert needs to be trusted within the client. The certificates are also only valid for internal cluster URLs (e.g. <code>svc.cluster.local</code>), meaning the client needs to be running from somewhere where that can be resolved.</p>
+<p>This certificate is already accessible within the pod when a Kubernetes service account is assigned to the pod. The cert can be found in the pod under <code>/var/run/secrets/kubernetes.io/serviceaccount/ca.crt</code></p>
+<p>The Python script below assumes that it is running within the cluster, with the internal Kube DNS to resolve <code>svc.cluster.local</code>. It passes the cluster certificate into the SSL context for the HTTP call, which calls the <code>/sts/$TENANT</code> Minio operator STS endpoint passing the <code>Action=AssumeRoleWithWebIdentity</code> and <code>WebIdentityToken=$JWT</code>.</p>
+<pre><code class="language-python">import ssl
+import urllib3
+from pathlib import Path
+
+SA_TOKEN_FILE = &quot;/minio/token&quot;
+KUBE_CA_CRT = &quot;/var/run/secrets/kubernetes.io/serviceaccount/ca.crt&quot;
+STS_ENDPOINT = &quot;https://sts.minio-operator.svc.cluster.local:4223&quot;
+TENANT = &quot;minio-tenant&quot;
+
+# Read service account token
+sa_token = Path(SA_TOKEN_FILE).read_text().strip()
+
+ssl_context = ssl.create_default_context(cafile=KUBE_CA_CRT)
+
+# Create urllib3 client which accepts kube CA cert
+http = urllib3.PoolManager(ssl_context=ssl_context)
+
+# Send the token to the MinIO STS endpoint
+response = http.request(
+    &quot;POST&quot;,
+    f&quot;{STS_ENDPOINT}/sts/{TENANT}?Action=AssumeRoleWithWebIdentity&amp;Version=2011-06-15&amp;WebIdentityToken={sa_token}&quot;,
+)
+
+print(response.data)
+</code></pre>
+<p>Providing all went to plan, Minio should return a block of XML containing the access and secret key, looking similar to the block below.</p>
+<pre><code class="language-xml">&lt;AssumeRoleWithWebIdentityResponse xmlns=&quot;https://sts.amazonaws.com/doc/2011-06-15/&quot;&gt;
+    &lt;AssumeRoleWithWebIdentityResult&gt;
+        &lt;AssumedRoleUser&gt;
+            &lt;Arn&gt;&lt;/Arn&gt;
+            &lt;AssumeRoleId&gt;&lt;/AssumeRoleId&gt;
+        &lt;/AssumedRoleUser&gt;
+        &lt;Credentials&gt;
+            &lt;AccessKeyId&gt;ACCESS_KEY&lt;/AccessKeyId&gt;
+            &lt;SecretAccessKey&gt;SECRET_KET&lt;/SecretAccessKey&gt;
+            &lt;Expiration&gt;2020-12-25T00:00:50Z&lt;/Expiration&gt;
+            &lt;SessionToken&gt;JWT&lt;/SessionToken&gt;
+        &lt;/Credentials&gt;
+    &lt;/AssumeRoleWithWebIdentityResult&gt;
+    &lt;ResponseMetadata&gt;&lt;/ResponseMetadata&gt;
+&lt;/AssumeRoleWithWebIdentityResponse&gt;
+</code></pre>
+<p>This XML can then be parsed to grab the keys and configure the minio Python client.</p>
+<pre><code class="language-python">from minio import Minio
+
+minio_client = Minio(
+  &quot;minio.minio-tenant.svc.cluster.local:9000&quot;,
+  access_key=$ACCESS_KEY,
+  secret_key=$SECRET_KEY,
+  secure=True,
+)
+</code></pre></p>
     </article>
 </section>
 <!-- endblock -->
@@ -349,13 +402,13 @@ docker run ollama/ollama:0.10.0-rc3 -p 11434:11434 -v ./ollama:/root/.ollama
                     <!-- block preview -->
     <div class="preview row row-cols-md-3 text-center pt-md-3" id="component-preview">
         <div class="col themed-grid-col">
-            <a rel="prev" href="../../openstack/openstack_overview/" class="nav-link">
+            <a rel="prev" href="../lustre_overview/" class="nav-link">
                 <i class="fa fa-arrow-left"></i> Previous
             </a>
         </div>
         <div class="col themed-grid-col"></div>
         <div class="col themed-grid-col">
-            <a rel="next" href="../../storage/ceph_deployment/" class="nav-link">
+            <a rel="next" href="../zfs_terminology/" class="nav-link">
                 Next <i class="fa fa-arrow-right"></i>
             </a>
         </div>

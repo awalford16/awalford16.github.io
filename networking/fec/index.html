@@ -1,7 +1,7 @@
 <!doctype html>
 <html data-bs-theme="">
     <head>
-                <title>Build you own chatgpt - AWNET</title>
+                <title>Fec - AWNET</title>
 
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -96,47 +96,47 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="
+                            <a class=" active 
                             nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Networking]</a>
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../networking/fec/" class="dropdown-item text-decoration-none ">Fec</a>
+        <a href="./" class="dropdown-item text-decoration-none  active ">Fec</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../networking/hybrid_cloud_networking_to_azure/" class="dropdown-item text-decoration-none ">Hybrid cloud networking to azure</a>
+        <a href="../hybrid_cloud_networking_to_azure/" class="dropdown-item text-decoration-none ">Hybrid cloud networking to azure</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../networking/mclag/" class="dropdown-item text-decoration-none ">Mclag</a>
+        <a href="../mclag/" class="dropdown-item text-decoration-none ">Mclag</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../networking/networking_terminology/" class="dropdown-item text-decoration-none ">Networking terminology</a>
+        <a href="../networking_terminology/" class="dropdown-item text-decoration-none ">Networking terminology</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../networking/radius/" class="dropdown-item text-decoration-none ">Radius</a>
+        <a href="../radius/" class="dropdown-item text-decoration-none ">Radius</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../networking/sonic_cli_commands/" class="dropdown-item text-decoration-none ">Sonic cli commands</a>
+        <a href="../sonic_cli_commands/" class="dropdown-item text-decoration-none ">Sonic cli commands</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../networking/spanning_tree/" class="dropdown-item text-decoration-none ">Spanning tree</a>
+        <a href="../spanning_tree/" class="dropdown-item text-decoration-none ">Spanning tree</a>
     </li>
 <!-- endblock -->
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="../../networking/vxlan/" class="dropdown-item text-decoration-none ">Vxlan</a>
+        <a href="../vxlan/" class="dropdown-item text-decoration-none ">Vxlan</a>
     </li>
 <!-- endblock -->
                             </ul>
@@ -178,12 +178,12 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class=" active 
+                            <a class="
                             nav-link dropdown-toggle text-decoration-none" href="#" data-bs-toggle="dropdown">[Operations]</a>
                             <ul class="dropdown-menu">
                                     <!-- block dropdown-menu -->
     <li>
-        <a href="./" class="dropdown-item text-decoration-none  active ">Build you own chatgpt</a>
+        <a href="../../operations/build_you_own_chatgpt/" class="dropdown-item text-decoration-none ">Build you own chatgpt</a>
     </li>
 <!-- endblock -->
                             </ul>
@@ -267,77 +267,39 @@
     <article>
         <header>
             
-                <h1 class=" title" id="component-title">Build you own chatgpt</h1>
+                <h1 class=" title" id="component-title">Fec</h1>
             
         </header>
-        <p><h2 id="chatgpt-on-premise-but-why">ChatGPT On-Premise... but why?</h2>
-<p>ChatGPT has become an incredibly useful tool since its release in 2022. One of the most powerful things you can do with ChatGPT is to prompt it to become your own personal advisor in a wide range of issues. We can leverage it to be our own project manager or even a fitness coach/planner. There is just one issue though; these prompts and the information we provide to ChatGPT can get personal, and all of it goes out to the internet. This data that we provide to OpenAI can be used in model training and has been known to get exposed in the past.</p>
-<p>Thanksfully, there are hundreds of open source LLMs which we can run ourselves, allowing the information we pass to the model to stay within our home network. With lower-parameter models like <code>llama3:8b</code> and <code>gemma3:12b</code>, it is possible to run an LLM on something like a Mac or a home lab computer with a GPU. They may not be as accurate as what is running behind OpenAI but it can still be a very powerful tool with an increased sense of security.</p>
-<h2 id="hardware-recommendations">Hardware Recommendations</h2>
-<p>This demo is deploying <code>llama3:8b</code> on an M2 Mac Mini with 16GB of RAM. For context, here is the recommended hardware specs for some of the available opensource LLMs to still achieve a good throughput.</p>
+        <p><h2 id="what-is-forward-error-correction">What is Forward Error Correction?</h2>
+<p>FEC improves bit error rate. Sometimes cyclic redundancy checks or checksums are done to check for errors in transmitted data and determine if it needs to be re-transmitted. FEC removes the need for re-transmitting the data by correcting the data in-place.</p>
+<h2 id="how-does-it-work">How does it work?</h2>
+<p>When payloads are transferred between network devices, bits are added to the payload to help reduce errors within the payload.</p>
+<p>Hamming distance checks the distance between 2 bit streams based on how many bits are incorrect.</p>
+<p>FEC creates an error correcting code (ECC), which are codes stored in a dictionary on both sides of the connection. The code words are 5 bits (e.g 10101) map to a 2-bit sequence (e.g. 01, 10, 11). Each 2 bits in the transfer data is mapped to a code word, and the final longer string is then what gets transferred between the devices.</p>
+<p>On receipt of the code words, the receiver checks the code words against the dictionary. If the receivers dictionary contains the code word, then it can be assumed that there were no errors in the transfer. However, if the dictionary does not contain the code word, it will try to identify the most similar code word in the dictionary using the hamming distance. Having multiple bit errors is less likely than a single bit error, so the hamming distance helps determine the most likely intended code word.</p>
+<p>If the hamming distance determines it could be multiple possible ECCs from the dictionary, the receiver will request that the specific portion of the data is resent. To make a system more robust, code words can be made longer to reduce the likelihood of retransmissions or incorrect decoding.</p>
+<p>One of the main tradeoffs of FEC is an increased latency due to the increased payload size. There is also additional complexity, since devices on both sides of the connection, including the transceivers, need to support FEC.</p>
+<h2 id="fec-options">FEC Options</h2>
 <table>
 <thead>
 <tr>
-<th>Model</th>
-<th>Min. GPU VRAM</th>
+<th>RS (Reed-Solomon)</th>
+<th>FC (Firecode)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>llama3:8b</td>
-<td>6GB</td>
-</tr>
-<tr>
-<td>gemma3:12b</td>
-<td>9GB</td>
-</tr>
-<tr>
-<td>qwen2.5:32b</td>
-<td>24GB</td>
+<td>Stronger correction but more overhead and latency (Good for DAC cables and long fibre runs)</td>
+<td>Lighter correction with lower overhead and latency (For 25GB short cable runs)</td>
 </tr>
 </tbody>
 </table>
-<h2 id="ollama">Ollama</h2>
-<p>Ollama is a tool used for running LLMs locally. It can be run very easily with just a docker container:</p>
-<pre><code># Make a directory for ollama to download models to
-mkdir ollama
-docker run ollama/ollama:0.10.0-rc3 -p 11434:11434 -v ./ollama:/root/.ollama
-</code></pre>
-<p>Or in docker compose:</p>
-<pre><code class="language-yaml">ollama:
-    image: ollama/ollama:0.10.0-rc3
-    container_name: ollama
-    ports:
-      - 11434:11434
-    volumes:
-      - ./ollama:/root/.ollama
-    restart: unless-stopped
-</code></pre>
-<p>We wont have any models available to talk to yet, but they can be downloaded with the command:</p>
-<pre><code>docker exec -it ollama ollama pull MODEL_NAME
-</code></pre>
-<h3 id="quantization">Quantization</h3>
-<p>Since we are running locally, we may not have access to a huge amount of storage, especially if we want to offer a range of models to try within our own ChatGPT. However, we can take advantage of QAT or post-training quantized models, which can reduce their memory footprint significantly.</p>
-<p>Take Google's <code>gemma3:12b</code> model. The original model takes up 24GB in space, Google leveraged Quantized Aware Training (QAT), which reduces the precision of the models weights and biases from BF16 to Int4, taking the model size down to just 8GB. QAT is supposedly meant to keep the accuracy of the model better and post-training quantization, so we can also try add the <code>gemma3:12b-it-qat</code> model.</p>
-<h2 id="open-webui">Open WebUI</h2>
-<p>So we have ollama running, but it is not the most user-friendly interface. Each time we stop ollama, it loses all memory of our conversations.</p>
-<p><a href="https://github.com/open-webui/open-webui">Open WebUI</a> is an open-source tool for providing a ChatGPT-like interface which can be used to point at your own locally-run LLMs. Meaning you can point it at your previously deployed ollama model, completing your completely on-premise ChatGPT.</p>
-<p>Docker compose example:</p>
-<pre><code>open-webui:
-    image: ghcr.io/open-webui/open-webui:main
-    container_name: open-webui
-    environment:
-      - OLLAMA_BASE_URL=http://YOUR_IP:11434
-      - 'WEBUI_SECRET_KEY='
-    ports:
-      - 3000:8080
-    volumes:
-      - ./open-webui:/app/backend/data
-    extra_hosts:
-      - host.docker.internal:host-gateway
-    restart: unless-stopped
-</code></pre>
-<p>It takes a little while for the container to start, but once it is up, we can hit <code>localhost:3000</code> and be greated with a very familiar looking interface.</p></p>
+<pre><code>interface Eth X/X
+fec auto    # Negotiate FEC
+fec rs      # Configure Reed-Solomon
+fec fc      # Configure Firecode
+fec off     # No error correction
+</code></pre></p>
     </article>
 </section>
 <!-- endblock -->
@@ -349,13 +311,13 @@ docker run ollama/ollama:0.10.0-rc3 -p 11434:11434 -v ./ollama:/root/.ollama
                     <!-- block preview -->
     <div class="preview row row-cols-md-3 text-center pt-md-3" id="component-preview">
         <div class="col themed-grid-col">
-            <a rel="prev" href="../../openstack/openstack_overview/" class="nav-link">
+            <a rel="prev" href="../../hpc/spack/" class="nav-link">
                 <i class="fa fa-arrow-left"></i> Previous
             </a>
         </div>
         <div class="col themed-grid-col"></div>
         <div class="col themed-grid-col">
-            <a rel="next" href="../../storage/ceph_deployment/" class="nav-link">
+            <a rel="next" href="../hybrid_cloud_networking_to_azure/" class="nav-link">
                 Next <i class="fa fa-arrow-right"></i>
             </a>
         </div>
