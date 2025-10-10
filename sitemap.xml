@@ -5,7 +5,7 @@
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/HPC/AWS_parallel_cluster/</loc>
+         <loc>https://awalford16.github.io/HPC/aws_parallel_cluster/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
@@ -25,15 +25,11 @@
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/networking/FEC/</loc>
-         <lastmod>2025-10-10</lastmod>
-    </url>
-    <url>
          <loc>https://awalford16.github.io/networking/MCLAG/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/networking/VXLAN/</loc>
+         <loc>https://awalford16.github.io/networking/fec/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
@@ -54,6 +50,10 @@
     </url>
     <url>
          <loc>https://awalford16.github.io/networking/spanning_tree/</loc>
+         <lastmod>2025-10-10</lastmod>
+    </url>
+    <url>
+         <loc>https://awalford16.github.io/networking/vxlan/</loc>
          <lastmod>2025-10-10</lastmod>
     </url>
     <url>
