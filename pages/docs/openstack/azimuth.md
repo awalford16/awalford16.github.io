@@ -12,7 +12,7 @@ Azimuth is setup of a management cluster which runs the Azimuth UI and API respo
 
 ### Authentication
 
-Azimuth relised on Keycloak as an identity provider, where each Keycloak realm is an Azimuth tenancy.
+Azimuth relies on Keycloak as an identity provider, where each Keycloak realm is an Azimuth tenancy.
 
 Keycloak is deployed alongside Azimuth within the management cluster.
 

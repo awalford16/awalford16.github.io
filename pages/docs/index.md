@@ -1,6 +1,6 @@
 ## Welcome
 
-My name is Adam. I am an infrastructure engineer working on the University of Cambridge Supercomputer, specialising in deploying datacenter infrastructure and managing automation of datacenter servers and networks.
+I am an infrastructure engineer working on the University of Cambridge Dawn Supercomputer, specialising in deploying datacenter and cloud infrastructure and managing automation of servers, virtual machines, containers and networks.
 
 I have put this site together mostly as a note-taking practice for my own reference, but if you happen to stumble across it, I hope you find something useful for yourself in here.
 
