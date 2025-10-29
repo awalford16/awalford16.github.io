@@ -2,122 +2,130 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://awalford16.github.io/</loc>
-         <lastmod>2025-10-21</lastmod>
+         <lastmod>2025-10-29</lastmod>
     </url>
     <url>
          <loc>https://awalford16.github.io/HPC/AWS_parallel_cluster/</loc>
-         <lastmod>2025-10-21</lastmod>
+         <lastmod>2025-10-29</lastmod>
     </url>
     <url>
          <loc>https://awalford16.github.io/HPC/slurm_basics/</loc>
-         <lastmod>2025-10-21</lastmod>
+         <lastmod>2025-10-29</lastmod>
     </url>
     <url>
          <loc>https://awalford16.github.io/HPC/spack/</loc>
-         <lastmod>2025-10-21</lastmod>
+         <lastmod>2025-10-29</lastmod>
     </url>
     <url>
          <loc>https://awalford16.github.io/electrical/UK_Qualification_Requirements/</loc>
-         <lastmod>2025-10-21</lastmod>
+         <lastmod>2025-10-29</lastmod>
     </url>
     <url>
          <loc>https://awalford16.github.io/electrical/electrical_certificates/</loc>
-         <lastmod>2025-10-21</lastmod>
+         <lastmod>2025-10-29</lastmod>
+    </url>
+    <url>
+         <loc>https://awalford16.github.io/home_lab/Build_you_own_ChatGPT/</loc>
+         <lastmod>2025-10-29</lastmod>
     </url>
     <url>
          <loc>https://awalford16.github.io/networking/FEC/</loc>
-         <lastmod>2025-10-21</lastmod>
+         <lastmod>2025-10-29</lastmod>
     </url>
     <url>
          <loc>https://awalford16.github.io/networking/IPTables/</loc>
-         <lastmod>2025-10-21</lastmod>
+         <lastmod>2025-10-29</lastmod>
     </url>
     <url>
          <loc>https://awalford16.github.io/networking/MCLAG/</loc>
-         <lastmod>2025-10-21</lastmod>
+         <lastmod>2025-10-29</lastmod>
     </url>
     <url>
          <loc>https://awalford16.github.io/networking/SONiC_CLI_commands/</loc>
-         <lastmod>2025-10-21</lastmod>
+         <lastmod>2025-10-29</lastmod>
     </url>
     <url>
          <loc>https://awalford16.github.io/networking/VXLAN/</loc>
-         <lastmod>2025-10-21</lastmod>
+         <lastmod>2025-10-29</lastmod>
     </url>
     <url>
          <loc>https://awalford16.github.io/networking/hybrid_cloud_networking_to_azure/</loc>
-         <lastmod>2025-10-21</lastmod>
+         <lastmod>2025-10-29</lastmod>
     </url>
     <url>
          <loc>https://awalford16.github.io/networking/networking_terminology/</loc>
-         <lastmod>2025-10-21</lastmod>
+         <lastmod>2025-10-29</lastmod>
     </url>
     <url>
          <loc>https://awalford16.github.io/networking/radius/</loc>
-         <lastmod>2025-10-21</lastmod>
+         <lastmod>2025-10-29</lastmod>
     </url>
     <url>
          <loc>https://awalford16.github.io/networking/spanning_tree/</loc>
-         <lastmod>2025-10-21</lastmod>
+         <lastmod>2025-10-29</lastmod>
     </url>
     <url>
          <loc>https://awalford16.github.io/openstack/Kayobe_vs_Kolla/</loc>
-         <lastmod>2025-10-21</lastmod>
+         <lastmod>2025-10-29</lastmod>
     </url>
     <url>
          <loc>https://awalford16.github.io/openstack/azimuth/</loc>
-         <lastmod>2025-10-21</lastmod>
+         <lastmod>2025-10-29</lastmod>
     </url>
     <url>
          <loc>https://awalford16.github.io/openstack/openstack_baremetal_enroll/</loc>
-         <lastmod>2025-10-21</lastmod>
+         <lastmod>2025-10-29</lastmod>
+    </url>
+    <url>
+         <loc>https://awalford16.github.io/openstack/openstack_host_aggregates/</loc>
+         <lastmod>2025-10-29</lastmod>
     </url>
     <url>
          <loc>https://awalford16.github.io/openstack/openstack_images/</loc>
-         <lastmod>2025-10-21</lastmod>
+         <lastmod>2025-10-29</lastmod>
     </url>
     <url>
          <loc>https://awalford16.github.io/openstack/openstack_kolla_deployment/</loc>
-         <lastmod>2025-10-21</lastmod>
+         <lastmod>2025-10-29</lastmod>
     </url>
     <url>
          <loc>https://awalford16.github.io/openstack/openstack_networking/</loc>
-         <lastmod>2025-10-21</lastmod>
+         <lastmod>2025-10-29</lastmod>
     </url>
     <url>
          <loc>https://awalford16.github.io/openstack/openstack_overview/</loc>
-         <lastmod>2025-10-21</lastmod>
+         <lastmod>2025-10-29</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/operations/Build_you_own_ChatGPT/</loc>
-         <lastmod>2025-10-21</lastmod>
+         <loc>https://awalford16.github.io/storage/RAID/</loc>
+         <lastmod>2025-10-29</lastmod>
     </url>
     <url>
          <loc>https://awalford16.github.io/storage/ZFS_terminology/</loc>
-         <lastmod>2025-10-21</lastmod>
+         <lastmod>2025-10-29</lastmod>
     </url>
     <url>
          <loc>https://awalford16.github.io/storage/ceph_deployment/</loc>
-         <lastmod>2025-10-21</lastmod>
+         <lastmod>2025-10-29</lastmod>
     </url>
     <url>
          <loc>https://awalford16.github.io/storage/ceph_storage_systems/</loc>
-         <lastmod>2025-10-21</lastmod>
+         <lastmod>2025-10-29</lastmod>
     </url>
     <url>
          <loc>https://awalford16.github.io/storage/ceph_terminology/</loc>
-         <lastmod>2025-10-21</lastmod>
+         <lastmod>2025-10-29</lastmod>
     </url>
     <url>
          <loc>https://awalford16.github.io/storage/linux_storage_commands/</loc>
-         <lastmod>2025-10-21</lastmod>
+         <lastmod>2025-10-29</lastmod>
     </url>
     <url>
          <loc>https://awalford16.github.io/storage/lustre_overview/</loc>
-         <lastmod>2025-10-21</lastmod>
+         <lastmod>2025-10-29</lastmod>
     </url>
     <url>
          <loc>https://awalford16.github.io/storage/minio_kube_auth/</loc>
-         <lastmod>2025-10-21</lastmod>
+         <lastmod>2025-10-29</lastmod>
     </url>
 </urlset>
