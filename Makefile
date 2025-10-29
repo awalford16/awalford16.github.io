@@ -1,3 +1,7 @@
 .PHONY: deploy
 deploy:
-	uv run mkdocs gh-deploy -b master
+	cd pages && uv run mkdocs gh-deploy -b master
+
+.PHONY: serve
+serve:
+	cd pages && uv run mkdocs serve
