@@ -1,3 +1,12 @@
+## Introduction
+
+Infiniband benefits AI workloads by allowing significantly faster communication and data transfer between hosts. It achieves this with a protocol known as RDMA which can transfer data packets without involving the CPU. This becomes critical when dealing with multi-node workloads needing to share data and resources across the network.
+
+Infiniband requires specialist hardware such as Nvidia NVLink and Mellanox ConnectX NICs to leverage RDMA.
+
+While Infiniband has been popularised by Nvidia and Mellanox, there are alternatives such as RDMA over Converged Ethernet (RoCE) which also provides the benefits of RDMA without needing NVidia harware, but still requires specialty NICs and specific switch flow-control configurations.
+
+
 ## Subnet Manager (OpenSM)
 
 A subnet manager is required on any Infiniband fabric to be able to operate host machines. The subnet manager is responsible for discovering, configuring and maintaining the infiniband fabric. Without it, no data in the network can flow.

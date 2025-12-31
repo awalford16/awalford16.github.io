@@ -1,5 +1,7 @@
 ## What is Firwalld
 
+Firewalld is the default firewall management tool for RHEL and Fedora Linux distributions. It simplifies the IPTables tool by separating the firewall into "zones" and then assigning interfaces to specific zones. The rules themselves are then assigned to zones to specify which traffic can pass to which zone, and how to treat packets coming in and out of that zone.
+
 ## Zones
 
 Interfaces on a host can be assigned different zones which can help determine which side of the firewall they sit on. The default list of zones are:
