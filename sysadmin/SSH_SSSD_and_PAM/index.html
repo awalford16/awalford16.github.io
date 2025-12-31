@@ -1370,12 +1370,10 @@
 <span class="c1"># Ensure user password changes are propogated to LDAP</span>
 <span class="n">chpass_provider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ldap</span>
 
-
+<span class="c1"># Only lookup the specific LDAP user, (&quot;true&quot; would lookup all LDAP users and groups to be cached locally)</span>
 <span class="n">enumerate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">false</span>
 </code></pre></div>
 
-<p><strong>PAM</strong></p>
-<p>When users first SSH onto a host, a home directory may not exist. The PAM config can call the <code>pam_mkhomedir</code> module which will handle the creation of the user home directory on the first login.</p>
 <p><strong>SSHD</strong></p>
 <p>It is possible to make use of SSH keys with LDAP so the user can authenticate with a host without a password. To achieve this, the LDAP server needs to have an <code>sshPublicKey</code> field set for each user.</p>
 <p>Then within the SSH config, password authentication should be disabled and tell SSH to use the <code>/usr/bin/sss_ssh_authorizedkeys</code> command to identify the authorized keys for a user on the host. This setup can even make use of LDAP groups to only permit users which belong to a specific LDAP group to have SSH access to the host.</p>
