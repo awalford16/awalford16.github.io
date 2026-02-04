@@ -33,4 +33,10 @@ The NAT is applied as the packet leaves the external interface, equivalent to th
 ```
 # Show all zones
 firewall-cmd --get-zones
+
+# Show information about zones
+firewall-cmd --list-all-zones
+
+# Show NAT rules
+firewall-cmd --direct --get-rules ipv4 nat POSTROUTING
 ```

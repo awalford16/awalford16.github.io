@@ -16,7 +16,7 @@ kolla-ansible deploy
 
 ## Kayobe
 
-Kayobe is responible for managing all infrastructure responsible in openstack, including the seed host. Where Kolla will just deploy the Openstack containers to overcloud hosts, Kayobe will alos manage the bare metal host, seed node and networking.
+Kayobe is responible for managing all infrastructure responsible in openstack, including the seed host. Where Kolla will just deploy the Openstack containers to overcloud hosts, Kayobe will also manage the bare metal host, seed node and networking.
 
 ### Command Examples
 
@@ -32,4 +32,7 @@ kayobe overcloud host configure
 
 # Deploy openstack services on overcloud (calls kolla-ansible under the hood)
 kayobe overcloud service deploy
+
+# Use Kayobe to run commands against overcloud hosts
+kayobe overcloud host command run --show-output --command 'uptime'
 ```

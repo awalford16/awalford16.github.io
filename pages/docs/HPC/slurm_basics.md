@@ -11,6 +11,21 @@ squeue
 
 # Submit script to cluster
 sbatch FILE.sbatch
+
+# Get detailed job output
+scontrol show jobid --d $JOBID
+
+# Cancel a job
+scancel $JOBID
+
+# Pause,resume job etc. - (suspend, resume, hold, release)
+scontrol suspend $JOBID
+
+# Run an asynchronous interactive job (SSH to node available after allocation)
+salloc --nodes=1 -p PARTITION --time=30:00
+
+# Run sychronous interactive job
+srun --time=30:00 --pty /bin/bash
 ```
 
 ### Job Submission

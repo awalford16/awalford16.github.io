@@ -59,6 +59,16 @@ JobA=0x0001, full: node1,node2,node3;
 JobB=0x0002, full: node4,node5,node6;
 ```
 
+## Infiniband Communication
+
+Unlike ethernet networks, infiniband does not send bytes or packets, it sends encoded symbols which can be represented as a light pulse pattern or a voltage level.
+
+### Symbol Errors
+
+These errors occur when a signal does not match a valid encoding pattern known by the receiver.
+
+Errors can be viewed with `ibqueryerrors`
+
 ## Commands
 
 ```
