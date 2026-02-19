@@ -520,6 +520,23 @@
                 
                 <li data-slot="sidebar-menu-item" data-sidebar="menu-item" class="group/menu-item relative">
     <a data-slot="sidebar-menu-button" data-active="false" data-sidebar="menu-button"
+        data-size="default" href="/HPC/Benchmarking/"
+        class="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer/menu-button flex items-center gap-2 rounded-md p-2 text-left outline-hidden ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 data-[active=true]:bg-accent data-[active=true]:border-accent 3xl:fixed:w-full 3xl:fixed:max-w-48 relative h-[30px] w-fit overflow-visible border border-transparent text-[0.8rem] font-medium after:absolute after:inset-x-0 after:-inset-y-1 after:z-0 after:rounded-md">
+
+        
+        Benchmarking
+        
+
+        
+
+        
+
+        
+    </a>
+</li>
+                
+                <li data-slot="sidebar-menu-item" data-sidebar="menu-item" class="group/menu-item relative">
+    <a data-slot="sidebar-menu-button" data-active="false" data-sidebar="menu-button"
         data-size="default" href="/HPC/Multi-GPU_nodes/"
         class="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer/menu-button flex items-center gap-2 rounded-md p-2 text-left outline-hidden ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 data-[active=true]:bg-accent data-[active=true]:border-accent 3xl:fixed:w-full 3xl:fixed:max-w-48 relative h-[30px] w-fit overflow-visible border border-transparent text-[0.8rem] font-medium after:absolute after:inset-x-0 after:-inset-y-1 after:z-0 after:rounded-md">
 
@@ -1464,6 +1481,35 @@ mpirun<span class="w"> </span>./ior<span class="w"> </span>-w<span class="w"> </
 </code></pre></div>
 
 <p>The script above makes use <code>ior</code> which is an IO performance tool for parallel file systems. This is assuming a host running Intel MPI.</p>
+<h3 id="accounting">Accounting</h3>
+<p>Slurm can be configured to collect information about jobs to be written to a database for reporting on resource usage from users.</p>
+<p>The accounting world is separate to the scheduling world in slurm, so despite accounting being setup, users still need to be tied to accounts.</p>
+<p>You can view the clusters, accounts and users known to Slurm accounting:</p>
+<div class="codehilite"><pre><span></span><code># List clusters
+sacctmgr list clusters
+
+# List accounts
+sacctmgr list accounts
+
+# List users
+sacctmgr list users
+</code></pre></div>
+
+<p>You can verify if accounting is wired using <code>scontrol show job $JOBID | grep Account</code>. If it shows <code>Account=(null)</code> then the accounting is not wired up for that user. By default Slurm will allow all users to submit jobs even when they are not associated with an account.</p>
+<p>Accounts can be enforced in <code>slurm.conf</code> by setting the <code>AccountingStorageEnforce</code> to <code>associations</code>. There are further configuratoin values for this setting depending on how strict the behaviour of job submission needs to be: https://slurm.schedmd.com/slurm.conf.html#OPT_AccountingStorageEnforce.</p>
+<p><strong>More Accounting Commands</strong></p>
+<div class="codehilite"><pre><span></span><code>#<span class="w"> </span><span class="nv">Add</span><span class="w"> </span><span class="nv">user</span>
+<span class="nv">sacctmgr</span><span class="w"> </span><span class="nv">add</span><span class="w"> </span><span class="nv">user</span><span class="w"> </span><span class="nv">USERNAME</span><span class="w"> </span><span class="nv">Account</span><span class="o">=</span><span class="nv">ACCOUNT</span>
+
+#<span class="w"> </span><span class="nv">Modify</span><span class="w"> </span><span class="nv">default</span><span class="w"> </span><span class="nv">account</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nv">user</span>
+<span class="nv">sacctmgr</span><span class="w"> </span><span class="nv">modify</span><span class="w"> </span><span class="nv">user</span><span class="w"> </span><span class="nv">USERNAME</span><span class="w"> </span><span class="nv">set</span><span class="w"> </span><span class="nv">DefaultAccount</span><span class="o">=</span><span class="nv">ACCOUNT</span>
+
+#<span class="w"> </span><span class="nv">Report</span><span class="w"> </span><span class="nv">resource</span><span class="w"> </span><span class="nv">usage</span>
+<span class="nv">sacct</span>
+
+#<span class="w"> </span><span class="nv">Generate</span><span class="w"> </span><span class="nv">report</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">particular</span><span class="w"> </span><span class="nv">time</span><span class="w"> </span><span class="nv">interval</span>
+<span class="nv">sreport</span>
+</code></pre></div>
 
     </div>
 </article>
@@ -1534,6 +1580,12 @@ mpirun<span class="w"> </span>./ior<span class="w"> </span>-w<span class="w"> </
                         <a class="text-2xl font-medium" href="../AWS_parallel_cluster/">
                             
                             AWS parallel cluster
+                            
+                        </a>
+                        
+                        <a class="text-2xl font-medium" href="../Benchmarking/">
+                            
+                            Benchmarking
                             
                         </a>
                         
@@ -1895,6 +1947,14 @@ mpirun<span class="w"> </span>./ior<span class="w"> </span>-w<span class="w"> </
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
             data-active="false" data-depth="2">
             Job Submission
+        </a>
+        
+
+        
+        <a href="#accounting"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="2">
+            Accounting
         </a>
         
 
