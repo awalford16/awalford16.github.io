@@ -2,7 +2,7 @@
 
 ### Commands
 
-```
+```bash
 # Show cluster information
 sinfo
 
@@ -32,7 +32,7 @@ srun --time=30:00 --pty /bin/bash
 
 Create an `sbatch` file to be submitted to Slurm:
 
-```
+```bash
 #!/bin/bash
 #SBATCH --job-name=ior
 #SBATCH --ntasks=10
@@ -53,7 +53,7 @@ The accounting world is separate to the scheduling world in slurm, so despite ac
 
 You can view the clusters, accounts and users known to Slurm accounting:
 
-```
+```bash
 # List clusters
 sacctmgr list clusters
 
@@ -68,18 +68,67 @@ You can verify if accounting is wired using `scontrol show job $JOBID | grep Acc
 
 Accounts can be enforced in `slurm.conf` by setting the `AccountingStorageEnforce` to `associations`. There are further configuratoin values for this setting depending on how strict the behaviour of job submission needs to be: https://slurm.schedmd.com/slurm.conf.html#OPT_AccountingStorageEnforce.
 
-**More Accounting Commands**
+**Associations**
+
+Associations in Slurm accounting is the link between a user/account/cluster.
 
 ```
+sacctmgr show association tree
+sacctmgre show account ACCOUNT withassoc
+```
+
+**More Accounting Commands**
+
+```bash
 # Add user
-sacctmgr add user USERNAME Account=ACCOUNT
+sacctmgr add user $USERNAME Account=$ACCOUNT
 
 # Modify default account for user
-sacctmgr modify user USERNAME set DefaultAccount=ACCOUNT
+sacctmgr modify user $USERNAME set DefaultAccount=$ACCOUNT
 
 # Report resource usage
 sacct
 
+# show associations of users/accounts/qos
+sacctmgr show assoc format=account,qos
+
 # Generate report for a particular time interval
 sreport
 ```
+
+### Trackable Resources (TRES)
+
+TRES can be used to track resource usage and apply limits. There are different types of resources which can be tracked which can be configured in the `slurm.conf` under `AccountingStorageTRES`
+
+TRES limits can be assigned to groups with `sacctmgr`:
+
+```bash
+# Limit max CPU usage on account
+sacctmgr modify account $ACCOUNT set GrpTRES=cpu=5000
+
+# Limit max CPU/Mem which can be requested by a single job
+sacctmgr modify qos $QOS set MaxTRESPerJob=cpu=128,mem=100G
+```
+
+### Quality of Service (QOS)
+
+```bash
+# Add a quality of service
+sacctmgr add qos $QOS
+
+# Assing limit to QOS
+sacctmgr modify qos $QOS set GrpTRES=cpu=24
+
+# Assign QOS to account
+sacctmgr modify account $ACCOUNT set qos=$QOS
+```
+
+### Terminology
+
+Term | Description
+---|---
+CPUTime | Formatted CPU time
+CPUTimeRAW | Raw CPU time in seconds
+Elapsed | Elapsed time of the job (CPUTime will reflect time x cpu_count)
+MaxRSS | What memory was actually used by an account
+Decay window | Determines how soon to forget about usage for fairshare calculations

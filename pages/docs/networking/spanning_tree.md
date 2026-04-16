@@ -28,3 +28,17 @@ It is recommended to not run this version of STP if there are hundreds or thousa
 ## Multiple Spanning Tree (MST)
 
 Using a protocol like PVST can result in a lot of processing going on throughout the network when the network has a lot of VLANs. A protocol like RSTP can be better in that scenario, since there is only one tree to maintain. However, if there is still a requirement to have spanning-tree on a VLAN level, Multiple Spanning Tree (MST) can be used which allows defining spanning tree instances which are assigned for a group of VLANs. This way the network administrators have more control over the number of spanning tree processes happening on the switch.
+
+## Security
+
+### BPDU Guard
+
+BPDU guard puts the port in a disabled state when it receives a BPDU packet. This prevents the port from participating in STP and attempting to override the root bridge on the network. Once disabled, the port must be manually re-enabled or can be recovered with a err-disable timeout.
+
+This is best applied to user-facing ports which could potentially have rogue devices connected.
+
+### Spanning Tree Root Guard
+
+Root guard prevents devices connected to a port from attempting to become root, and protect the root bridges of the network. Root guard will automatically recover from blocked ports attempting to become root.
+
+This is best applied to ports which connect to switches which are not intended to be the root bridge.

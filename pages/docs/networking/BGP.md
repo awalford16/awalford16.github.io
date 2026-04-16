@@ -48,3 +48,22 @@ There are other ways to manipulate preferred paths selected by BGP:
 - AS Path length: As discussed previously, more AS paths in the route make it appear longer
 - Multi-Exit Discriminator (MED): Path with the lowest MED
 - eBGP over iBGP: Prefer routing between autonomous systems
+
+
+## BGP Unnumbered
+
+BGP peering can be configured between 2 switches and exchange IPv4 prefixes without having to configure IP addresses on each switch.
+
+This is achieved by BGP automatically assigning and IPv6 link local address as the next hop for each of the learned prefixes.
+
+This simplifies configuration IP address sharing across a data center reliant on layer 3 connections.
+
+```
+nv set router bgp autonomous-system 65101
+nv set router bgp router-id 10.10.10.1
+
+# Here we are specifying a neighbour interface as opposed to an IP address
+nv set vrf default router bgp neighbor swp51 remote-as external
+nv set vrf default router bgp address-family ipv4-unicast network 10.10.10.1/32
+nv set vrf default router bgp address-family ipv4-unicast network 10.1.10.0/24
+```

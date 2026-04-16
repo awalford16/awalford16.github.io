@@ -87,21 +87,6 @@ ceph orch apply osd --all-available-devices
 ceph orch daemon add osd ceph-1:/dev/sdb
 ```
 
-You can be even more granular with the OSD specifications using the Ceph orchestrator. Below is an example of a yaml file which specifies to use spinning disks for the OSD and the Bluestore database to be configured on SSD.
-
-```yaml
-service_type: osd
-service_id: osd_all
-placement:
-  host_pattern: ceph-0
-data_devices:
-  rotational: 1
-db_devices:
-  rotational: 0
-```
-
-This will deploy a new orch service which
-
 A new OSD daemon conatiner will be visible under the podman running containers. Once they have registered, the storage should be visible on the cluster:
 
 ```
@@ -120,4 +105,19 @@ A new OSD daemon conatiner will be visible under the podman running containers. 
     objects: 2 objects, 577 KiB
     usage:   81 MiB used, 18 GiB / 18 GiB avail
     pgs:     1 active+clean
+```
+
+**Ceph Orchestrator**
+
+You can be even more granular with the OSD specifications using the Ceph orchestrator. Below is an example of a yaml file which specifies to use spinning disks for the OSD and the Bluestore database to be configured on SSD.
+
+```yaml
+service_type: osd
+service_id: osd_all
+placement:
+  host_pattern: ceph-0
+data_devices:
+  rotational: 1
+db_devices:
+  rotational: 0
 ```

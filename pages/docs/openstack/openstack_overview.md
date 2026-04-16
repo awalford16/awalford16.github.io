@@ -32,7 +32,34 @@ Traffic between this node and compute nodes uses the management network. It is r
 
 ### Nova
 
-Nova is the service for handling Virtual machines on hosts. Under the hood it uses KVM (`virsh`), a linux hypervisor built into a kernel module. So from a host running Nova, you can run `virsh list` to view the active VMs on that host.
+Nova is the service which manages machine instances in openstack, as well as their state and flavor. Under the hood there are for main components:
+
+Component | Description
+---|---
+nova-api | Creates and updates instance records
+nova-conductor | Central database broker for compute nodes
+nova-scheduler | Sheduling decisions for instances
+nova-compute | Updates the instacne stat on the host
+
+**nova-api**
+
+The `nova-api` service will handle requests for instance management and validate them based on users authorisation, quota, image/falvor availability. Once validated it will update the database with the new state of the instance.
+
+**nova-conductor**
+
+The `nova-conductor` receives the request from the API which will place a message on the RabbitMQ queue.
+
+**nova-scheduler**
+
+`nova-scheduler` identifies the appropriate hardware resource availability for the instance based on flavors, traits, aggregates, availability zones etc. Once identified, it claims the resource in Placement and then sends an RPC message to the chose `nova-compute` host via RabbitMQ.
+
+**nova-compute**
+
+The `nova-compute` service runs on each physical host for Nova hypervisor instances, or runs on a controller host for baremetal instances. For a hypervisor instance, the nova-compute service will talk to the relevant hypervisor driver on that host, whereas baremetal instances will rely on the nova-compute service on the controller talking to the ironic-driver to talk to the physical server over IPMI/Redfish.
+
+For virtual machine images, the new instance requests will be passed to the relevent hypervisor driver (e.g. libvirt) to create the instance on the host.
+
+For more resiliance in baremetal deployments, multiple nova-compute processes can be run which independently manage a subset of the Ironic nodes.
 
 ### Ironic
 

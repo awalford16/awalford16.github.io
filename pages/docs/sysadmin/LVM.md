@@ -8,6 +8,14 @@ LVM allows for grouping physical disksgs into a Volume Group (VG). This VG can b
 
 LVM allows you to dynamically grow these LV sizes as needed without having to move data around. Disks can easily be added to existing Volume Groups to expand storage capacity as well as swapped out when there are issues.
 
+## Segment Types
+
+Type | Description
+---|---
+Linear | Default
+Striped | Raid0
+Mirrored | Raid1
+
 ### Commands
 
 ```

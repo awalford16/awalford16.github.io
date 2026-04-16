@@ -1,3 +1,12 @@
+## Ceph Daemons
+
+Type | Description
+---|---
+Monitor | Master copy of the cluster map
+OSD Daemon | Manages physical disks, ensures data integrity and reports back to monitor
+Manager | Serves an endpoint for monitoring and orchestration
+Metadata (MDS) | Manages file metadata when CephFS is used
+
 ## CRUSH
 
 CRUSH controls where and how the data is stored in a Ceph cluster. It also enables mass scalability to distributing the work across the clients in the cluster.
@@ -37,6 +46,21 @@ Placement groups should preferably be in an active and clean state. The state ca
 ```
 ceph pg stat
 ```
+
+### Placement Group States
+
+A definitive list of PG states can be found [here](https://docs.ceph.com/en/reef/rados/operations/pg-states/#placement-group-states). But some of the useful ones to know are:
+
+State | Description
+---|---
+active | Requests to PG will be processed
+down | A replica with necessary data is down, so the PG is offline
+wait | Set of OSDs for the PG has changed so IO is paused
+degraded | Some objects in the PG have not been replicated the correct number of times yet
+recovering | Migrating objects to their replicas
+backfilling | Synchronising the entire contents of PG instead of inferring
+undersized | PG has fewer copies than configured pool replication level
+scrubbing | Checking PG metadata for inconsistencies
 
 ## Protection Mechanisms
 
@@ -86,3 +110,10 @@ CephFS setups require a metadata pool and a data pool when being configured
 ## RGW
 
 RGW stands for Rados Gateway.
+
+
+## Scrubbing
+
+Cephs scrubbing procedures involve checking metadata, sizes and replication status for any PG inconsistencies. A deep scrub can detect any silent data corruption that may have occured by doing byte-by-byte checksums of all the data to check for data inconsistencies between replicas. This helps prevent any corrupted data being replicated and instead notifies the administrator to repair the PG.
+
+This process is very I/O intensive and should be conducted at low-traffic hours which can be configured with `osd_scrub_begin_hour` and `osd_scrub_end_hour`.
