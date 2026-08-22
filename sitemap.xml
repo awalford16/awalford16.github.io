@@ -121,10 +121,6 @@
          <lastmod>2026-08-22</lastmod>
     </url>
     <url>
-         <loc>https://awalford16.github.io/networking/SONiC_CLI_commands/</loc>
-         <lastmod>2026-08-22</lastmod>
-    </url>
-    <url>
          <loc>https://awalford16.github.io/networking/VXLAN/</loc>
          <lastmod>2026-08-22</lastmod>
     </url>
@@ -154,6 +150,10 @@
     </url>
     <url>
          <loc>https://awalford16.github.io/networking/radius/</loc>
+         <lastmod>2026-08-22</lastmod>
+    </url>
+    <url>
+         <loc>https://awalford16.github.io/networking/sonic_cli_commands/</loc>
          <lastmod>2026-08-22</lastmod>
     </url>
     <url>
