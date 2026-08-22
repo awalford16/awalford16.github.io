@@ -74,8 +74,10 @@ Associations in Slurm accounting is the link between a user/account/cluster.
 
 ```
 sacctmgr show association tree
-sacctmgre show account ACCOUNT withassoc
+sacctmgr show account ACCOUNT withassoc
 ```
+
+Users can belong to multiple accounts in a slurm database, so when it comes to submitting jobs, the user will need to specify the `--account` option to set which account should be charged, or alternatively Slurm will use the `DefaultAccount` if set.
 
 **More Accounting Commands**
 
@@ -110,7 +112,15 @@ sacctmgr modify account $ACCOUNT set GrpTRES=cpu=5000
 sacctmgr modify qos $QOS set MaxTRESPerJob=cpu=128,mem=100G
 ```
 
+**GPU Configuration**
+
+By default, Slurm will not identiy GPU resources on a cluster. This needs to be set explicitly in `slurm.conf` with `GresTypes=gpu` and then GPU types specified in the `gres.conf` file.
+
+Nvidia GPUs can be automatically detected with NVML if `AutoDetect` is configured in `gres.conf`.
+
 ### Quality of Service (QOS)
+
+Slurm QOS can be used to define limits on a user, account or partition within a Slurm cluster.
 
 ```bash
 # Add a quality of service
@@ -122,6 +132,12 @@ sacctmgr modify qos $QOS set GrpTRES=cpu=24
 # Assign QOS to account
 sacctmgr modify account $ACCOUNT set qos=$QOS
 ```
+
+When Slurm users are added to a cluster, they can be given a `QoS` which defines the list of QoS that a user can request for a job, and a `DefaultQOS` which is the QoS applied to jobs by default for that user/account. User-level defined QoS takes precedence over the ones defined on an account level.
+
+QoS defined on a partition level is a hard ceiling, meaning users are not able to request more resources than what is defined there. On job submission, whichever QoS is more restrictive, is what ultimately gets assigned to the job.
+
+On slurm partitions, `AllowQos` can be set to explicitly define which jobs can run on that partition.
 
 ### Terminology
 

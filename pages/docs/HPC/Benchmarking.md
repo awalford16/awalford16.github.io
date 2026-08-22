@@ -95,6 +95,10 @@ IOR is a standardised benchmarking tool for parallel I/O performance on HPC syst
 
 `fio` is a command line tool for verify disk read and write operations and measuring filesystem performance.
 
+## OSU
+
+Infiniband benchmarking to test for latency and throughput
+
 ## References
 
 *[1] A. Petitet, R. C. Whaley, J. Dongarra, and A. Cleary, "HPL – A portable implementation of the High-Performance Linpack benchmark for distributed-memory computers," Netlib, 2018. [Online]. Available: https://www.netlib.org/benchmark/hpl.*

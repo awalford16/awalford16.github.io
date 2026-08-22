@@ -138,6 +138,6 @@ Thinking... (press escape to interrupt)
 
 ## Summary
 
-This was a rather over-engineered approach to calling the prometheus endpoint, but hopefully a useful insight into how data sources can plugged into LLMs for managing critical infrastructure.
+This was a rather over-engineered approach to calling the prometheus endpoint, but hopefully a useful insight into how data sources can be plugged into LLMs for managing critical infrastructure.
 
 This can become an incredibly powerful tool for finding needls in a haystack and cross-referencing data from multiple sources.

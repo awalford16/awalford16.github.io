@@ -8,13 +8,13 @@ The primary host will need to have SSH access to all other hosts in the Ceph clu
 
 All hosts need to have `podman` and `lvm2` installed:
 
-```
+```bash
 dnf install -y podman lvm2
 ```
 
 From the primary host, install cephadm
 
-```
+```bash
 dnf search release-ceph
 dnf install --assumeyes centos-release-ceph-squid
 dnf install --assumeyes cephadm
@@ -32,26 +32,26 @@ cephadm bootstrap --mon-ip=MONITOR_IP
 
 Firstly, the public key generated for the Ceph cluster needs to be shared to the other cluster hosts:
 
-```
+```bash
 ssh-copy-id -f -i /etc/ceph/ceph.pub root@$HOST_IP
 ```
 
 From the primary host, run the following commands to add a new host to the Ceph cluster:
 
-```
+```bash
 cephadm shell
 ceph orch host add ceph-X $HOST_IP
 ```
 
 You can verify that the host has been added with:
 
-```
+```bash
 ceph status
 ```
 
 Additionally, you can log onto the new host, and confirm that podman is running Ceph containers:
 
-```
+```bash
 podman ps
 ```
 
@@ -63,7 +63,7 @@ The Ceph OSD is deployed on Ceph cluster hosts to manage block storage devices.
 
 The below command will show what devices are available from what hosts:
 
-```
+```bash
 ceph orch device ls --refresh
 
 ##########################################################################################################################################################

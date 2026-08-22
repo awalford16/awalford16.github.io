@@ -7,9 +7,24 @@ OSD Daemon | Manages physical disks, ensures data integrity and reports back to 
 Manager | Serves an endpoint for monitoring and orchestration
 Metadata (MDS) | Manages file metadata when CephFS is used
 
+### Monitor
+
+The Ceph Mons determine the authoritive state of the cluster, depicting which OSDs exist, which are up/down, the CRUSH maps etc. Mons typically form a quorum of 3-5 nodes.
+
+Clients only interact with mon nodes to get the cluster map, and then will talk directly to OSDs.
+
+### OSD
+
+Typically, one OSD runs per disk and is responsible for handling the data storing, replication, recovery and rebalancing. Similar to clients, they dont talk to the mon, they talk directly to one another to replicate data.
+
+### MDS
+
+MDS is only used for CephFS to manage the filesystem metadata. It manages the structure, filenames and permissions, while the rest of the data is handled by OSDs.
+
+
 ## CRUSH
 
-CRUSH controls where and how the data is stored in a Ceph cluster. It also enables mass scalability to distributing the work across the clients in the cluster.
+CRUSH (Controlled Replication Under Scalable Hashing) controls where and how the data is stored in a Ceph cluster. It also enables mass scalability to distributing the work across the clients in the cluster.
 
 A Ceph client will be running LIBRADOS which will run the object through CRUSH. This produces the destination OSDs for the data to be stored.
 
@@ -17,7 +32,7 @@ CRUSH rules are assigned to a pool so objects stored as part of that pool are al
 
 The CRUSH rules assigned to specific OSDs can be viewed with one of the following commands:
 
-```
+```bash
 ceph osd crush rule ls
 ceph osd pool ls detail
 ceph osd pool get POOL_NAME crush_rule
@@ -31,19 +46,21 @@ PGs are identified with the format of `POOL_ID.PG_ID` where the PG ID is a hexid
 
 Data is always stored as an object, so the file is split into objects to be stored into placement groups.
 
+Since the PGs are computed rather than stored, there is not reliance on a central metadata server to identify where data lives. Clients and OSDs can do this independently.
+
 The overall object is assigned to a pool of disks, whereas the split up objects are assigned placement groups which are assigned to specific disks. The placement group ensures that the replicated data is not stored on the same disk.
 
 Further crush rules can be configured to ensure replicas are stored on different hosts in the cluster, or different racks in the datacenter.
 
 It is possible to see th replicas of a placement group with the below command:
 
-```
+```bash
 ceph pg map $PG_ID
 ```
 
 Placement groups should preferably be in an active and clean state. The state can checked with:
 
-```
+```bash
 ceph pg stat
 ```
 
@@ -80,13 +97,13 @@ There is a lot more overhead for writing and reading this type of data, but much
 
 Pools can be configured with ECP with the following command:
 
-```
+```bash
 ceph osd pool create NAME erasure
 ```
 
 The Erasure code profile can be seen with:
 
-```
+```bash
 ceph osd erasure-code-profile get default
 ```
 

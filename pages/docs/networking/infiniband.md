@@ -63,6 +63,13 @@ OpenSM is the tool for running the subnet manager. It can be configured under `/
 | **lash**   | Adaptive routing        | Tries to balance load                  |
 | **dfsssp** | Debug                   | Deterministic single shortest path     |
 
+
+**Adaptive-Routing Fat Tree**
+
+While a popular routing algorithm for medium-sized HPC clusters is the Fat Tree, the routes determined by the network are static even during times of congestion. Adaptive-routing fat tree algorithm can be used to allow network switches to dynamically make decisions on where to route a packet.
+
+This is achieved with the switches in-build ASICs to quickly make a decision on the least congested port to send the packet out of. This reduces hot-spots in the network where large workloads make heavy use of statically defined routes and instead balances the traffic across the entire network.
+
 ## PKeys
 
 Partition Keys in an infiniband network are similar to how VLANs work in an ethernet network. It allows the network to be split into partitions so only specific hosts can receive traffic intended for them.
@@ -118,6 +125,14 @@ Requires confirmation from all data sent
 **Unreliable Connection**
 
 No verification on whether data was received or dropped.
+
+## Oversubscription Rates
+
+Oversubscription in an Infiniband network, refers to the ratio of link speed that a host represents relevant to the maximum link speed. In a fat-tree topology, links between the leaf and spine switches will be shared by all other hosts on the network.
+
+The more hosts that need to communicate over the leaf-spine connections, the higher the oversubscription ratio.
+
+In a fat tree, if all links are 800Gbps, for 2 links per leaf, that is a bandwidth of 1600Gbps. If there are 4 hosts that sit off of that switch and both are connected at 400Gbps, that is an oversubscription ratio of 1:1 (`(400 x 4)/1600`). If the number of hosts increased to 8, that would result in a 2:1 oversubscription ratio (`(8x400)/1600 = 2`).
 
 ## Commands
 

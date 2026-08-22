@@ -1,3 +1,17 @@
+## Neutron Processes
+
+Process | Description
+---|---
+neutron-l3-agent | Manages router interfaces, iptables, floating IPs
+neutron_dhcp_agent | Runs dnsmasq for DHCP
+neutron_openvswitch_agent | Dataplane and port flow management
+
+### Neutron Routers
+
+Neutron routers are a logical implementation of a router which has internal interfaces which can bridge a connection to an external network. Each router is a linux network namespace which runs on the controller nodes (or dedicated networking nodes).
+
+For docker deployments, the networking namespaces are created on the host network
+
 ## Networking Options
 
 Openstack provides 2 options for networking.
@@ -27,6 +41,12 @@ When deploying Openstack with Kolla, each host will get an `openvswitch-vswitchd
 ### Open Virtual Network (OVN)
 
 Instead of individual agents, there is a centralised controller with Northbound and Southbound databases. Every node will still be running Open VSwitch, but each OVS agent will download the data from the OVN controller. Now, whenever there is a change to the network, the network rules only need to be updated in one place, making the setup much more scalable.
+
+**OpenFlow**
+
+Where the OVS approach typically created networking namespaces on the neutron host to manage routers and DHCP for networks which manage stateful networking config. The OVN approaach no longer needs to run these processes since it relies on openflow flows being pushed to OVS switches from the controller, there is not state to manage. OpenFlow separates the control plane from the data plane, allowing an external controller (in this case OVN), push flow rules into a switch, providining instructions on how to handle packets.
+
+OVN defines a pipeline with one rule table for ingress and one for egress. For processes like DHCP, OVN implements a lightweight DHCP responder within the pipeline which allows the OVS switch to reply without the traffic leaving the hypervisor. Logical constructs like NAT, routers and switches live in a database which get compiled into physical flow rules. An `ovn-controller` on each node reads the flow rules and applies them to OVS.
 
 ## Network Automation during Enroll
 
