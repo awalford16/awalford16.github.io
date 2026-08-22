@@ -1,0 +1,54 @@
+The following is a walkthrough on how to configure EVPN through BGP on a Dell Enterprise Sonic device:
+
+## 1. Configure BGP
+
+### Loopback Interfaces
+
+Configure a loopback interface on each of the switches in the network, and assign it an IP address.
+
+```
+interface loopback0
+ip address 10.0.0.1/32
+```
+
+### Inter-Link Connections
+
+Configure /31 addresses for links between the spine and TORs which will facilitate BGP traffic.
+
+```
+# Spine
+interface eth1/1
+ip address 10.99.0.2/31
+
+# Tor
+interface eth1/1
+ip address 10.99.0.3/31
+```
+
+### BGP Configuration
+
+Configure BGP between Spine and TOR switches, where each layer of the network uses it's own AS and leverages eBGP.
+
+```
+# spine
+route bgp 65000
+  router-id $LOOPBACK_ADDRESS
+
+  neighbor 10.99.0.3
+    remote-as 65001
+
+    address-famil ipv4 unicast
+      activate
+
+    address-family l2vpn evpn
+      activate
+```
+
+## 2. VXLAN
+
+### Anycast Gateways
+
+For VLANs being mapped across the VXLAN network, anycast addresses can act as distributed gateways on each leaf switch in the fabric. Servers then route traffic to their directly connected leaf switch which handles the routing from there.
+
+The gateway MAC and IP is advertised with the Default Gateway Extended Community falg over the EVPN network, signalling to other leaf switches that it is a distributed gateway.
+
