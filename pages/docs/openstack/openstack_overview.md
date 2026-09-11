@@ -98,3 +98,7 @@ Manages images in Openstack which are used for VM provisioning.
 ### Octavia
 
 Manages Loadbalancer resources.
+
+### Pulp and Squid
+
+On the openstack seed node, a pulp and `docker-squid` container will run. This is to serve as a repository provider and Pypi proxy during kayobe host deployments.

@@ -6,7 +6,7 @@ Kolla Ansible is reposnible for deploying Openstack containers on the controller
 
 ### Command Examples
 
-```
+```bash
 # Bootstrap docker, users and dependencies on target hosts
 kolla-ansible boostrap-servers
 
@@ -20,7 +20,7 @@ Kayobe is responible for managing all infrastructure responsible in openstack, i
 
 ### Command Examples
 
-```
+```bash
 # Install depencies on seed host
 kayobe seed host configure
 
