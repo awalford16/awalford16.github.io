@@ -1902,14 +1902,24 @@
 <p>Self-service networks use segmentation methods such as VXLAN and routes virtual networks to physical networks using NAT.</p>
 <p>Using the benefits and dynamic approach of VXLAN, users can create their own virtual networks without needing to rely on changes to the underlying physical network.</p>
 <h2 id="network-architectures">Network Architectures</h2>
+<p>Traditional network switches consist of a control plane to define the forwarding rules and a data plane for handling the packet forwarding. More modern networks rely on SDN networking where a centralised control plane determines traffic routing and the rules are forwarded to all devices on the network. This removes the need for manual switch configuration and allows a network to be more dynamic.</p>
+<p>OVS and OVN are SDN technologies that implement the data and control plane respectively within Openstack Neutron.</p>
 <h3 id="open-vswitch-ovs">Open VSwitch (OVS)</h3>
-<p>Open VSwitch acts like a traffic manager. Neutron feeds OVS with traffic routing rules which define which packets should be sent where.</p>
-<p>The main drawback of OVS is that each time a VM moves or changes are made to the system, Neutron needs to notify all the OVS agents in the system with the updated routing rules.</p>
+<p>Open VSwitch acts like a traffic manager. Neutron feeds OVS with traffic routing rules which define which packets should be sent where. It is built for more scalable environments, supports tunnel encapsulation (e.g. VXLAN) and integrate with many virtualisation technologies.</p>
 <p>When deploying Openstack with Kolla, each host will get an <code>openvswitch-vswitchd</code> container deployed. This is responsible for running OpenVSwitch and handling bridge networking across the virtual machines deployed on the host.</p>
+<p>The main drawback of OVS is that each time a VM moves or changes are made to the system, Neutron needs to notify all the OVS agents in the system with the updated routing rules. Additionally, it does not handle logical network abstrations like virtual routers so more complex flows need to be handled by Openstack Neutron.</p>
+<p>Before OVN, there was no brain that compiled high-level network intent automatically. The Neutron server kept track of networks etc. in a database and a <code>neutron-ovs-agent</code> would poll Neutron for changes that are relevant to the node. Controllers or dedicated neutron router node would run <code>l3-agent</code>s and <code>dhcp-agent</code> which could be a bottleneck for northbound traffic. Each hypervisor agent was responsible for making it's own decisions from interpreting data from the Neutron database.</p>
 <h3 id="open-virtual-network-ovn">Open Virtual Network (OVN)</h3>
-<p>Instead of individual agents, there is a centralised controller with Northbound and Southbound databases. Every node will still be running Open VSwitch, but each OVS agent will download the data from the OVN controller. Now, whenever there is a change to the network, the network rules only need to be updated in one place, making the setup much more scalable.</p>
-<p><strong>OpenFlow</strong></p>
-<p>Where the OVS approach typically created networking namespaces on the neutron host to manage routers and DHCP for networks which manage stateful networking config. The OVN approaach no longer needs to run these processes since it relies on openflow flows being pushed to OVS switches from the controller, there is not state to manage. OpenFlow separates the control plane from the data plane, allowing an external controller (in this case OVN), push flow rules into a switch, providining instructions on how to handle packets.</p>
+<p>OVN doesn't replace OVS, it supports it by providing logical networking like virtual switches and routers which get translated into OpenFlow rules. </p>
+<p>When a network is created in Openstack, Neutron calls the OVN driver which writes to it's database and then programs all the OVS instances on the hypervisors with the required flows.</p>
+<p>The OVN controller has a Northbound and Southbound database. The Neutron OVN driver writes to the Northbound database where OVN then processes and translates the user's networking intents to a logical network state stored in the Southbound database. OVN agents on the hypervisor nodes then read from the Southbound database and configure the OpenFlow rules on the local OVS agent. Now, whenever there is a change to the network, the network rules only need to be updated in one place, making the setup much more scalable.</p>
+<h3 id="openflow">OpenFlow</h3>
+<p>OpenFlow is the SDN implementation used by OVS and OVN to implement the control plane and the data plane. The <code>ovs-vswitchd</code> is a daemon which runs on hypervisors that can understand OpenFlow flows. This daemon is responsible for storing flow tables and forwarding packets for a host.</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># if traffic comes in on port1, send it out on port 2</span>
+ovs-ofctl<span class="w"> </span>add-flow<span class="w"> </span>br0<span class="w"> </span><span class="s2">&quot;in_port=1,actions=output:2&quot;</span>
+</code></pre></div>
+
+<p>OpenFlow separates the control plane from the data plane, allowing an external controller (in this case OVN), push flow rules into a switch, providining instructions on how to handle packets.</p>
 <p>OVN defines a pipeline with one rule table for ingress and one for egress. For processes like DHCP, OVN implements a lightweight DHCP responder within the pipeline which allows the OVS switch to reply without the traffic leaving the hypervisor. Logical constructs like NAT, routers and switches live in a database which get compiled into physical flow rules. An <code>ovn-controller</code> on each node reads the flow rules and applies them to OVS.</p>
 <h2 id="network-automation-during-enroll">Network Automation during Enroll</h2>
 <p>As a baremetal host transitions through different states such as cleaning, inspection and provisioning, openstack can be configured to automatically configure the leaf switches to update switch ports to the appropriate VLAN required for PXE booting.</p>
@@ -2553,6 +2563,12 @@ External | Provide external network access for hosts in the system</p>
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
             data-active="false" data-depth="3">
             Open Virtual Network (OVN)
+        </a>
+        
+        <a href="#openflow"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3">
+            OpenFlow
         </a>
         
         

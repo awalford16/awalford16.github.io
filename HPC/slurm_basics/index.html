@@ -1906,6 +1906,23 @@ mpirun<span class="w"> </span>./ior<span class="w"> </span>-w<span class="w"> </
 </code></pre></div>
 
 <p>The script above makes use <code>ior</code> which is an IO performance tool for parallel file systems. This is assuming a host running Intel MPI.</p>
+<h3 id="maintenance">Maintenance</h3>
+<p>During a cluster's lifetime, there will be times where nodes will need to be taken out of the cluster to perform maintenance such as deploying a new base image with security patches.</p>
+<p>The following commands can be used to isolate a node from a cluster and prevent jobs from being schedule on it.</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Create a reservation which sets a maintenance flag on a particular node</span>
+scontrol<span class="w"> </span>create<span class="w"> </span>reservation<span class="w"> </span><span class="nv">ReservationName</span><span class="o">=</span>maint_node001<span class="w"> </span><span class="nv">StartTime</span><span class="o">=</span>now<span class="w"> </span><span class="nv">NodeCnt</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">Nodes</span><span class="o">=</span>node001<span class="w"> </span><span class="nv">Flags</span><span class="o">=</span>MAINT,IGNORE_JOBS<span class="w">  </span><span class="nv">User</span><span class="o">=</span><span class="nv">$USER</span><span class="w"> </span><span class="nv">Duration</span><span class="o">=</span><span class="m">120</span>
+
+<span class="c1"># Drain currently running jobs on a node</span>
+<span class="c1"># Use State=DOWN to kill all running jobs without waiting for them to finish</span>
+scontrol<span class="w"> </span>update<span class="w"> </span><span class="nv">NodeName</span><span class="o">=</span>node001<span class="w"> </span><span class="nv">State</span><span class="o">=</span>DRAIN<span class="w"> </span><span class="nv">Reason</span><span class="o">=</span>”maintenance”
+
+<span class="c1"># Show current reservations</span>
+scontrol<span class="w"> </span>show<span class="w"> </span>reservations
+
+<span class="c1"># scontrol show node node001 should show the following states</span>
+<span class="c1"># State=IDLE+DRAIN+MAINTENANCE+RESERVED</span>
+</code></pre></div>
+
 <h3 id="accounting">Accounting</h3>
 <p>Slurm can be configured to collect information about jobs to be written to a database for reporting on resource usage from users.</p>
 <p>The accounting world is separate to the scheduling world in slurm, so despite accounting being setup, users still need to be tied to accounts.</p>
@@ -2592,6 +2609,14 @@ sacctmgr<span class="w"> </span>modify<span class="w"> </span>account<span class
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
             data-active="false" data-depth="2">
             Job Submission
+        </a>
+        
+
+        
+        <a href="#maintenance"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="2">
+            Maintenance
         </a>
         
 
