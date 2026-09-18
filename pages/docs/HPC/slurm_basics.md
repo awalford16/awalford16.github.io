@@ -45,6 +45,27 @@ mpirun ./ior -w -r -o=/shared/test_dir -b=256m -a=POSIX -i=5 -F -z -t=64m -C
 The script above makes use `ior` which is an IO performance tool for parallel file systems. This is assuming a host running Intel MPI.
 
 
+### Maintenance
+
+During a cluster's lifetime, there will be times where nodes will need to be taken out of the cluster to perform maintenance such as deploying a new base image with security patches.
+
+The following commands can be used to isolate a node from a cluster and prevent jobs from being schedule on it.
+
+```bash
+# Create a reservation which sets a maintenance flag on a particular node
+scontrol create reservation ReservationName=maint_node001 StartTime=now NodeCnt=1 Nodes=node001 Flags=MAINT,IGNORE_JOBS  User=$USER Duration=120
+
+# Drain currently running jobs on a node
+# Use State=DOWN to kill all running jobs without waiting for them to finish
+scontrol update NodeName=node001 State=DRAIN Reason=”maintenance”
+
+# Show current reservations
+scontrol show reservations
+
+# scontrol show node node001 should show the following states
+# State=IDLE+DRAIN+MAINTENANCE+RESERVED
+```
+
 ### Accounting
 
 Slurm can be configured to collect information about jobs to be written to a database for reporting on resource usage from users.
