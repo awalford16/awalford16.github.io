@@ -737,6 +737,23 @@
                 
                 <li data-slot="sidebar-menu-item" data-sidebar="menu-item" class="group/menu-item relative">
     <a data-slot="sidebar-menu-button" data-active="false" data-sidebar="menu-button"
+        data-size="default" href="/HPC/hadware_monitoring/"
+        class="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer/menu-button flex items-center gap-2 rounded-md p-2 text-left outline-hidden ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 data-[active=true]:bg-accent data-[active=true]:border-accent 3xl:fixed:w-full 3xl:fixed:max-w-48 relative h-[30px] w-fit overflow-visible border border-transparent text-[0.8rem] font-medium after:absolute after:inset-x-0 after:-inset-y-1 after:z-0 after:rounded-md">
+
+        
+        Hadware monitoring
+        
+
+        
+
+        
+
+        
+    </a>
+</li>
+                
+                <li data-slot="sidebar-menu-item" data-sidebar="menu-item" class="group/menu-item relative">
+    <a data-slot="sidebar-menu-button" data-active="false" data-sidebar="menu-button"
         data-size="default" href="/HPC/podman/"
         class="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer/menu-button flex items-center gap-2 rounded-md p-2 text-left outline-hidden ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 data-[active=true]:bg-accent data-[active=true]:border-accent 3xl:fixed:w-full 3xl:fixed:max-w-48 relative h-[30px] w-fit overflow-visible border border-transparent text-[0.8rem] font-medium after:absolute after:inset-x-0 after:-inset-y-1 after:z-0 after:rounded-md">
 
@@ -1771,6 +1788,23 @@
                 
                 <li data-slot="sidebar-menu-item" data-sidebar="menu-item" class="group/menu-item relative">
     <a data-slot="sidebar-menu-button" data-active="false" data-sidebar="menu-button"
+        data-size="default" href="/sysadmin/disk_sectors/"
+        class="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer/menu-button flex items-center gap-2 rounded-md p-2 text-left outline-hidden ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 data-[active=true]:bg-accent data-[active=true]:border-accent 3xl:fixed:w-full 3xl:fixed:max-w-48 relative h-[30px] w-fit overflow-visible border border-transparent text-[0.8rem] font-medium after:absolute after:inset-x-0 after:-inset-y-1 after:z-0 after:rounded-md">
+
+        
+        Disk sectors
+        
+
+        
+
+        
+
+        
+    </a>
+</li>
+                
+                <li data-slot="sidebar-menu-item" data-sidebar="menu-item" class="group/menu-item relative">
+    <a data-slot="sidebar-menu-button" data-active="false" data-sidebar="menu-button"
         data-size="default" href="/sysadmin/linux_kernel/"
         class="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer/menu-button flex items-center gap-2 rounded-md p-2 text-left outline-hidden ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 data-[active=true]:bg-accent data-[active=true]:border-accent 3xl:fixed:w-full 3xl:fixed:max-w-48 relative h-[30px] w-fit overflow-visible border border-transparent text-[0.8rem] font-medium after:absolute after:inset-x-0 after:-inset-y-1 after:z-0 after:rounded-md">
 
@@ -1921,6 +1955,23 @@ ovs-ofctl<span class="w"> </span>add-flow<span class="w"> </span>br0<span class=
 
 <p>OpenFlow separates the control plane from the data plane, allowing an external controller (in this case OVN), push flow rules into a switch, providining instructions on how to handle packets.</p>
 <p>OVN defines a pipeline with one rule table for ingress and one for egress. For processes like DHCP, OVN implements a lightweight DHCP responder within the pipeline which allows the OVS switch to reply without the traffic leaving the hypervisor. Logical constructs like NAT, routers and switches live in a database which get compiled into physical flow rules. An <code>ovn-controller</code> on each node reads the flow rules and applies them to OVS.</p>
+<p><strong>Useful OVN Commands</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># List all logical flows in SB DB</span>
+ovn-sbctl<span class="w"> </span>lflow-list
+
+<span class="c1"># Display logical networking topology</span>
+ovn-nbctl<span class="w"> </span>show
+
+<span class="c1"># Simulate packet path through flow</span>
+ovn-trace
+
+<span class="c1"># See logical switch and ports</span>
+ovb-nbctl<span class="w"> </span>show<span class="w"> </span>neutron-<span class="nv">$NET_ID</span>
+
+<span class="c1"># See logical router and NAT rules</span>
+ovb-nbctl<span class="w"> </span>show<span class="w"> </span>neutron-<span class="nv">$ROUTER_ID</span>
+</code></pre></div>
+
 <h2 id="network-automation-during-enroll">Network Automation during Enroll</h2>
 <p>As a baremetal host transitions through different states such as cleaning, inspection and provisioning, openstack can be configured to automatically configure the leaf switches to update switch ports to the appropriate VLAN required for PXE booting.</p>
 <p>This is handled using Netmiko, a Python-based tool used for automating the configuration of switches. In particular, openstack <a href="https://github.com/openstack/networking-generic-switch">network-generic-switch</a> which is a wrapping layer between Openstack and Netmiko.</p>
@@ -2084,6 +2135,12 @@ External | Provide external network access for hosts in the system</p>
                         <a class="text-2xl font-medium" href="../../HPC/NUMA/">
                             
                             NUMA
+                            
+                        </a>
+                        
+                        <a class="text-2xl font-medium" href="../../HPC/hadware_monitoring/">
+                            
+                            Hadware monitoring
                             
                         </a>
                         
@@ -2471,6 +2528,12 @@ External | Provide external network access for hosts in the system</p>
                         <a class="text-2xl font-medium" href="../../sysadmin/SSH_SSSD_and_PAM/">
                             
                             SSH SSSD and PAM
+                            
+                        </a>
+                        
+                        <a class="text-2xl font-medium" href="../../sysadmin/disk_sectors/">
+                            
+                            Disk sectors
                             
                         </a>
                         
