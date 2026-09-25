@@ -65,6 +65,25 @@ OpenFlow separates the control plane from the data plane, allowing an external c
 
 OVN defines a pipeline with one rule table for ingress and one for egress. For processes like DHCP, OVN implements a lightweight DHCP responder within the pipeline which allows the OVS switch to reply without the traffic leaving the hypervisor. Logical constructs like NAT, routers and switches live in a database which get compiled into physical flow rules. An `ovn-controller` on each node reads the flow rules and applies them to OVS.
 
+**Useful OVN Commands**
+
+```bash
+# List all logical flows in SB DB
+ovn-sbctl lflow-list
+
+# Display logical networking topology
+ovn-nbctl show
+
+# Simulate packet path through flow
+ovn-trace
+
+# See logical switch and ports
+ovb-nbctl show neutron-$NET_ID
+
+# See logical router and NAT rules
+ovb-nbctl show neutron-$ROUTER_ID
+```
+
 
 ## Network Automation during Enroll
 
