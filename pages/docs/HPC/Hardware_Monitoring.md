@@ -8,13 +8,13 @@ When running your own physical hardware or datacenter, power monitoring is essen
 
 Metrics reporting on server power usage and other general physical hardware metrics can be collected in a number of ways. Typical monitoring approaches involve installing some sort of exporter software on a host such as Node Exporter or DCGM exporter and then scraping that with prometheus. This poses one main issue; the server needs to be on, and the OS running it needs to have the correct software installed. Instead, metric monitoring for physical hardware should come direct from the BMC.
 
-**Redfish Exporter**
+### Redfish Exporter
 
 Redfish is a standardised API for talking to server BMCs. The API can be used for configuring the server as well as scraping hardware metrics. [Fishymetrics](https://github.com/Comcast/fishymetrics) is a tool that can be run which calls the relevant Redfish endpoints based on the server model and reports back the various power and temperature values in a Prometheus-scrapable format.
 
 Whilst experimenting with Fishymetrics, I noticed a couple short-comings. Firstly, our servers run a UBB, so GPU metrics are reported from a different Chassis which Fishymetrics was not picking. After forking the repo and adding the functionality to scrape UBB metrics, the reporting times we're incredibly slow. Since Fishymetrics needed to call numerous different endpoints and collate many different results, even after some parallelisation tweaks in the code, some servers were taking upward of 6 minutes to report back power metrics.
 
-**Streaming API**
+## Streaming API
 
 The streaming API is a dedicated telemetry feature in Dell iDRAC 10. It can operate in 2 different approaches. A push approach will push metric reports to a specified server, and a pull approach will have a dedicated server open a persistent connection with the BMC where it will continuously report metric updates.
 
@@ -79,7 +79,7 @@ I used Telegraf as the dedicated server for iDRACs to push their metric reports 
 
 This configuration tells Telegraf to listen on port 8080 for connections coming from iDRAC, parses the JSON object and reports them as prometheus metrics under `/metrics` on port `9273`. In particular, Telegraf receives a JSON block that includes a key for `MetricValue` which is the value that will get interpreted as the reading to export.
 
-### Setting Up Subscriptions
+### Setting Up Redfish Event Subscriptions
 
 Redfish has a concept of MetricReports which are typically generated each minute, which read the server sensor values. Additionally, Event Subscriptions within Redfish allow you to tell a server what to do for particular RedfishEvents.
 
@@ -110,7 +110,7 @@ curl -k -u <username>:<password> \
   }'
 ```
 
-### Reporting GPU Metrics
+### Capturing GPU Metrics
 
 If we look into the MetricReportDefinition for the `PowerMetrics`, we can see it lists many different metrics. For our system with a UBB, we care about the `FPGAPower` metric. We can dig into the `/redfish/v1/TelemetryService/MetricReports/PowerMetrics` report output and see the reported values:
 
