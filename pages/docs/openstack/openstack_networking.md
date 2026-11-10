@@ -52,6 +52,12 @@ When a network is created in Openstack, Neutron calls the OVN driver which write
 
 The OVN controller has a Northbound and Southbound database. The Neutron OVN driver writes to the Northbound database where OVN then processes and translates the user's networking intents to a logical network state stored in the Southbound database. OVN agents on the hypervisor nodes then read from the Southbound database and configure the OpenFlow rules on the local OVS agent. Now, whenever there is a change to the network, the network rules only need to be updated in one place, making the setup much more scalable.
 
+Each hypervisor on the OVN network eventually builds a full network mesh where there is a Geneve tunnel port to every other hypervisor in teh southbound DB. A tunnel is an OVS port which states which remote IP to forward the UDP packets to. All tenant networks between the 2 hypervisors will make use of the same tunnel.
+
+### Geneve
+
+Geneve is an open standard tunneling format used by OVN. It wraps a packet inside a UDP packet so it can cross a routed network between 2 hypervisors, with the original packet containing the original VM traffic. Prior to Geneve there werre several overlapping formats like VXLAN. Geneve is the flexible format to replace these. The main difference is that it offers extensible headers and extra metadata options, a benefit utilised by OVN.
+
 ### OpenFlow
 
 OpenFlow is the SDN implementation used by OVS and OVN to implement the control plane and the data plane. The `ovs-vswitchd` is a daemon which runs on hypervisors that can understand OpenFlow flows. This daemon is responsible for storing flow tables and forwarding packets for a host.
@@ -71,7 +77,10 @@ OVN defines a pipeline with one rule table for ingress and one for egress. For p
 # List all logical flows in SB DB
 ovn-sbctl lflow-list
 
-# Display logical networking topology
+# Show known connected hosts and tunnel IPs
+ovn-sbctl show
+
+# Display logical networking topology instructed by NB
 ovn-nbctl show
 
 # Simulate packet path through flow
@@ -82,6 +91,12 @@ ovb-nbctl show neutron-$NET_ID
 
 # See logical router and NAT rules
 ovb-nbctl show neutron-$ROUTER_ID
+
+# Read OVS configs on the local host - shows the tunnels between remote hypervisors
+ovs-vsctl show
+
+# See connection status to OVN
+ovs-appctl -t ovn-controller connection-status
 ```
 
 

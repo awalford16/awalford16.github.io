@@ -168,6 +168,45 @@ When you go to the collection from Globus, it will request an Access and Secret 
 
 One thing to note when using S3 collections, is that it is not using the GridFTP protocol. Instead transfer is handled by the HTTP/S3 interfaces which can have an impact on data transfer performance. One further consideration when using cloud providers is the data egress cost$ associated with transferring data out of the S3 collection.
 
+## Identity Mapping
+
+There may be a requirement to override the mapping behaviour for specific user domains. The blow config shows how to capture usernames from different domains.
+
+```json
+{
+  "DATA_TYPE": "expression_identity_mapping#1.0.0",
+  "mappings": [
+    {
+      "source": "{username}",
+      "match": "(.*)@uchicago.edu",
+      "output": "{0}",
+      "ignore_case": false,
+      "literal": false
+    },
+    {
+      "source": "{username}",
+      "match": "(.*)@(.*)",
+      "output": "researcher",
+      "ignore_case": false,
+      "literal": false
+    }
+  ]
+}
+```
+
+This `json` can then be applied to the storage gateway.
+
+```bash
+gcs storage-gateway create posix \
+"Custom Mapping Storage Gateway" \
+--domain uchicago.edu \
+--domain globusid.org \
+--authentication-timeout-mins 30 \
+--identity-mapping file:./id_mapping.json
+```
+
+This will then map any user with `X@chicago.edu` to `X` and the `globusid.org` users to the `research` user.
+
 ## Usefult Commands
 
 ```bash
@@ -179,4 +218,20 @@ gcs collection update $COLLECTION_ID --allow-guest-collections
 
 # Enforce MFA on storage gateways
 gcs storage-gateway update posix $STORAGE_GATEWAY_ID --mfa
+
+# Limit how long guest collections can be accessed
+gcs collection update $MAPPED_COLLECTION_ID --acl-expiration-mins 5
+
+# add auth policies to a collection (e.g. restrict access domains)
+# Set to `null` to unset
+gcs collection update $MAPPED_COLLECTION_ID --guest-auth-policy-id AUTH_POLICY_ID
+
+# Restrict transfers to only be allowed with high assurance
+gcs collection update $MAPPED_COLLECTION_ID --restrict-transfers-to-high-assurance outbound
+
+# Add role to group
+gcs endpoint role create administrator --principal-type group $GROUP_ID
+
+# Add a DTN to an existing endpoint
+gcs node setup --deployment-key $DEPLOYMENT_JSON_FILE
 ```

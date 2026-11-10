@@ -202,6 +202,27 @@ nv set interface bond1 evpn multihoming segment df-preference 50000
 nv set interface sqp51 evpn multihoming uplink on
 ```
 
+## MAC Tracing
+
+In traditional L2 networks, it is rather trivial to lookup a hosts MAC address and trace it across the network to identify where the host lives. With L3 EVPN networks, this gets slightly more abstracted.
+
+Host MAC addresses are advertised through BGP EVPN as Type-2 MAC/IP routes. The next hop of this route will be the VTEP loopback of the leaf switch. 
+
+```bash
+# Identify the VTEP
+show bgp l2vpn evpn route type macip | grep -i -B6 -A6 $MAC
+```
+
+This will return something that represents a type 2 route and displaying the VTEP IP:
+
+```
+*    [2]:[0]:[48]:[MAC]
+                    10.0.1.100
+```
+
+The VTEP IP can be traced down to the switch with `show ip route $IP`, and the leaf switches will have the port information in their usual MAC address table.
+
+
 ## References
 
 https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-37/Network-Virtualization/Ethernet-Virtual-Private-Network-EVPN/
