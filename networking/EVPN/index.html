@@ -686,6 +686,23 @@
                 
                 <li data-slot="sidebar-menu-item" data-sidebar="menu-item" class="group/menu-item relative">
     <a data-slot="sidebar-menu-button" data-active="false" data-sidebar="menu-button"
+        data-size="default" href="/HPC/Hardware_Debugging/"
+        class="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer/menu-button flex items-center gap-2 rounded-md p-2 text-left outline-hidden ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 data-[active=true]:bg-accent data-[active=true]:border-accent 3xl:fixed:w-full 3xl:fixed:max-w-48 relative h-[30px] w-fit overflow-visible border border-transparent text-[0.8rem] font-medium after:absolute after:inset-x-0 after:-inset-y-1 after:z-0 after:rounded-md">
+
+        
+        Hardware Debugging
+        
+
+        
+
+        
+
+        
+    </a>
+</li>
+                
+                <li data-slot="sidebar-menu-item" data-sidebar="menu-item" class="group/menu-item relative">
+    <a data-slot="sidebar-menu-button" data-active="false" data-sidebar="menu-button"
         data-size="default" href="/HPC/Hardware_Monitoring/"
         class="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer/menu-button flex items-center gap-2 rounded-md p-2 text-left outline-hidden ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 data-[active=true]:bg-accent data-[active=true]:border-accent 3xl:fixed:w-full 3xl:fixed:max-w-48 relative h-[30px] w-fit overflow-visible border border-transparent text-[0.8rem] font-medium after:absolute after:inset-x-0 after:-inset-y-1 after:z-0 after:rounded-md">
 
@@ -2065,6 +2082,19 @@ nv<span class="w"> </span><span class="nb">set</span><span class="w"> </span>int
 nv<span class="w"> </span><span class="nb">set</span><span class="w"> </span>interface<span class="w"> </span>sqp51<span class="w"> </span>evpn<span class="w"> </span>multihoming<span class="w"> </span>uplink<span class="w"> </span>on
 </code></pre></div>
 
+<h2 id="mac-tracing">MAC Tracing</h2>
+<p>In traditional L2 networks, it is rather trivial to lookup a hosts MAC address and trace it across the network to identify where the host lives. With L3 EVPN networks, this gets slightly more abstracted.</p>
+<p>Host MAC addresses are advertised through BGP EVPN as Type-2 MAC/IP routes. The next hop of this route will be the VTEP loopback of the leaf switch. </p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Identify the VTEP</span>
+show<span class="w"> </span>bgp<span class="w"> </span>l2vpn<span class="w"> </span>evpn<span class="w"> </span>route<span class="w"> </span><span class="nb">type</span><span class="w"> </span>macip<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>-B6<span class="w"> </span>-A6<span class="w"> </span><span class="nv">$MAC</span>
+</code></pre></div>
+
+<p>This will return something that represents a type 2 route and displaying the VTEP IP:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">*</span><span class="w">    </span><span class="o">[</span><span class="n">2</span><span class="o">]</span><span class="err">:</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="err">:</span><span class="o">[</span><span class="n">48</span><span class="o">]</span><span class="err">:</span><span class="o">[</span><span class="n">MAC</span><span class="o">]</span>
+<span class="w">                    </span><span class="mf">10.0.1.100</span>
+</code></pre></div>
+
+<p>The VTEP IP can be traced down to the switch with <code>show ip route $IP</code>, and the leaf switches will have the port information in their usual MAC address table.</p>
 <h2 id="references">References</h2>
 <p>https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-37/Network-Virtualization/Ethernet-Virtual-Private-Network-EVPN/</p>
 
@@ -2200,6 +2230,12 @@ nv<span class="w"> </span><span class="nb">set</span><span class="w"> </span>int
                         <a class="text-2xl font-medium" href="../../HPC/HPC_vs_AI_Workloads/">
                             
                             HPC vs AI Workloads
+                            
+                        </a>
+                        
+                        <a class="text-2xl font-medium" href="../../HPC/Hardware_Debugging/">
+                            
+                            Hardware Debugging
                             
                         </a>
                         
@@ -2746,6 +2782,14 @@ nv<span class="w"> </span><span class="nb">set</span><span class="w"> </span>int
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
             data-active="false" data-depth="2">
             Multihoming
+        </a>
+        
+
+        
+        <a href="#mac-tracing"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="2">
+            MAC Tracing
         </a>
         
 

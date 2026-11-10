@@ -686,6 +686,23 @@
                 
                 <li data-slot="sidebar-menu-item" data-sidebar="menu-item" class="group/menu-item relative">
     <a data-slot="sidebar-menu-button" data-active="false" data-sidebar="menu-button"
+        data-size="default" href="/HPC/Hardware_Debugging/"
+        class="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer/menu-button flex items-center gap-2 rounded-md p-2 text-left outline-hidden ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 data-[active=true]:bg-accent data-[active=true]:border-accent 3xl:fixed:w-full 3xl:fixed:max-w-48 relative h-[30px] w-fit overflow-visible border border-transparent text-[0.8rem] font-medium after:absolute after:inset-x-0 after:-inset-y-1 after:z-0 after:rounded-md">
+
+        
+        Hardware Debugging
+        
+
+        
+
+        
+
+        
+    </a>
+</li>
+                
+                <li data-slot="sidebar-menu-item" data-sidebar="menu-item" class="group/menu-item relative">
+    <a data-slot="sidebar-menu-button" data-active="false" data-sidebar="menu-button"
         data-size="default" href="/HPC/Hardware_Monitoring/"
         class="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer/menu-button flex items-center gap-2 rounded-md p-2 text-left outline-hidden ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 data-[active=true]:bg-accent data-[active=true]:border-accent 3xl:fixed:w-full 3xl:fixed:max-w-48 relative h-[30px] w-fit overflow-visible border border-transparent text-[0.8rem] font-medium after:absolute after:inset-x-0 after:-inset-y-1 after:z-0 after:rounded-md">
 
@@ -1964,6 +1981,9 @@
 <p>OVN doesn't replace OVS, it supports it by providing logical networking like virtual switches and routers which get translated into OpenFlow rules. </p>
 <p>When a network is created in Openstack, Neutron calls the OVN driver which writes to it's database and then programs all the OVS instances on the hypervisors with the required flows.</p>
 <p>The OVN controller has a Northbound and Southbound database. The Neutron OVN driver writes to the Northbound database where OVN then processes and translates the user's networking intents to a logical network state stored in the Southbound database. OVN agents on the hypervisor nodes then read from the Southbound database and configure the OpenFlow rules on the local OVS agent. Now, whenever there is a change to the network, the network rules only need to be updated in one place, making the setup much more scalable.</p>
+<p>Each hypervisor on the OVN network eventually builds a full network mesh where there is a Geneve tunnel port to every other hypervisor in teh southbound DB. A tunnel is an OVS port which states which remote IP to forward the UDP packets to. All tenant networks between the 2 hypervisors will make use of the same tunnel.</p>
+<h3 id="geneve">Geneve</h3>
+<p>Geneve is an open standard tunneling format used by OVN. It wraps a packet inside a UDP packet so it can cross a routed network between 2 hypervisors, with the original packet containing the original VM traffic. Prior to Geneve there werre several overlapping formats like VXLAN. Geneve is the flexible format to replace these. The main difference is that it offers extensible headers and extra metadata options, a benefit utilised by OVN.</p>
 <h3 id="openflow">OpenFlow</h3>
 <p>OpenFlow is the SDN implementation used by OVS and OVN to implement the control plane and the data plane. The <code>ovs-vswitchd</code> is a daemon which runs on hypervisors that can understand OpenFlow flows. This daemon is responsible for storing flow tables and forwarding packets for a host.</p>
 <div class="codehilite"><pre><span></span><code><span class="c1"># if traffic comes in on port1, send it out on port 2</span>
@@ -1976,7 +1996,10 @@ ovs-ofctl<span class="w"> </span>add-flow<span class="w"> </span>br0<span class=
 <div class="codehilite"><pre><span></span><code><span class="c1"># List all logical flows in SB DB</span>
 ovn-sbctl<span class="w"> </span>lflow-list
 
-<span class="c1"># Display logical networking topology</span>
+<span class="c1"># Show known connected hosts and tunnel IPs</span>
+ovn-sbctl<span class="w"> </span>show
+
+<span class="c1"># Display logical networking topology instructed by NB</span>
 ovn-nbctl<span class="w"> </span>show
 
 <span class="c1"># Simulate packet path through flow</span>
@@ -1987,6 +2010,12 @@ ovb-nbctl<span class="w"> </span>show<span class="w"> </span>neutron-<span class
 
 <span class="c1"># See logical router and NAT rules</span>
 ovb-nbctl<span class="w"> </span>show<span class="w"> </span>neutron-<span class="nv">$ROUTER_ID</span>
+
+<span class="c1"># Read OVS configs on the local host - shows the tunnels between remote hypervisors</span>
+ovs-vsctl<span class="w"> </span>show
+
+<span class="c1"># See connection status to OVN</span>
+ovs-appctl<span class="w"> </span>-t<span class="w"> </span>ovn-controller<span class="w"> </span>connection-status
 </code></pre></div>
 
 <h2 id="network-automation-during-enroll">Network Automation during Enroll</h2>
@@ -2134,6 +2163,12 @@ External | Provide external network access for hosts in the system</p>
                         <a class="text-2xl font-medium" href="../../HPC/HPC_vs_AI_Workloads/">
                             
                             HPC vs AI Workloads
+                            
+                        </a>
+                        
+                        <a class="text-2xl font-medium" href="../../HPC/Hardware_Debugging/">
+                            
+                            Hardware Debugging
                             
                         </a>
                         
@@ -2649,6 +2684,12 @@ External | Provide external network access for hosts in the system</p>
             class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
             data-active="false" data-depth="3">
             Open Virtual Network (OVN)
+        </a>
+        
+        <a href="#geneve"
+            class="text-muted-foreground hover:text-foreground data-[active=true]:text-foreground text-[0.8rem] no-underline transition-colors data-[depth=3]:pl-4 data-[depth=4]:pl-6"
+            data-active="false" data-depth="3">
+            Geneve
         </a>
         
         <a href="#openflow"

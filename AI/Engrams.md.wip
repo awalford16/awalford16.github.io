@@ -1,0 +1,11 @@
+## Mixture of Experts
+
+There was a scalability problem with LLMs. These models required a huge amount of memmory and power just to answer a simple question. Mixture of Experts is an approach where only a portion of the model is used to respond to a prompt. While the memory footprint of the model is still the same, the model requires much less power to respond.
+
+This solved a scalability issue, but disabled most of the knowledge within the model.
+
+## Engrams
+
+Our human brains are able to recall useful facts that we have stored in memory almost instantly. LLMs however, tend to beat around the bush to dig out the name of the Star Wars villain, or what month Christmas is. They tend to rely on external databases to pull the source of the information. Essentially, this information for an LLM is new everytime the topic arises, so they need to reconstruct the villains name from it's data sources.
+
+Engram is a fast memory model for common patterns. It comes from the description of short 2/3 word patterns like Ney York City, or Darth Vader. Instead of requiring the model to recompute these patterns through model layers, Engrams introduce a shortcut memory table
